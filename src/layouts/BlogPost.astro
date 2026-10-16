@@ -88,7 +88,7 @@ const popup = leadMagnet
   </Fragment>
 
   <article class="post" aria-labelledby="post-title">
-    <header class="container post-header">
+    <header class="container post-container post-header">
       <Breadcrumbs crumbs={crumbs} />
       <p class="post-kicker">
         <a href={`/blog/category/${category.slug}`}>{category.name}</a>
@@ -116,7 +116,7 @@ const popup = leadMagnet
       </div>
     </header>
 
-    <div class="container post-grid">
+    <div class="container post-container post-grid">
       <div class="post-toc">
         <TableOfContents headings={headings} />
       </div>
@@ -164,6 +164,8 @@ const popup = leadMagnet
     </div>
   </article>
 
+  <!-- Same column width as the article, so every section shares one left edge. -->
+  <div class="post-after">
   <LatestPosts
     posts={related}
     heading="Related articles"
@@ -177,14 +179,26 @@ const popup = leadMagnet
     text="Book a free call and tell me what you're trying to achieve. You'll leave with clear next steps."
     href={bookHref}
   />
+  </div>
 
   <CtaPopup {...popup} />
 </BaseLayout>
 
 <style>
+  /* One shared width for every part of a post (header, body + table of contents,
+     related articles, CTA band), so all left edges line up at every screen size. */
+  .post-container,
+  .post-after :global(.container) {
+    max-width: calc(46rem + 16rem + var(--space-7) + 2 * var(--container-pad));
+  }
+
   .post-header {
     padding-top: var(--space-5);
-    max-width: 52rem;
+  }
+
+  /* Keep the title and meta at a readable line length, starting at the shared left edge. */
+  .post-header > :global(:not(nav)) {
+    max-width: 46rem;
   }
 
   .post-kicker {
@@ -234,8 +248,7 @@ const popup = leadMagnet
 
   @media (min-width: 64rem) {
     .post-grid {
-      grid-template-columns: minmax(0, 46rem) 16rem;
-      justify-content: center;
+      grid-template-columns: minmax(0, 1fr) 16rem;
       gap: var(--space-7);
     }
 
@@ -252,12 +265,6 @@ const popup = leadMagnet
     .post-body {
       grid-column: 1;
       grid-row: 1;
-    }
-  }
-
-  @media (min-width: 64rem) {
-    .post-header {
-      max-width: calc(46rem + 16rem + var(--space-7));
     }
   }
 
