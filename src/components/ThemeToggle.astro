@@ -1,0 +1,51 @@
+---
+// Behavior lives in Header.astro's script (bound on every astro:page-load).
+---
+
+<button type="button" class="theme-toggle" aria-pressed="false" data-theme-toggle>
+  <span class="visually-hidden">Dark mode</span>
+  <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path>
+  </svg>
+  <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="4.5" fill="currentColor"></circle>
+    <path
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
+    ></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    background: var(--color-surface);
+  }
+
+  /* Show the icon for the theme you would switch TO. */
+  .icon-sun {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .icon-sun {
+    display: block;
+  }
+
+  :global(:root[data-theme='dark']) .icon-moon {
+    display: none;
+  }
+</style>

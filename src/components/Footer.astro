@@ -1,0 +1,135 @@
+---
+import { BOOK_A_CALL_PATH, SERVICES, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="footer-title" href="/">{SITE_TITLE}</a>
+      <p>Digital marketing, analytics, automation, and AI consulting for small businesses.</p>
+      <a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Book a Call</a>
+    </div>
+
+    <nav aria-labelledby="footer-services">
+      <h2 id="footer-services" class="footer-heading">Services</h2>
+      <ul role="list">
+        {
+          SERVICES.map((service) => (
+            <li>
+              <a href={`/${service.slug}`}>{service.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <nav aria-labelledby="footer-company">
+      <h2 id="footer-company" class="footer-heading">Company</h2>
+      <ul role="list">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href={BOOK_A_CALL_PATH}>Book a Call</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="footer-heading">Follow</h2>
+      {
+        SOCIAL_LINKS.length > 0 ? (
+          <ul role="list">
+            {SOCIAL_LINKS.map((link) => (
+              <li>
+                <a href={link.href} rel="me noopener">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="footer-muted">[REPLACE: social profile links]</p>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; {year} {SITE_TITLE}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-8);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: var(--space-6);
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  @media (min-width: 40rem) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .footer-grid {
+      grid-template-columns: 2fr 1.5fr 1fr 1fr;
+    }
+  }
+
+  .footer-title {
+    display: inline-block;
+    margin-bottom: var(--space-3);
+    color: var(--color-heading);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    text-decoration: none;
+  }
+
+  .footer-brand p {
+    color: var(--color-text-muted);
+    max-width: 32ch;
+  }
+
+  .footer-heading {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: var(--space-3);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  ul a {
+    display: inline-block;
+    padding-block: var(--space-1);
+  }
+
+  .footer-muted {
+    color: var(--color-text-muted);
+  }
+
+  .footer-bottom {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+  }
+</style>

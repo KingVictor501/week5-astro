@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BOOK_A_CALL_PATH, SERVICES, type Service } from '../consts';
+
+export const getStaticPaths = (() =>
+  SERVICES.map((service) => ({ params: { service: service.slug }, props: { service } }))) satisfies GetStaticPaths;
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+---
+
+<BaseLayout title={service.title} description={service.description}>
+  <section class="container section">
+    <h1>{service.heading}</h1>
+    <p class="placeholder-note">Placeholder: the full {service.name} page is built in a later section.</p>
+    <p><a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Book a Call about {service.name}</a></p>
+  </section>
+</BaseLayout>

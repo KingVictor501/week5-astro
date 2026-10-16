@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { BLOG_CATEGORIES } from '../../consts';
+---
+
+<BaseLayout
+  title="Digital Marketing Blog for Small Businesses"
+  description="Practical articles on SEO, paid search, social media, analytics dashboards, CRM automation, AI, and web development for small businesses."
+>
+  <section class="container section">
+    <h1>Digital Marketing Blog for Small Businesses</h1>
+    <p class="placeholder-note">Placeholder: posts and the filter are built in a later section.</p>
+    <h2>Categories</h2>
+    <ul>
+      {BLOG_CATEGORIES.map((category) => <li><a href={`/blog/category/${category.slug}`}>{category.name} articles</a></li>)}
+    </ul>
+  </section>
+</BaseLayout>

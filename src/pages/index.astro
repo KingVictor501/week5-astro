@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BOOK_A_CALL_PATH, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <section class="container section">
+    <h1>Digital Marketing Consulting for Small Businesses</h1>
+    <p class="placeholder-note">Placeholder: the homepage hero, services overview, and ROI calculator are built in a later section.</p>
+    <h2>Services</h2>
+    <ul>
+      {SERVICES.map((service) => <li><a href={`/${service.slug}`}>{service.heading}</a></li>)}
+    </ul>
+    <p><a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Book a Call</a></p>
+  </section>
+</BaseLayout>

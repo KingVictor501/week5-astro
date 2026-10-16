@@ -1,0 +1,75 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import JsonLd from '../components/JsonLd.astro';
+import SEO, { type Props as SEOProps } from '../components/SEO.astro';
+import { SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+
+export type Props = SEOProps;
+
+const props = Astro.props;
+const siteURL = new URL('/', Astro.site).href;
+
+// Site-wide business entity. Only facts we actually know; no invented address,
+// phone, ratings, or founders.
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'ProfessionalService'],
+  '@id': `${siteURL}#organization`,
+  name: SITE_TITLE,
+  url: siteURL,
+  description: SITE_DESCRIPTION,
+  image: new URL('/favicon.svg', Astro.site).href,
+  knowsAbout: SERVICES.flatMap((s) => s.keywords),
+  ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS.map((l) => l.href) }),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Runs before first paint (no theme flash) and again after every View Transition swap. -->
+    <script is:inline>
+      (() => {
+        const getTheme = () => {
+          try {
+            const stored = localStorage.getItem('theme');
+            if (stored === 'light' || stored === 'dark') return stored;
+          } catch {}
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        const applyTheme = () => {
+          document.documentElement.dataset.theme = getTheme();
+        };
+        applyTheme();
+        if (!window.__themeListener) {
+          window.__themeListener = true;
+          document.addEventListener('astro:after-swap', applyTheme);
+        }
+      })();
+    </script>
+
+    <SEO {...props} />
+    <JsonLd data={organization} />
+    <slot name="head" />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,418 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { BOOK_A_CALL_PATH, SERVICES, SITE_TITLE } from '../consts';
+
+const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isCurrent = (href: string) => current === href;
+const isSection = (href: string) => current === href || current.startsWith(`${href}/`);
+const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));
+---
+
+<header class="site-header" data-site-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-current={isCurrent('/') ? 'page' : undefined}>{SITE_TITLE}</a>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      data-menu-toggle
+    >
+      <span class="visually-hidden">Menu</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path class="bar bar-top" d="M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path class="bar bar-mid" d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path class="bar bar-bot" d="M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      </svg>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul class="nav-list" role="list">
+        <li>
+          <a href="/" aria-current={isCurrent('/') ? 'page' : undefined}>Home</a>
+        </li>
+        <li class="has-dropdown" data-dropdown>
+          <button
+            type="button"
+            class="dropdown-toggle"
+            aria-expanded="false"
+            aria-controls="services-menu"
+            data-dropdown-toggle
+            data-active={onServicePage ? '' : undefined}
+          >
+            Services
+            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <ul id="services-menu" class="dropdown" role="list">
+            {
+              SERVICES.map((service) => (
+                <li>
+                  <a href={`/${service.slug}`} aria-current={isCurrent(`/${service.slug}`) ? 'page' : undefined}>
+                    {service.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </li>
+        <li>
+          <a href="/about" aria-current={isCurrent('/about') ? 'page' : undefined}>About</a>
+        </li>
+        <li>
+          <a href="/blog" aria-current={isCurrent('/blog') ? 'page' : isSection('/blog') ? 'true' : undefined}>Blog</a>
+        </li>
+        <li class="nav-cta">
+          <a class="btn btn-primary" href={BOOK_A_CALL_PATH} aria-current={isCurrent(BOOK_A_CALL_PATH) ? 'page' : undefined}>
+            Book a Call
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="theme-slot">
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-header-bg);
+    backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Mobile: brand | theme | menu, nav panel drops below. */
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas:
+      'brand theme menu'
+      'nav nav nav';
+    align-items: center;
+    column-gap: var(--space-2);
+    min-height: var(--header-height);
+  }
+
+  .brand {
+    grid-area: brand;
+    color: var(--color-heading);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    line-height: var(--leading-tight);
+    text-decoration: none;
+    padding-block: var(--space-2);
+  }
+
+  .theme-slot {
+    grid-area: theme;
+  }
+
+  .menu-toggle {
+    grid-area: menu;
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  .bar {
+    transition:
+      transform var(--duration-base) var(--ease-out),
+      opacity var(--duration-base) var(--ease-out);
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  .menu-toggle[aria-expanded='true'] .bar-top {
+    transform: translateY(5px) rotate(45deg);
+  }
+  .menu-toggle[aria-expanded='true'] .bar-mid {
+    opacity: 0;
+  }
+  .menu-toggle[aria-expanded='true'] .bar-bot {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  .site-nav {
+    grid-area: nav;
+  }
+
+  /* Only hide the mobile panel once JS is running (the theme script sets data-theme),
+     so the nav stays reachable without JavaScript. */
+  :global(:root[data-theme]) .menu-toggle[aria-expanded='false'] ~ .site-nav {
+    display: none;
+  }
+
+  .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-2) 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .nav-list a:not(.btn),
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    width: 100%;
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-3);
+    border: 0;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-sm);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .nav-list a:not(.btn):hover,
+  .dropdown-toggle:hover {
+    background: var(--color-surface);
+    color: var(--color-heading);
+  }
+
+  .nav-list a[aria-current]:not(.btn),
+  .dropdown-toggle[data-active] {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+
+  .chevron {
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .dropdown-toggle[aria-expanded='true'] .chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Mobile accordion */
+  .dropdown {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 var(--space-4);
+  }
+
+  :global(:root[data-theme]) .dropdown-toggle[aria-expanded='false'] + .dropdown {
+    display: none;
+  }
+
+  .nav-cta {
+    margin-top: var(--space-2);
+  }
+
+  .nav-cta .btn {
+    width: 100%;
+  }
+
+  /* Desktop: inline nav, floating dropdown, hamburger hidden. */
+  @media (min-width: 48rem) {
+    .header-inner {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: 'brand nav theme';
+      column-gap: var(--space-4);
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    :global(:root[data-theme]) .menu-toggle[aria-expanded='false'] ~ .site-nav,
+    .site-nav {
+      display: block;
+    }
+
+    .nav-list {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0;
+    }
+
+    .nav-list a:not(.btn),
+    .dropdown-toggle {
+      width: auto;
+    }
+
+    .has-dropdown {
+      position: relative;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      left: 0;
+      min-width: 17rem;
+      padding: var(--space-2);
+      background: var(--color-surface-raised);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Invisible bridge so the pointer can travel from button to panel. */
+    .dropdown::before {
+      content: '';
+      position: absolute;
+      inset: calc(-1 * var(--space-2)) 0 auto;
+      height: var(--space-2);
+    }
+
+    /* No-JS fallback on desktop: open on hover or focus. */
+    :global(:root:not([data-theme])) .dropdown {
+      display: none;
+    }
+    :global(:root:not([data-theme])) .has-dropdown:hover .dropdown,
+    :global(:root:not([data-theme])) .has-dropdown:focus-within .dropdown {
+      display: block;
+    }
+
+    .nav-cta {
+      margin: 0 0 0 var(--space-2);
+    }
+
+    .nav-cta .btn {
+      width: auto;
+    }
+  }
+</style>
+
+<script>
+  const desktop = window.matchMedia('(min-width: 48rem)');
+  const isTheme = (v: unknown): v is 'light' | 'dark' => v === 'light' || v === 'dark';
+
+  const q = <T extends Element>(sel: string) => document.querySelector<T>(sel);
+
+  function setOpen(button: HTMLButtonElement | null, open: boolean) {
+    button?.setAttribute('aria-expanded', String(open));
+  }
+
+  function isOpen(button: HTMLButtonElement | null) {
+    return button?.getAttribute('aria-expanded') === 'true';
+  }
+
+  function syncThemeButton() {
+    const button = q<HTMLButtonElement>('[data-theme-toggle]');
+    button?.setAttribute('aria-pressed', String(document.documentElement.dataset.theme === 'dark'));
+  }
+
+  // Elements are replaced on every View Transition navigation, so bind per page.
+  function initHeader() {
+    const menuButton = q<HTMLButtonElement>('[data-menu-toggle]');
+    const dropdown = q<HTMLElement>('[data-dropdown]');
+    const dropdownButton = q<HTMLButtonElement>('[data-dropdown-toggle]');
+    const themeButton = q<HTMLButtonElement>('[data-theme-toggle]');
+
+    syncThemeButton();
+
+    themeButton?.addEventListener('click', () => {
+      const current = document.documentElement.dataset.theme;
+      const next = isTheme(current) && current === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        // Storage blocked (private mode etc.): the choice lasts for this page only.
+      }
+      syncThemeButton();
+    });
+
+    menuButton?.addEventListener('click', () => {
+      const open = !isOpen(menuButton);
+      setOpen(menuButton, open);
+      if (!open) setOpen(dropdownButton, false);
+    });
+
+    if (!dropdown || !dropdownButton) return;
+
+    // Desktop mouse: open on hover. A click while hover-opened "pins" it open
+    // instead of closing it, so hover + click never fight each other.
+    let openedByHover = false;
+    let closeTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const close = () => {
+      openedByHover = false;
+      setOpen(dropdownButton, false);
+    };
+
+    dropdown.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'mouse' || !desktop.matches) return;
+      clearTimeout(closeTimer);
+      if (!isOpen(dropdownButton)) {
+        setOpen(dropdownButton, true);
+        openedByHover = true;
+      }
+    });
+
+    dropdown.addEventListener('pointerleave', (event) => {
+      if (event.pointerType !== 'mouse' || !desktop.matches || !openedByHover) return;
+      closeTimer = setTimeout(close, 200);
+    });
+
+    // Touch and keyboard (Enter/Space) both arrive here as a click.
+    dropdownButton.addEventListener('click', () => {
+      clearTimeout(closeTimer);
+      if (openedByHover) {
+        openedByHover = false;
+        return;
+      }
+      setOpen(dropdownButton, !isOpen(dropdownButton));
+    });
+
+    // Desktop: close when keyboard focus leaves the dropdown.
+    dropdown.addEventListener('focusout', (event) => {
+      const next = event.relatedTarget as Node | null;
+      if (desktop.matches && next && !dropdown.contains(next)) close();
+    });
+  }
+
+  // Document-level listeners are bound once and look up the current elements.
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const dropdownButton = q<HTMLButtonElement>('[data-dropdown-toggle]');
+    const menuButton = q<HTMLButtonElement>('[data-menu-toggle]');
+    if (isOpen(dropdownButton)) {
+      setOpen(dropdownButton, false);
+      dropdownButton?.focus();
+    } else if (isOpen(menuButton)) {
+      setOpen(menuButton, false);
+      menuButton?.focus();
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    const dropdown = q<HTMLElement>('[data-dropdown]');
+    const header = q<HTMLElement>('[data-site-header]');
+    if (dropdown && !dropdown.contains(target)) setOpen(q('[data-dropdown-toggle]'), false);
+    if (header && !header.contains(target)) setOpen(q('[data-menu-toggle]'), false);
+  });
+
+  // Reset menus when crossing the mobile/desktop breakpoint.
+  desktop.addEventListener('change', () => {
+    setOpen(q('[data-menu-toggle]'), false);
+    setOpen(q('[data-dropdown-toggle]'), false);
+  });
+
+  document.addEventListener('astro:page-load', initHeader);
+</script>

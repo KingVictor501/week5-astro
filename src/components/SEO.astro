@@ -1,0 +1,43 @@
+---
+import { DEFAULT_OG_IMAGE, SITE_TITLE } from '../consts';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: { src: string; alt: string; width: number; height: number };
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const { title, description, image = DEFAULT_OG_IMAGE, type = 'website', noindex = false } = Astro.props;
+
+const fullTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
+
+// trailingSlash is 'never', so strip any trailing slash (except on the homepage)
+// to keep canonical URLs identical to the sitemap entries.
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonical = new URL(pathname, Astro.site);
+const imageURL = new URL(image.src, Astro.site);
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:alt" content={image.alt} />
+<meta property="og:image:width" content={String(image.width)} />
+<meta property="og:image:height" content={String(image.height)} />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={image.alt} />
