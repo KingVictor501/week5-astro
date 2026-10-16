@@ -1,16 +1,70 @@
 ---
+import CtaBand from '../components/CtaBand.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Hero from '../components/home/Hero.astro';
+import LatestPosts, { type PostSummary } from '../components/home/LatestPosts.astro';
+import ServiceCards from '../components/home/ServiceCards.astro';
+import { SERVICES, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { BOOK_A_CALL_PATH, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+// Six homepage cards: every service except CRM & Marketing Automation.
+const homeServices = SERVICES.filter((s) => s.slug !== 'crm-marketing-automation');
+
+// TODO(blog section): replace with the 3 newest entries from the blog content collection.
+const latestPosts: PostSummary[] = [];
+
+const siteURL = new URL('/', Astro.site).href;
+const webSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteURL}#website`,
+  name: SITE_TITLE,
+  url: siteURL,
+  publisher: { '@id': `${siteURL}#organization` },
+};
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <section class="container section">
-    <h1>Digital Marketing Consulting for Small Businesses</h1>
-    <p class="placeholder-note">Placeholder: the homepage hero, services overview, and ROI calculator are built in a later section.</p>
-    <h2>Services</h2>
-    <ul>
-      {SERVICES.map((service) => <li><a href={`/${service.slug}`}>{service.heading}</a></li>)}
-    </ul>
-    <p><a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Book a Call</a></p>
+<BaseLayout
+  title="Lead Generation for Small Businesses"
+  description="Lead generation for small businesses through SEO, Google Ads, social media, analytics dashboards, AI, and website development. Book a free call."
+>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://loremflickr.com" />
+    <JsonLd data={webSite} />
+  </Fragment>
+
+  <Hero />
+  <ServiceCards services={homeServices} />
+
+  <!-- ===== ROI CALCULATOR: React island, built in Section 3 (below the fold, client:visible) ===== -->
+  <section id="roi-calculator" class="section roi" aria-labelledby="roi-title">
+    <div class="container">
+      <h2 id="roi-title">Estimate your marketing ROI</h2>
+      <div class="placeholder-note roi-placeholder">
+        <p><strong>[PLACEHOLDER: ROI Calculator]</strong></p>
+        <p>The interactive ROI calculator is coming soon.</p>
+      </div>
+    </div>
   </section>
+
+  <LatestPosts posts={latestPosts} />
+  <CtaBand />
 </BaseLayout>
+
+<style>
+  .roi {
+    background: var(--color-surface);
+  }
+
+  .roi-placeholder {
+    min-height: 12rem;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: var(--color-bg);
+  }
+
+  .roi-placeholder p:last-child {
+    margin: 0;
+  }
+</style>

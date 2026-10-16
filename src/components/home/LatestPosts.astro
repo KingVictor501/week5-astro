@@ -1,0 +1,134 @@
+---
+export interface PostSummary {
+  title: string;
+  description: string;
+  href: string;
+  date: Date;
+  image: { src: string; alt: string; width: number; height: number };
+}
+
+export interface Props {
+  posts: PostSummary[];
+}
+
+const { posts } = Astro.props;
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+
+<section class="section latest" aria-labelledby="latest-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="latest-title">Latest from the blog</h2>
+      <a href="/blog">View all articles</a>
+    </div>
+
+    {
+      posts.length > 0 ? (
+        <ul class="post-grid" role="list">
+          {posts.map((post) => (
+            <li class="post-card">
+              <img
+                src={post.image.src}
+                alt={post.image.alt}
+                width={post.image.width}
+                height={post.image.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="post-body">
+                <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+                <h3>
+                  <a href={post.href}>{post.title}</a>
+                </h3>
+                <p>{post.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="empty">
+          New articles on SEO, paid search, analytics, and AI for small businesses are on the way. In the meantime,{' '}
+          <a href="/blog">browse the blog categories</a>.
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .section-head h2 {
+    margin: 0;
+  }
+
+  .section-head a {
+    font-weight: var(--weight-semibold);
+  }
+
+  .post-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 48rem) {
+    .post-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+  }
+
+  .post-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--color-surface);
+  }
+
+  .post-body {
+    padding: var(--space-4) var(--space-5) var(--space-5);
+  }
+
+  time {
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+  }
+
+  h3 {
+    margin: var(--space-2) 0;
+    font-size: var(--text-lg);
+  }
+
+  .post-body p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .empty {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+  }
+</style>

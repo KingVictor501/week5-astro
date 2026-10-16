@@ -1,0 +1,99 @@
+---
+import { BOOK_A_CALL_PATH } from '../../consts';
+
+// Hero/LCP image: NOT lazy, and fetched at high priority.
+const heroImage = {
+  src: 'https://loremflickr.com/1200/900/small-business,laptop?lock=2001',
+  alt: 'A small business owner working on a laptop at a bright, organized desk',
+  width: 1200,
+  height: 900,
+};
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Digital marketing consulting</p>
+      <h1 id="hero-title">Lead generation for small businesses, without the guesswork</h1>
+      <p class="subhead">
+        I help small business owners turn search, ads, social media, and automation into a steady flow of qualified
+        leads, with dashboards that show exactly what's working.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href={BOOK_A_CALL_PATH}>Book a Call</a>
+        <a class="btn btn-secondary btn-lg" href="#services">See Services</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img
+        src={heroImage.src}
+        alt={heroImage.alt}
+        width={heroImage.width}
+        height={heroImage.height}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-6) var(--space-7);
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 56rem) {
+    .hero {
+      padding-block: var(--space-8);
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--space-7);
+    }
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-3);
+    color: var(--color-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 18ch;
+  }
+
+  .subhead {
+    max-width: 48ch;
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-5);
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .hero-media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    background: var(--color-surface);
+  }
+</style>

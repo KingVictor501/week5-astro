@@ -280,6 +280,12 @@ button {
   color: var(--color-on-primary);
 }
 
+.btn-lg {
+  min-height: 3.25rem;
+  padding-inline: var(--space-6);
+  font-size: var(--text-base);
+}
+
 .btn-secondary {
   background: transparent;
   color: var(--color-link);

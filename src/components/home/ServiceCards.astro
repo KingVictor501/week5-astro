@@ -1,0 +1,319 @@
+---
+import ServiceIcon from './ServiceIcon.astro';
+import type { Service } from '../../consts';
+
+export interface Props {
+  services: Service[];
+}
+
+const { services } = Astro.props;
+---
+
+<section id="services" class="section services" aria-labelledby="services-title">
+  <div class="container">
+    <h2 id="services-title">How I help small businesses grow</h2>
+    <p class="intro">Select a service to see what's included.</p>
+
+    <flip-cards>
+      <ul class="card-grid" role="list">
+        {
+          services.map((service) => (
+            <li class="card" data-card>
+              <div class="card-inner">
+                {/* Front: the whole face is the toggle. */}
+                <button type="button" class="face front" aria-pressed="false" data-flip>
+                  <span class="icon">
+                    <ServiceIcon slug={service.slug} />
+                  </span>
+                  <span class="name">{service.name}</span>
+                  <span class="hook">{service.hook}</span>
+                  <span class="hint" aria-hidden="true">
+                    Details
+                    <svg width="16" height="16" viewBox="0 0 24 24" focusable="false">
+                      <path
+                        d="M5 12h14M13 6l6 6-6 6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="visually-hidden">, show details</span>
+                </button>
+
+                {/* Back: hidden from keyboard and screen readers (inert) until flipped. */}
+                <div class="face back" inert>
+                  <button
+                    type="button"
+                    class="flip-back"
+                    aria-pressed="true"
+                    aria-label={`${service.name} details`}
+                    data-flip
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path
+                        d="M9 14 4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <p class="back-name" aria-hidden="true">
+                    {service.name}
+                  </p>
+                  <p class="summary">{service.summary}</p>
+                  <a class="learn-more" href={`/${service.slug}`}>
+                    Learn more<span class="visually-hidden"> about {service.name.toLowerCase()} services</span>
+                  </a>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </flip-cards>
+  </div>
+</section>
+
+<style>
+  .intro {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  .card-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 40rem) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Two rows of three on desktop. */
+  @media (min-width: 64rem) {
+    .card-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  .card {
+    perspective: 1200px;
+  }
+
+  /* Both faces share one grid cell, so the card is as tall as its taller face. */
+  .card-inner {
+    position: relative;
+    display: grid;
+    height: 100%;
+    min-height: 15rem;
+    transform-style: preserve-3d;
+    transition: transform 600ms var(--ease-out);
+  }
+
+  .card[data-flipped] .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .face {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+    box-shadow: var(--shadow-sm);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .front {
+    width: 100%;
+    color: var(--color-text);
+    text-align: left;
+    cursor: pointer;
+    transition:
+      box-shadow var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out);
+  }
+
+  .front:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .front:focus-visible,
+  .flip-back:focus-visible,
+  .learn-more:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  .icon {
+    display: inline-grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: var(--space-2);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-primary);
+  }
+
+  .name {
+    color: var(--color-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+  }
+
+  .hook {
+    color: var(--color-text-muted);
+  }
+
+  .hint {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: auto;
+    padding-top: var(--space-3);
+    color: var(--color-link);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .back {
+    position: relative;
+    transform: rotateY(180deg);
+    background: var(--color-surface);
+    border-color: var(--color-border-strong);
+  }
+
+  .flip-back {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  .back-name {
+    margin: 0;
+    padding-right: var(--space-7);
+    color: var(--color-heading);
+    font-weight: var(--weight-bold);
+  }
+
+  .summary {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .learn-more {
+    margin-top: auto;
+    padding-top: var(--space-3);
+    font-weight: var(--weight-semibold);
+  }
+
+  /* Reduced motion: crossfade instead of a 3D flip. These override the global
+     reduced-motion reset on purpose: an opacity fade is not vestibular motion. */
+  @media (prefers-reduced-motion: reduce) {
+    .card-inner,
+    .card[data-flipped] .card-inner {
+      transform: none;
+      transition: none !important;
+    }
+
+    .face {
+      backface-visibility: visible;
+      transition: opacity 250ms ease !important;
+    }
+
+    .back {
+      transform: none;
+      opacity: 0;
+    }
+
+    .card[data-flipped] .front {
+      opacity: 0;
+    }
+
+    .card[data-flipped] .back {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  // Custom element: connectedCallback runs on first load and again whenever a
+  // View Transition swaps in a new page, so there is no double binding.
+  class FlipCards extends HTMLElement {
+    connectedCallback() {
+      this.addEventListener('click', this.onClick);
+      this.addEventListener('keydown', this.onKeydown);
+    }
+
+    disconnectedCallback() {
+      this.removeEventListener('click', this.onClick);
+      this.removeEventListener('keydown', this.onKeydown);
+    }
+
+    private onClick = (event: Event) => {
+      const toggle = (event.target as Element).closest<HTMLButtonElement>('[data-flip]');
+      const card = toggle?.closest<HTMLElement>('[data-card]');
+      if (card) this.setFlipped(card, !card.hasAttribute('data-flipped'), true);
+    };
+
+    // Escape on a flipped card flips it back.
+    private onKeydown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      const card = (event.target as Element).closest<HTMLElement>('[data-card][data-flipped]');
+      if (card) this.setFlipped(card, false, true);
+    };
+
+    private setFlipped(card: HTMLElement, flipped: boolean, moveFocus: boolean) {
+      // Only one card open at a time.
+      if (flipped) {
+        this.querySelectorAll<HTMLElement>('[data-card][data-flipped]').forEach((other) => {
+          if (other !== card) this.setFlipped(other, false, false);
+        });
+      }
+
+      const front = card.querySelector<HTMLButtonElement>('.front');
+      const back = card.querySelector<HTMLElement>('.back');
+      if (!front || !back) return;
+
+      card.toggleAttribute('data-flipped', flipped);
+      front.setAttribute('aria-pressed', String(flipped));
+      back.querySelector('.flip-back')?.setAttribute('aria-pressed', String(flipped));
+      // Only the visible face can be focused or read by assistive tech.
+      front.inert = flipped;
+      back.inert = !flipped;
+
+      if (moveFocus) (flipped ? back.querySelector<HTMLElement>('.flip-back') : front)?.focus();
+    }
+  }
+
+  if (!customElements.get('flip-cards')) customElements.define('flip-cards', FlipCards);
+</script>

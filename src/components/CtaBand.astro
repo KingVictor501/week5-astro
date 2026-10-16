@@ -1,0 +1,81 @@
+---
+import { BOOK_A_CALL_PATH } from '../consts';
+
+export interface Props {
+  heading?: string;
+  text?: string;
+}
+
+const {
+  heading = 'Ready to turn more visitors into leads?',
+  text = "Book a free call. We'll look at where your leads come from today and which next step will make the biggest difference.",
+} = Astro.props;
+---
+
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="container cta-inner">
+    <div>
+      <h2 id="cta-title">{heading}</h2>
+      <p>{text}</p>
+    </div>
+    <a class="btn btn-lg cta-btn" href={BOOK_A_CALL_PATH}>Book a Call</a>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    padding-block: var(--space-7);
+    background: var(--color-heading);
+    color: var(--color-bg);
+  }
+
+  /* In dark mode --color-heading is near-white, so swap to a dark band. */
+  :global(:root[data-theme='dark']) .cta-band {
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .cta-inner {
+    display: grid;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
+  @media (min-width: 48rem) {
+    .cta-inner {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-7);
+    }
+  }
+
+  h2 {
+    color: inherit;
+    margin-bottom: var(--space-3);
+  }
+
+  p {
+    margin: 0;
+    max-width: 56ch;
+    opacity: 0.92;
+  }
+
+  .cta-btn {
+    background: var(--color-bg);
+    color: var(--color-heading);
+  }
+
+  .cta-btn:hover {
+    background: var(--color-surface);
+    color: var(--color-heading);
+  }
+
+  :global(:root[data-theme='dark']) .cta-btn {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  :global(:root[data-theme='dark']) .cta-btn:hover {
+    background: var(--color-primary-hover);
+  }
+</style>
