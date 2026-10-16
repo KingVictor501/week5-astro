@@ -1,0 +1,102 @@
+---
+import { BOOK_A_CALL_PATH } from '../../consts';
+
+// CRM is a supporting capability (not a standalone service), presented on the
+// AI for Entrepreneurs page as one place AI and automation pay off.
+const capabilities = [
+  {
+    title: 'CRM setup and cleanup',
+    text: 'Pipelines, fields, and lead stages that match how you actually sell, plus cleanup of duplicate or outdated contacts so your data is worth automating.',
+  },
+  {
+    title: 'Lead capture that lands in one place',
+    text: 'Website forms, ad leads, and booking requests flow straight into your CRM with their source attached, so no inquiry sits forgotten in an inbox.',
+  },
+  {
+    title: 'Email marketing automation',
+    text: 'Welcome, nurture, and follow-up sequences that send the right message at the right time and stop when a lead replies or books a call.',
+  },
+  {
+    title: 'AI-assisted follow-up',
+    text: 'AI that drafts personalized follow-ups, summarizes lead activity, and flags the contacts most ready for a conversation, with you approving what goes out.',
+  },
+];
+---
+
+<section class="section crm" aria-labelledby="crm-title">
+  <div class="container">
+    <h2 id="crm-title">CRM and email automation that follows up for you</h2>
+    <p class="lead">
+      AI is only as useful as the systems it plugs into. For most small businesses, that's the CRM, where leads arrive,
+      follow-ups get scheduled, and opportunities quietly slip away when nobody has time. I bring hands-on CRM and
+      marketing automation experience to make that system work on its own, with AI handling the repetitive parts.
+    </p>
+
+    <ul class="capabilities" role="list">
+      {
+        capabilities.map((item) => (
+          <li>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="platforms placeholder-note">[REPLACE: CRM and email platforms you work with, e.g. the tools you're certified in]</p>
+
+    <p>
+      Once your CRM is set up, it can feed a <a href="/marketing-analytics-and-dashboards">custom marketing performance dashboard</a> so you can see which channels bring in leads that turn into customers.
+    </p>
+
+    <a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Talk through your CRM and follow-up process</a>
+  </div>
+</section>
+
+<style>
+  .crm {
+    background: var(--color-surface);
+  }
+
+  .lead {
+    max-width: 65ch;
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .capabilities {
+    list-style: none;
+    margin: var(--space-6) 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 48rem) {
+    .capabilities {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  .capabilities li {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .capabilities p {
+    margin: 0;
+  }
+
+  .platforms {
+    margin-bottom: var(--space-5);
+    background: var(--color-bg);
+  }
+</style>

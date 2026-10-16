@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import CrmAutomationSection from '../components/services/CrmAutomationSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BOOK_A_CALL_PATH, SERVICES, type Service } from '../consts';
 
@@ -19,4 +20,5 @@ const { service } = Astro.props;
     <p class="placeholder-note">Placeholder: the full {service.name} page is built in a later section.</p>
     <p><a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Book a Call about {service.name}</a></p>
   </section>
+  {service.slug === 'ai-entrepreneurship' && <CrmAutomationSection />}
 </BaseLayout>
