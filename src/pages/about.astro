@@ -1,13 +1,358 @@
 ---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { OWNER_NAME, SOCIAL_LINKS } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, personSchema, type Crumb, type PersonCredential } from '../lib/schema';
+
+// Every statement on this page comes from the owner's five provided facts:
+// Air Force veteran with 12+ years of experience incl. digital marketing leadership;
+// MS in Digital Audiences Strategy, Arizona State University (Walter Cronkite School);
+// CDMP, Google Analytics and Meta certified; Big Tech Digital Marketing Manager and
+// Webmaster experience; now building AI and automation solutions for marketing as a freelancer.
+// Do not add employers, dates, places, or achievements beyond these.
+
+const site = Astro.site!;
+const description =
+  "Air Force veteran with 12+ years of experience, Big Tech digital marketing and webmaster experience, and an ASU master's in Digital Audiences Strategy.";
+
+// [REPLACE: headshot] Swap for a real photo (keep width/height and update the alt text).
+const headshot = {
+  src: 'https://loremflickr.com/800/800/portrait,professional?lock=5001',
+  alt: `Placeholder portrait standing in for ${OWNER_NAME}'s headshot`,
+  width: 800,
+  height: 800,
+};
+
+const credentials: PersonCredential[] = [
+  {
+    name: 'Master of Science in Digital Audiences Strategy',
+    category: 'degree',
+    recognizedBy: { type: 'CollegeOrUniversity', name: 'Arizona State University' },
+  },
+  { name: 'Certified Digital Marketing Professional (CDMP)', category: 'certification' },
+  { name: 'Google Analytics certification', category: 'certification', recognizedBy: { type: 'Organization', name: 'Google' } },
+  { name: 'Meta certification', category: 'certification', recognizedBy: { type: 'Organization', name: 'Meta' } },
+];
+
+const crumbs: Crumb[] = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+];
+
+const structuredData = [
+  personSchema(
+    {
+      name: OWNER_NAME,
+      jobTitle: 'Digital Marketing Consultant',
+      description,
+      image: headshot.src,
+      alumniOf: { name: 'Arizona State University', department: 'Walter Cronkite School' },
+      credentials,
+      knowsAbout: ['Digital marketing', 'Google Analytics', 'Meta advertising', 'Website management', 'Marketing automation', 'AI for marketing'],
+      sameAs: SOCIAL_LINKS.map((l) => l.href),
+    },
+    site,
+  ),
+  breadcrumbSchema(crumbs, site),
+];
+
+const principles = [
+  {
+    title: 'Your goals come first',
+    text: 'Every engagement starts with what a good lead or sale looks like for your business. Tactics come after the goal is clear.',
+  },
+  {
+    title: 'Measure before we spend',
+    text: 'Tracking gets set up early, so we can see what each channel actually brings in and move budget toward what works.',
+  },
+  {
+    title: 'Plain-English updates',
+    text: "You'll always know what I'm working on, why it matters, and what changed, without jargon.",
+  },
+  {
+    title: 'Practical AI, with a human in the loop',
+    text: 'I use AI and automation where they save real time, and anything customer-facing gets a human review.',
+  },
+  {
+    title: 'You own everything',
+    text: 'Your accounts, data, dashboards, and website stay yours, with access you control.',
+  },
+];
+
+const reasons = [
+  {
+    fact: 'Air Force veteran',
+    benefit:
+      'I bring the accountability of military service to your project: clear plans, honest updates, and follow-through on what I commit to.',
+  },
+  {
+    fact: 'Big Tech marketing and webmaster experience',
+    benefit:
+      'I’ve worked as a Digital Marketing Manager and Webmaster in Big Tech, and I bring those standards for process and quality to small business budgets.',
+    link: { href: '/website-development-and-management', text: 'See website development services' },
+  },
+  {
+    fact: 'Graduate training in audience strategy',
+    benefit:
+      'My master’s in Digital Audiences Strategy means your marketing starts with understanding who your customers are and what they need.',
+    link: { href: '/search-engine-optimization', text: 'See SEO services' },
+  },
+  {
+    fact: 'Google Analytics, Meta, and CDMP certified',
+    benefit:
+      'Your tracking, reporting, and social ads are handled by someone formally trained on the platforms you rely on.',
+    link: { href: '/marketing-analytics-and-dashboards', text: 'See marketing analytics dashboard services' },
+  },
+  {
+    fact: 'Building AI and automation for marketing now',
+    benefit:
+      'Because AI and automation solutions for marketing are what I build as a freelancer today, you get approaches that are current and practical.',
+    link: { href: '/ai-entrepreneurship', text: 'See AI consulting services' },
+  },
+];
 ---
 
-<BaseLayout
-  title="About Doc"
-  description="Air Force veteran and digital marketer with 12+ years of experience, now building AI and automation solutions for small business marketing."
->
-  <section class="container section">
-    <h1>About Doc's Digital Consulting</h1>
-    <p class="placeholder-note">Placeholder: the first-person bio is built in a later section.</p>
+<BaseLayout title={`About ${OWNER_NAME}`} description={description}>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://loremflickr.com" />
+    <JsonLd data={structuredData} />
+  </Fragment>
+
+  <section class="about-hero" aria-labelledby="about-title">
+    <div class="container">
+      <Breadcrumbs crumbs={crumbs} />
+      <div class="about-hero-grid">
+        <figure class="headshot">
+          <img
+            src={headshot.src}
+            alt={headshot.alt}
+            width={headshot.width}
+            height={headshot.height}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <figcaption class="placeholder-note">[REPLACE: headshot]</figcaption>
+        </figure>
+        <div>
+          <h1 id="about-title">About {OWNER_NAME}</h1>
+          <p class="about-lead">
+            I'm {OWNER_NAME}, an Air Force veteran with more than 12 years of experience, including digital marketing
+            leadership.
+          </p>
+          <p>
+            I've worked as a Digital Marketing Manager and Webmaster in Big Tech, and I hold a Master of Science in
+            Digital Audiences Strategy from Arizona State University's Walter Cronkite School. I'm a Certified Digital
+            Marketing Professional (CDMP) and certified in Google Analytics and Meta.
+          </p>
+          <p>
+            Today I build AI and automation solutions for marketing as a freelancer. Doc's Digital Consulting is how I
+            bring that experience to small businesses that want more leads without the guesswork.
+          </p>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <section class="section" aria-labelledby="how-title">
+    <div class="container">
+      <h2 id="how-title">How I work</h2>
+      <ul class="about-grid" role="list">
+        {
+          principles.map((p) => (
+            <li class="about-card">
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section about-alt" aria-labelledby="credentials-title">
+    <div class="container about-narrow">
+      <h2 id="credentials-title">Credentials and certifications</h2>
+      <ul class="credentials" role="list">
+        <li>
+          <strong>Master of Science, Digital Audiences Strategy</strong>
+          <span>Arizona State University, Walter Cronkite School</span>
+        </li>
+        <li>
+          <strong>Certified Digital Marketing Professional (CDMP)</strong>
+        </li>
+        <li>
+          <strong>Google Analytics certified</strong>
+        </li>
+        <li>
+          <strong>Meta certified</strong>
+        </li>
+        <li>
+          <strong>Digital Marketing Manager and Webmaster experience</strong>
+          <span>Big Tech</span>
+        </li>
+        <li>
+          <strong>Air Force veteran</strong>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <div class="container">
+      <h2 id="why-title">Why work with me</h2>
+      <ul class="about-grid" role="list">
+        {
+          reasons.map((r) => (
+            <li class="about-card about-reason">
+              <h3>{r.fact}</h3>
+              <p>{r.benefit}</p>
+              {r.link && <a href={r.link.href}>{r.link.text}</a>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Let's talk about your marketing"
+    text="Book a free call and tell me where you want your business to grow. I'll share honest next steps, whether or not we end up working together."
+  />
 </BaseLayout>
+
+<style>
+  .about-hero {
+    padding-block: var(--space-5) var(--space-7);
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+
+  .about-hero-grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 48rem) {
+    .about-hero-grid {
+      grid-template-columns: minmax(14rem, 22rem) 1fr;
+      gap: var(--space-7);
+    }
+  }
+
+  .headshot {
+    margin: 0;
+    max-width: 22rem;
+  }
+
+  .headshot img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    background: var(--color-surface);
+  }
+
+  .headshot figcaption {
+    margin-top: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    text-align: center;
+  }
+
+  .about-lead {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-heading);
+  }
+
+  .about-hero p:not(.about-lead):not(.placeholder-note) {
+    max-width: 62ch;
+    color: var(--color-text-muted);
+  }
+
+  .about-alt {
+    background: var(--color-surface);
+  }
+
+  .about-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .about-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .about-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .about-card {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+  }
+
+  .about-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .about-card p {
+    margin: 0;
+  }
+
+  .about-reason {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .about-reason p {
+    flex: 1;
+  }
+
+  .about-reason a {
+    font-weight: var(--weight-semibold);
+  }
+
+  .about-narrow {
+    max-width: 48rem;
+  }
+
+  .credentials {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .credentials li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-raised);
+  }
+
+  .credentials span {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

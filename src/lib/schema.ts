@@ -46,3 +46,61 @@ export function serviceSchema(
     audience: { '@type': 'BusinessAudience', name: 'Small businesses and entrepreneurs' },
   };
 }
+
+export const personId = (site: URL) => `${new URL('/about', site).href}#person`;
+
+export interface PersonCredential {
+  name: string;
+  category: 'degree' | 'certification';
+  /** Issuing or recognizing organization, only when it is part of the stated fact. */
+  recognizedBy?: { type: 'CollegeOrUniversity' | 'Organization'; name: string };
+}
+
+/** Person entity for the About page. Only pass facts the site owner has provided. */
+export function personSchema(
+  {
+    name,
+    jobTitle,
+    description,
+    image,
+    alumniOf,
+    credentials,
+    knowsAbout,
+    sameAs,
+  }: {
+    name: string;
+    jobTitle: string;
+    description: string;
+    image: string;
+    alumniOf: { name: string; department?: string };
+    credentials: PersonCredential[];
+    knowsAbout: string[];
+    sameAs: string[];
+  },
+  site: URL,
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': personId(site),
+    name,
+    jobTitle,
+    description,
+    url: new URL('/about', site).href,
+    image,
+    worksFor: { '@id': organizationId(site) },
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: alumniOf.name,
+      ...(alumniOf.department && { department: { '@type': 'Organization', name: alumniOf.department } }),
+    },
+    hasCredential: credentials.map((c) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: c.name,
+      credentialCategory: c.category,
+      ...(c.recognizedBy && { recognizedBy: { '@type': c.recognizedBy.type, name: c.recognizedBy.name } }),
+    })),
+    knowsAbout,
+    ...(sameAs.length > 0 && { sameAs }),
+  };
+}

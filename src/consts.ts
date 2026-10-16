@@ -102,6 +102,9 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
 
 export const BOOK_A_CALL_PATH = '/book-a-call';
 
+// [REPLACE: full name] Used in the About page copy and the Person JSON-LD.
+export const OWNER_NAME = 'Doc';
+
 // [REPLACE: social profile links] e.g. { label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }
 // Also add these URLs to `sameAs` in the Organization JSON-LD (BaseLayout).
 export const SOCIAL_LINKS: { label: string; href: string }[] = [];
