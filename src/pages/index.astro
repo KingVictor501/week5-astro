@@ -7,8 +7,6 @@ import ServiceCards from '../components/home/ServiceCards.astro';
 import { SERVICES, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Six homepage cards: every service except CRM & Marketing Automation.
-const homeServices = SERVICES.filter((s) => s.slug !== 'crm-marketing-automation');
 
 // TODO(blog section): replace with the 3 newest entries from the blog content collection.
 const latestPosts: PostSummary[] = [];
@@ -34,7 +32,7 @@ const webSite = {
   </Fragment>
 
   <Hero />
-  <ServiceCards services={homeServices} />
+  <ServiceCards services={SERVICES} />
 
   <!-- ===== ROI CALCULATOR: React island, built in Section 3 (below the fold, client:visible) ===== -->
   <section id="roi-calculator" class="section roi" aria-labelledby="roi-title">

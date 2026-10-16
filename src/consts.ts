@@ -2,7 +2,7 @@
 
 export const SITE_TITLE = "Doc's Digital Consulting";
 export const SITE_DESCRIPTION =
-  'Digital marketing consulting for small businesses: SEO, paid search, social media, analytics dashboards, CRM automation, AI, and website development.';
+  'Digital marketing consulting for small businesses: SEO, paid search, social media, analytics dashboards, AI automation, and website development.';
 
 // Default social share image (1200x630 is the recommended Open Graph size).
 export const DEFAULT_OG_IMAGE = {
@@ -79,17 +79,6 @@ export const SERVICES: Service[] = [
     summary: 'Custom marketing performance dashboards that bring your channels into one view, so decisions come from data instead of guesswork.',
   },
   {
-    slug: 'crm-marketing-automation',
-    name: 'CRM & Marketing Automation',
-    heading: 'CRM and Marketing Automation Services',
-    title: 'CRM and Marketing Automation Services',
-    description:
-      'CRM and marketing automation services, from CRM setup to email marketing automation that follows up with leads for you.',
-    keywords: ['CRM and marketing automation services', 'CRM setup and email marketing automation'],
-    hook: 'Follow up with every lead, automatically.',
-    summary: "CRM setup and email marketing automation that captures leads, nurtures them, and reminds you when it's time to reach out.",
-  },
-  {
     slug: 'ai-entrepreneurship',
     name: 'AI for Entrepreneurs',
     heading: 'AI Consulting for Small Business Entrepreneurs',
@@ -135,7 +124,6 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
     name: 'Marketing Analytics & Dashboards',
     service: 'marketing-analytics-and-dashboards',
   },
-  { slug: 'crm-marketing-automation', name: 'CRM & Marketing Automation', service: 'crm-marketing-automation' },
   { slug: 'ai-entrepreneurship', name: 'AI for Entrepreneurs', service: 'ai-entrepreneurship' },
   { slug: 'web-development', name: 'Web Development', service: 'website-development-and-management' },
 ];
