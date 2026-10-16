@@ -1,6 +1,7 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import preact from '@astrojs/preact';
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
@@ -11,12 +12,20 @@ export default defineConfig({
   // One URL form per page, so canonical tags and sitemap entries always match.
   trailingSlash: 'never',
   integrations: [
-    // Preact islands live in a `preact/` folder so React can be added later
-    // with its own `include` (required when mixing JSX frameworks).
+    // Two JSX frameworks, so each gets its own folder via `include`.
+    // tsconfig defaults JSX types to React; Preact files add a jsxImportSource pragma.
     preact({ include: ['**/preact/**/*.{jsx,tsx}'] }),
+    react({ include: ['**/react/**/*.{jsx,tsx}'] }),
     sitemap({
       // Lead-magnet landing pages are noindex and stay out of the sitemap.
       filter: (page) => !new URL(page).pathname.startsWith('/lp/'),
     }),
   ],
+  env: {
+    schema: {
+      // Formspree form endpoint, e.g. https://formspree.io/f/abcdwxyz.
+      // Unset = the Book a Call form runs in demo mode (nothing is sent).
+      PUBLIC_FORMSPREE_ENDPOINT: envField.string({ context: 'client', access: 'public', optional: true }),
+    },
+  },
 });

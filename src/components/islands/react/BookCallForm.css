@@ -1,0 +1,220 @@
+/* Book a Call form island. Classes are prefixed `lead-` because framework-component
+   CSS is global, not scoped. */
+
+.lead {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.lead-demo {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.lead-form {
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-md);
+}
+
+@media (min-width: 48rem) {
+  .lead-form {
+    padding: var(--space-6);
+  }
+}
+
+.lead-required-note {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.lead-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 40rem) {
+  .lead-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lead-wide {
+    grid-column: 1 / -1;
+  }
+}
+
+.lead-field {
+  min-width: 0;
+}
+
+.lead-field > label,
+.lead-radios legend {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--color-heading);
+  font-weight: var(--weight-semibold);
+}
+
+.lead-hint {
+  margin: 0 0 var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.lead-field input:not([type='radio']),
+.lead-field select,
+.lead-field textarea {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.lead-field textarea {
+  resize: vertical;
+}
+
+.lead-field [aria-invalid='true'] {
+  border: 2px solid var(--color-error);
+}
+
+.lead-error {
+  margin: var(--space-1) 0 0;
+  color: var(--color-error);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.lead-radios {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.lead-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.lead-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+.lead-radio input {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--color-primary);
+}
+
+.lead-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.lead-submit {
+  width: 100%;
+  margin-top: var(--space-5);
+}
+
+.lead-submit[aria-disabled='true'] {
+  opacity: 0.85;
+  cursor: progress;
+}
+
+.lead-spinner {
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--radius-pill);
+  animation: lead-spin 0.8s linear infinite;
+}
+
+@keyframes lead-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lead-privacy {
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.lead-alert {
+  padding: var(--space-5);
+  border: 2px solid var(--color-error);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+}
+
+.lead-alert h2 {
+  font-size: var(--text-xl);
+  color: var(--color-error);
+  margin-bottom: var(--space-2);
+}
+
+.lead-alert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+}
+
+.lead-alert-actions p {
+  margin: 0;
+}
+
+.lead-success {
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-top: 4px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-md);
+}
+
+.lead-success h2:focus {
+  outline: none;
+}
+
+.lead-success h2:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+.lead-success h3 {
+  font-size: var(--text-lg);
+  margin-top: var(--space-5);
+}
+
+.lead-success ol,
+.lead-success ul {
+  padding-left: var(--space-5);
+}
+
+.lead-success li + li {
+  margin-top: var(--space-2);
+}

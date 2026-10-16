@@ -1,13 +1,103 @@
 ---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import JsonLd from '../components/JsonLd.astro';
+import BookCallForm from '../components/islands/react/BookCallForm';
+import { CALL_LENGTH, CONTACT_EMAIL, REPLY_TIME, SERVICES } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { NOT_SURE_SERVICE } from '../lib/lead';
+import { breadcrumbSchema, type Crumb } from '../lib/schema';
+
+const crumbs: Crumb[] = [
+  { name: 'Home', path: '/' },
+  { name: 'Book a Call', path: '/book-a-call' },
+];
+
+const serviceOptions = [
+  ...SERVICES.map((s) => ({ value: s.slug, label: s.name })),
+  { value: NOT_SURE_SERVICE, label: 'Not sure yet' },
+];
 ---
 
 <BaseLayout
-  title="Book a Call"
-  description="Book a free call to talk through your marketing goals and find out where SEO, ads, analytics, automation, or AI can help your small business."
+  title="Book a Free Marketing Call"
+  description={`Book a free ${CALL_LENGTH} call to talk through your marketing goals and find out where SEO, ads, analytics, AI, or a new website can help your small business.`}
 >
-  <section class="container section">
-    <h1>Book a Call</h1>
-    <p class="placeholder-note">Placeholder: the lead form is built in a later section.</p>
+  <JsonLd slot="head" data={breadcrumbSchema(crumbs, Astro.site!)} />
+
+  <section class="section book" aria-labelledby="book-title">
+    <div class="container">
+      <Breadcrumbs crumbs={crumbs} />
+      <div class="book-grid">
+        <div class="book-intro">
+          <h1 id="book-title">Book a free marketing call</h1>
+          <p class="book-lead">
+            Tell me a little about your business, and we'll set up a free {CALL_LENGTH} call by phone or video.
+          </p>
+          <h2>What happens on the call</h2>
+          <ol class="book-steps">
+            <li>We talk through your goals and what a good lead looks like for you.</li>
+            <li>I share the biggest opportunities I see in your current marketing.</li>
+            <li>You leave with clear next steps, whether or not we work together.</li>
+          </ol>
+          <p class="book-trust">
+            No pressure and no obligation. You'll be talking with an Air Force veteran with more than 12 years of
+            experience, certified in Google Analytics and Meta.
+          </p>
+        </div>
+
+        <BookCallForm client:load services={serviceOptions} callLength={CALL_LENGTH} replyTime={REPLY_TIME} contactEmail={CONTACT_EMAIL} />
+      </div>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .book {
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 40%);
+  }
+
+  .book-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-5);
+    align-items: start;
+  }
+
+  @media (min-width: 60rem) {
+    .book-grid {
+      grid-template-columns: 1fr 1.35fr;
+      gap: var(--space-7);
+    }
+
+    .book-intro {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-5));
+    }
+  }
+
+  .book-lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .book-intro h2 {
+    font-size: var(--text-xl);
+    margin-top: var(--space-5);
+  }
+
+  .book-steps {
+    padding-left: var(--space-5);
+  }
+
+  .book-steps li + li {
+    margin-top: var(--space-2);
+  }
+
+  .book-trust {
+    padding: var(--space-4);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-raised);
+    font-weight: var(--weight-semibold);
+  }
+</style>

@@ -102,6 +102,12 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
 
 export const BOOK_A_CALL_PATH = '/book-a-call';
 
+// Book a Call details. [CONFIRM] these match how you actually work.
+export const CALL_LENGTH = '30 minutes';
+export const REPLY_TIME = 'one business day';
+// [REPLACE: contact email] Fallback contact shown when the form can't send. null = placeholder text.
+export const CONTACT_EMAIL: string | null = null;
+
 // [REPLACE: full name] Used in the About page copy and the Person JSON-LD.
 export const OWNER_NAME = 'Doc';
 

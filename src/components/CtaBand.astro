@@ -4,11 +4,13 @@ import { BOOK_A_CALL_PATH } from '../consts';
 export interface Props {
   heading?: string;
   text?: string;
+  href?: string;
 }
 
 const {
   heading = 'Ready to turn more visitors into leads?',
   text = "Book a free call. We'll look at where your leads come from today and which next step will make the biggest difference.",
+  href = BOOK_A_CALL_PATH,
 } = Astro.props;
 ---
 
@@ -18,7 +20,7 @@ const {
       <h2 id="cta-title">{heading}</h2>
       <p>{text}</p>
     </div>
-    <a class="btn btn-lg cta-btn" href={BOOK_A_CALL_PATH}>Book a Call</a>
+    <a class="btn btn-lg cta-btn" href={href}>Book a Call</a>
   </div>
 </section>
 

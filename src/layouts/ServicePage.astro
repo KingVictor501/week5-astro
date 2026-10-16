@@ -20,6 +20,7 @@ export interface Props {
 const { service, content, related, category, posts } = Astro.props;
 const site = Astro.site!;
 const path = `/${service.slug}`;
+const bookHref = `${BOOK_A_CALL_PATH}?service=${service.slug}`;
 
 const crumbs: Crumb[] = [
   { name: 'Home', path: '/' },
@@ -50,7 +51,7 @@ const structuredData = [
           <p class="svc-subhead">{content.subhead}</p>
           <p class="svc-intro">{content.intro}</p>
           <div class="svc-ctas">
-            <a class="btn btn-primary btn-lg" href={BOOK_A_CALL_PATH}>Book a Call</a>
+            <a class="btn btn-primary btn-lg" href={bookHref}>Book a Call</a>
             <a class="btn btn-secondary btn-lg" href="#included">What's included</a>
           </div>
         </div>
@@ -208,7 +209,7 @@ const structuredData = [
     </div>
   </section>
 
-  <CtaBand heading={content.cta.heading} text={content.cta.text} />
+  <CtaBand heading={content.cta.heading} text={content.cta.text} href={bookHref} />
 </BaseLayout>
 
 <style>

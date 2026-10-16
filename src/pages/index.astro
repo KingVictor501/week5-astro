@@ -37,7 +37,7 @@ const webSite = {
   <!-- ROI calculator: Preact island, hydrated only when scrolled into view. -->
   <section id="roi-calculator" class="section roi" aria-labelledby="roi-title">
     <div class="container">
-      <RoiCalculator client:visible ctaHref={BOOK_A_CALL_PATH} />
+      <RoiCalculator client:visible ctaHref={`${BOOK_A_CALL_PATH}?service=paid-search`} />
     </div>
   </section>
 

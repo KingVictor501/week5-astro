@@ -1,3 +1,4 @@
+/** @jsxImportSource preact */
 import { useEffect, useState } from 'preact/hooks';
 import type { TargetedEvent } from 'preact';
 import { calculateRoi, parseNumber, validateField, type RoiField, type RoiInputs } from '../../../lib/roi';
