@@ -1,0 +1,102 @@
+title: SEO Services for Small Businesses
+description: >-
+  SEO services for small businesses that fix technical issues, sharpen your content, and win local searches, so the right customers find you first.
+heading: SEO Services for Small Businesses That Bring In Real Customers
+subhead: >-
+  Technical fixes, content that answers real questions, and local search work, from a marketer with Big Tech webmaster experience.
+intro: >-
+  Most small business websites aren't hard to find because the business is bad. They're hard to find because search engines can't easily understand them. My SEO services for small businesses focus on the fixes and content that move you up for the searches your customers actually make, starting with the ones closest to a purchase.
+hero:
+  src: https://loremflickr.com/1200/900/seo,laptop?lock=3001
+  alt: A laptop on a desk showing a website analytics screen next to a notebook of handwritten keyword ideas
+  width: 1200
+  height: 900
+ogImage:
+  src: https://loremflickr.com/1200/630/seo,laptop?lock=3101
+  alt: A laptop showing search results on a tidy office desk
+  width: 1200
+  height: 630
+problem:
+  heading: Why small businesses struggle to get found on Google
+  intro: >-
+    You may have been told SEO takes forever, or paid for reports that never turned into results. The usual culprits are simpler than that.
+  points:
+    - title: Technical issues no one has checked
+      text: Slow pages, broken links, and pages Google can't crawl quietly hold your site back, no matter how good the content is.
+    - title: Content written for you, not your customers
+      text: Pages describe what you do in your own terms instead of answering the questions people actually type into search.
+    - title: A weak local presence
+      text: An incomplete or inconsistent Google Business Profile hands nearby customers to your competitors.
+    - title: No way to tell what's working
+      text: Without proper tracking, it's impossible to see which pages and searches bring in leads.
+included:
+  heading: What's included in my SEO services for small businesses
+  items:
+    - title: Technical SEO audit and fixes
+      text: A crawl of your whole site to find speed, indexing, mobile, and structured data problems, then a prioritized fix list or the fixes themselves.
+    - title: Keyword and competitor research
+      text: The searches your best customers use, how competitive they are, and which ones are realistic wins for a business your size.
+    - title: On-page optimization
+      text: Titles, headings, internal links, and page copy tuned so each page clearly targets one topic.
+    - title: Content planning
+      text: A practical calendar of pages and articles that answer customer questions and support your service pages.
+    - title: Local SEO
+      text: Google Business Profile optimization, consistent business listings, and location pages where they make sense.
+    - title: Monthly reporting
+      text: Plain-English reports on rankings, traffic, and leads, tied to the goals we set together.
+process:
+  heading: How the SEO process works
+  steps:
+    - title: Discovery call
+      text: We talk about your business, your customers, and what a good lead looks like for you.
+    - title: Audit and research
+      text: I review your site, your competitors, and your search opportunities, and share what I find.
+    - title: Roadmap
+      text: You get a prioritized plan, with quick wins first and then the bigger projects that compound over time.
+    - title: Implementation
+      text: I fix, optimize, and publish, keeping you in the loop on every change.
+    - title: Measure and refine
+      text: We review results monthly and shift effort toward what's bringing in customers.
+audience:
+  heading: Who SEO is right for
+  intro: 'My SEO work is a good fit if your business:'
+  items:
+    - Depends on local customers finding you on Google and Maps
+    - Has a website that gets little traffic or few inquiries
+    - Wants to rely less on paid ads over time
+    - Is ready to invest a few months in results that keep paying off
+proof:
+  heading: SEO results
+  placeholder: '[REPLACE: SEO client result, e.g. a before-and-after for organic leads, shared with permission]'
+faq:
+  heading: Questions about SEO for small businesses
+  items:
+    - question: How long does SEO take to work for a small business?
+      answer: >-
+        Technical fixes and local profile improvements can show movement within weeks, but most businesses see meaningful gains in traffic and leads over several months. Competitive industries can take longer. After the audit, I'll give you an honest timeline instead of a one-size-fits-all promise.
+    - question: Do you guarantee first-page rankings?
+      answer: >-
+        No, and be wary of anyone who does. Google controls rankings. What I can promise is a clear plan, work that follows Google's guidelines, and reporting that shows exactly what's changing.
+    - question: What's the difference between local SEO and regular SEO?
+      answer: >-
+        Local SEO targets searches with local intent, like "plumber near me," and leans on your Google Business Profile, reviews, and listings. Regular SEO covers your website's visibility for broader searches. Most small businesses need a mix of both.
+    - question: Can I do SEO myself?
+      answer: >-
+        You can do a lot yourself, especially local profile work and writing helpful content. Outside help pays off most for technical issues, strategy, and keeping the work consistent. I'm also happy to build a plan you run yourself, with regular check-ins.
+    - question: How much do SEO services cost?
+      answer: >-
+        It depends on how much work your site needs and how competitive your market is. After a free call, I'll recommend a scope that fits your budget, whether that's a one-time audit or ongoing monthly work.
+relatedServices:
+  - website-development-and-management
+  - marketing-analytics-and-dashboards
+blogCategory: technical-seo
+leadMagnets:
+  - slug: local-seo-checklist
+    title: Local SEO Checklist
+    description: A step-by-step checklist for your Google Business Profile, listings, and location pages.
+  - slug: diy-seo-audit-template
+    title: DIY SEO Audit Template
+    description: Spot the most common technical and on-page issues on your own site in an afternoon.
+cta:
+  heading: Ready to get found by more local customers?
+  text: Book a free call and I'll share the biggest search opportunities I see for your site.

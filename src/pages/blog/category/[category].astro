@@ -21,7 +21,7 @@ const service = SERVICES.find((s) => s.slug === category.service);
   <section class="container section">
     <h1>{category.name} Articles</h1>
     <p class="placeholder-note">Placeholder: posts in this category are listed in a later section.</p>
-    {service && <p>Related service: <a href={`/${service.slug}`}>{service.heading}</a></p>}
+    {service && <p>Related service: <a href={`/${service.slug}`}>{service.name} services</a></p>}
     <p><a href="/blog">Back to all articles</a></p>
   </section>
 </BaseLayout>

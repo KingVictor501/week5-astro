@@ -1,0 +1,101 @@
+title: Marketing Analytics Dashboard Services
+description: >-
+  Marketing analytics dashboard services that bring your ads, website, and leads into one custom marketing performance dashboard you'll actually use.
+heading: Marketing Analytics Dashboard Services for Small Businesses
+subhead: >-
+  One clear view of what's working, built by a Google Analytics–certified marketer with a master's degree in digital audience strategy.
+intro: >-
+  If answering "which marketing is working?" means logging into five platforms and guessing, you're not alone. My marketing analytics dashboard services pull your website, ad, social, and lead data into one place, so every marketing decision starts with numbers you trust.
+hero:
+  src: https://loremflickr.com/1200/900/dashboard,chart?lock=3004
+  alt: A business dashboard on a laptop screen with bar charts and trend lines for marketing performance
+  width: 1200
+  height: 900
+ogImage:
+  src: https://loremflickr.com/1200/630/dashboard,chart?lock=3104
+  alt: Colorful data charts displayed on a computer screen
+  width: 1200
+  height: 630
+problem:
+  heading: Why small businesses fly blind on marketing data
+  intro: The data usually exists. The problem is getting it into a form you can use.
+  points:
+    - title: Data scattered everywhere
+      text: Google Ads, Google Analytics, social platforms, and your inbox each tell part of the story, and none of them agree.
+    - title: Tracking that's broken or missing
+      text: Key actions like phone calls and form submissions often aren't tracked at all, so results go uncounted.
+    - title: Reports nobody reads
+      text: Platform reports are packed with metrics that don't connect to revenue, so they get ignored.
+    - title: Decisions by gut feel
+      text: Without a clear picture, budgets stay where they've always been instead of moving to what works.
+included:
+  heading: What's included in my marketing analytics dashboard services
+  items:
+    - title: Tracking audit and setup
+      text: A review of Google Analytics 4, Google Tag Manager, and conversion tracking, with fixes so the data is accurate.
+    - title: KPI planning
+      text: We agree on the handful of numbers that reflect business health, like leads, cost per lead, and revenue by channel.
+    - title: Custom dashboard build
+      text: A dashboard designed around your KPIs that combines your data sources into one clear view.
+    - title: Automated data connections
+      text: Data refreshes on its own, so the dashboard stays current without manual exports.
+    - title: Walkthrough and training
+      text: A recorded walkthrough so you and your team know how to read the dashboard and act on it.
+    - title: Ongoing insights (optional)
+      text: Monthly reviews where I flag trends, problems, and opportunities in your numbers.
+process:
+  heading: How a dashboard project works
+  steps:
+    - title: Discovery
+      text: We talk through your goals, your marketing channels, and the questions you can't answer today.
+    - title: Audit tracking
+      text: I check what's being measured, fix gaps, and make sure conversions are counted correctly.
+    - title: Design the dashboard
+      text: You review a layout built around your KPIs before anything is connected.
+    - title: Build and connect
+      text: Data sources are connected, tested, and set to refresh automatically.
+    - title: Train and hand off
+      text: I walk you through the finished dashboard and stay available for questions.
+audience:
+  heading: Who a marketing dashboard is for
+  intro: 'This is a good fit if you:'
+  items:
+    - Spend money on more than one marketing channel
+    - Can't easily say which channel brings in the most customers
+    - Are tired of building spreadsheets by hand every month
+    - Want to make budget decisions with confidence
+proof:
+  heading: Dashboard examples
+  placeholder: '[REPLACE: dashboard client result or a screenshot of an anonymized sample dashboard]'
+faq:
+  heading: Questions about custom marketing performance dashboards
+  items:
+    - question: What is a custom marketing performance dashboard?
+      answer: >-
+        It's a single report, built around your business goals, that combines data from your website, ads, social media, and lead sources. Instead of generic platform metrics, it shows the numbers you actually use to make decisions.
+    - question: What data sources can a dashboard include?
+      answer: >-
+        Common sources include Google Analytics 4, Google Ads, Google Search Console, Meta ads, and spreadsheets or CRM exports. If a platform can export data, there's usually a way to bring it in.
+    - question: Do I need Google Analytics set up first?
+      answer: >-
+        It helps, but it isn't required. Setting up or fixing GA4 and conversion tracking is part of the work when it's needed, because a dashboard is only as good as the data behind it.
+    - question: How long does it take to build a dashboard?
+      answer: >-
+        Most small business dashboards come together in a few weeks, depending on how many data sources are involved and how much tracking needs fixing first.
+    - question: Will I be able to update it myself?
+      answer: >-
+        Yes. The data refreshes automatically, and the walkthrough covers how to change date ranges, filters, and views. You own the dashboard and the accounts behind it.
+relatedServices:
+  - paid-search
+  - search-engine-optimization
+blogCategory: marketing-analytics-and-dashboards
+leadMagnets:
+  - slug: marketing-kpi-dashboard-template
+    title: Marketing KPI Dashboard Template
+    description: A ready-to-copy template for tracking leads, cost per lead, and revenue by channel.
+  - slug: ga4-setup-checklist
+    title: GA4 Setup Checklist
+    description: Make sure Google Analytics 4 is counting the calls, forms, and bookings that matter.
+cta:
+  heading: Ready to see what your marketing is really doing?
+  text: Book a free call and tell me the questions your current reports can't answer.

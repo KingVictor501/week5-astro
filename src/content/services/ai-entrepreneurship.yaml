@@ -1,0 +1,101 @@
+title: AI Consulting for Small Business Entrepreneurs
+description: >-
+  AI consulting for small business entrepreneurs: practical AI business automation for marketing, content, and lead follow-up that frees up your time.
+heading: AI Consulting for Small Business Entrepreneurs
+subhead: >-
+  Practical AI and automation that takes repetitive marketing work off your plate, with no hype and no jargon.
+intro: >-
+  AI tools promise to save you hours, but figuring out which ones are worth it, and wiring them into how you actually work, is a job in itself. My AI consulting for small business entrepreneurs focuses on practical wins: automating the repetitive marketing tasks that eat your week while keeping you in control of anything customer-facing.
+hero:
+  src: https://loremflickr.com/1200/900/technology,computer?lock=3005
+  alt: An entrepreneur at a desk using an AI assistant on a laptop to draft marketing content
+  width: 1200
+  height: 900
+ogImage:
+  src: https://loremflickr.com/1200/630/technology,computer?lock=3105
+  alt: A modern laptop on a desk with glowing technology graphics
+  width: 1200
+  height: 630
+problem:
+  heading: Why AI feels overwhelming for entrepreneurs
+  intro: Most entrepreneurs I talk to are curious about AI but stuck for the same reasons.
+  points:
+    - title: Too many tools
+      text: New AI products launch every week, and it's hard to tell which ones solve a real problem for your business.
+    - title: Experiments that don't stick
+      text: A few chatbot prompts help here and there, but nothing becomes part of the daily workflow.
+    - title: Worries about quality and trust
+      text: Generic AI content can sound robotic or get facts wrong, and your reputation is on the line.
+    - title: No time to set it up
+      text: Connecting tools and building automations takes focus that running a business doesn't leave room for.
+included:
+  heading: What's included in AI consulting for small business entrepreneurs
+  items:
+    - title: AI opportunity assessment
+      text: A review of your marketing and admin workflows to find the tasks where AI saves the most time with the least risk.
+    - title: Tool selection
+      text: Recommendations for the right AI tools for your budget and needs, and the ones you can safely skip.
+    - title: Content workflows
+      text: AI-assisted processes for drafting blog posts, social content, and emails in your brand voice, with human review built in.
+    - title: Workflow automation
+      text: Automations that connect your forms, email, calendar, and spreadsheets so routine steps happen on their own.
+    - title: Team training
+      text: Hands-on sessions and written guides so you and your team can use the new tools confidently.
+    - title: Ongoing support
+      text: Check-ins to refine automations and add new ones as your business and the tools evolve.
+process:
+  heading: How AI consulting works
+  steps:
+    - title: Map your workflows
+      text: We walk through your week and list the repetitive tasks that drain your time.
+    - title: Prioritize
+      text: I rank opportunities by time saved, cost, and risk, so we start with the safest, biggest wins.
+    - title: Build and test
+      text: I set up the tools and automations, test them with real examples, and adjust until they work reliably.
+    - title: Train and launch
+      text: You get training and documentation, and the new workflows go live.
+    - title: Improve over time
+      text: We review what's working and expand automation step by step.
+audience:
+  heading: Who AI consulting is for
+  intro: 'This is a good fit if you:'
+  items:
+    - Run a small business and wear most of the hats yourself
+    - Spend hours each week on repetitive marketing or admin tasks
+    - Want to use AI but don't know where to start
+    - Care about keeping a human touch with your customers
+proof:
+  heading: AI automation results
+  placeholder: '[REPLACE: AI automation client result, e.g. hours saved per week, shared with permission]'
+faq:
+  heading: 'AI business automation services for entrepreneurs: FAQ'
+  items:
+    - question: What can AI business automation services for entrepreneurs actually automate?
+      answer: >-
+        Common examples include drafting social posts and emails, summarizing customer inquiries, routing new leads into your CRM, scheduling follow-ups, and building simple weekly reports. The best candidates are tasks you repeat often that follow a predictable pattern.
+    - question: Will AI replace my marketing team?
+      answer: >-
+        No. Used well, AI handles first drafts and repetitive steps so people can focus on strategy, relationships, and judgment calls. Anything customer-facing gets a human review.
+    - question: Is my business data safe with AI tools?
+      answer: >-
+        It depends on the tool and its settings. Part of my work is choosing tools with appropriate privacy controls and setting them up so sensitive customer data isn't shared where it shouldn't be.
+    - question: Do I need technical skills to use these automations?
+      answer: >-
+        No. Automations are built to run in the background, and training covers the few things you'll need to do day to day, in plain language.
+    - question: How quickly will I see time savings?
+      answer: >-
+        Simple automations can start saving time as soon as they go live. Larger workflow changes take a few weeks to set up and refine. The assessment shows where the biggest wins are before you commit to anything.
+relatedServices:
+  - marketing-analytics-and-dashboards
+  - website-development-and-management
+blogCategory: ai-entrepreneurship
+leadMagnets:
+  - slug: ai-prompt-pack-for-marketing
+    title: AI Prompt Pack for Small Business Marketing
+    description: Tested prompts for drafting posts, emails, and ad copy in your own brand voice.
+  - slug: lead-follow-up-automation-playbook
+    title: Lead Follow-Up Automation Playbook
+    description: A simple plan for automating CRM and email follow-up so no lead slips through the cracks.
+cta:
+  heading: Ready to put AI to work in your business?
+  text: Book a free call and we'll find the first tasks worth automating.

@@ -9,9 +9,20 @@ export interface PostSummary {
 
 export interface Props {
   posts: PostSummary[];
+  heading?: string;
+  viewAllHref?: string;
+  viewAllText?: string;
+  /** First sentence of the empty state; a link to `viewAllHref` follows it. */
+  emptyText?: string;
 }
 
-const { posts } = Astro.props;
+const {
+  posts,
+  heading = 'Latest from the blog',
+  viewAllHref = '/blog',
+  viewAllText = 'View all articles',
+  emptyText = 'New articles on SEO, paid search, analytics, and AI for small businesses are on the way.',
+} = Astro.props;
 const formatDate = (date: Date) =>
   date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 ---
@@ -19,8 +30,8 @@ const formatDate = (date: Date) =>
 <section class="section latest" aria-labelledby="latest-title">
   <div class="container">
     <div class="section-head">
-      <h2 id="latest-title">Latest from the blog</h2>
-      <a href="/blog">View all articles</a>
+      <h2 id="latest-title">{heading}</h2>
+      <a href={viewAllHref}>{viewAllText}</a>
     </div>
 
     {
@@ -48,8 +59,7 @@ const formatDate = (date: Date) =>
         </ul>
       ) : (
         <p class="empty">
-          New articles on SEO, paid search, analytics, and AI for small businesses are on the way. In the meantime,{' '}
-          <a href="/blog">browse the blog categories</a>.
+          {emptyText} In the meantime, <a href="/blog">browse the blog</a>.
         </p>
       )
     }

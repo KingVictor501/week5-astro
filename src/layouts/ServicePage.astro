@@ -1,0 +1,452 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import JsonLd from '../components/JsonLd.astro';
+import LatestPosts, { type PostSummary } from '../components/home/LatestPosts.astro';
+import ServiceIcon from '../components/home/ServiceIcon.astro';
+import { BOOK_A_CALL_PATH, type BlogCategory, type Service } from '../consts';
+import { breadcrumbSchema, serviceSchema, type Crumb } from '../lib/schema';
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  service: Service;
+  content: CollectionEntry<'services'>['data'];
+  related: Service[];
+  category: BlogCategory;
+  posts: PostSummary[];
+}
+
+const { service, content, related, category, posts } = Astro.props;
+const site = Astro.site!;
+const path = `/${service.slug}`;
+
+const crumbs: Crumb[] = [
+  { name: 'Home', path: '/' },
+  { name: service.name, path },
+];
+
+const structuredData = [
+  serviceSchema(
+    { name: service.name, serviceType: service.keywords[0], description: content.description, path, image: content.hero.src },
+    site,
+  ),
+  breadcrumbSchema(crumbs, site),
+];
+---
+
+<BaseLayout title={content.title} description={content.description} image={content.ogImage}>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://loremflickr.com" />
+    <JsonLd data={structuredData} />
+  </Fragment>
+
+  <section class="svc-hero" aria-labelledby="svc-title">
+    <div class="container">
+      <Breadcrumbs crumbs={crumbs} />
+      <div class="svc-hero-grid">
+        <div>
+          <h1 id="svc-title">{content.heading}</h1>
+          <p class="svc-subhead">{content.subhead}</p>
+          <p class="svc-intro">{content.intro}</p>
+          <div class="svc-ctas">
+            <a class="btn btn-primary btn-lg" href={BOOK_A_CALL_PATH}>Book a Call</a>
+            <a class="btn btn-secondary btn-lg" href="#included">What's included</a>
+          </div>
+        </div>
+        <img
+          src={content.hero.src}
+          alt={content.hero.alt}
+          width={content.hero.width}
+          height={content.hero.height}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="problem-title">
+    <div class="container">
+      <h2 id="problem-title">{content.problem.heading}</h2>
+      <p class="svc-lead">{content.problem.intro}</p>
+      <ul class="svc-grid svc-grid-2" role="list">
+        {
+          content.problem.points.map((point) => (
+            <li class="svc-card svc-card-problem">
+              <h3>{point.title}</h3>
+              <p>{point.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="included" class="section svc-alt" aria-labelledby="included-title">
+    <div class="container">
+      <h2 id="included-title">{content.included.heading}</h2>
+      <ul class="svc-grid svc-grid-3" role="list">
+        {
+          content.included.items.map((item) => (
+            <li class="svc-card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="process-title">
+    <div class="container">
+      <h2 id="process-title">{content.process.heading}</h2>
+      <ol class="svc-steps" role="list">
+        {
+          content.process.steps.map((step, index) => (
+            <li>
+              <span class="svc-step-num" aria-hidden="true">
+                {index + 1}
+              </span>
+              <div>
+                <h3>
+                  <span class="visually-hidden">Step {index + 1}:{' '}</span>
+                  {step.title}
+                </h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <slot name="extra" />
+
+  <section class="section svc-alt" aria-labelledby="audience-title">
+    <div class="container svc-split">
+      <div>
+        <h2 id="audience-title">{content.audience.heading}</h2>
+        <p>{content.audience.intro}</p>
+        <ul class="svc-checks" role="list">
+          {content.audience.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <aside class="svc-proof" aria-labelledby="proof-title">
+        <h2 id="proof-title">{content.proof.heading}</h2>
+        <p class="placeholder-note">{content.proof.placeholder}</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container svc-narrow">
+      <h2 id="faq-title">{content.faq.heading}</h2>
+      <div class="svc-faq">
+        {
+          content.faq.items.map((item) => (
+            <details>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LatestPosts
+    posts={posts}
+    heading={`${category.name} articles`}
+    viewAllHref={`/blog/category/${category.slug}`}
+    viewAllText={`All ${category.name} articles`}
+    emptyText={`Articles on ${category.name.toLowerCase()} are on the way.`}
+  />
+
+  <section class="section svc-alt" aria-labelledby="resources-title">
+    <div class="container">
+      <h2 id="resources-title">Free resources</h2>
+      <ul class="svc-grid svc-grid-2" role="list">
+        {
+          content.leadMagnets.map((magnet) => (
+            <li class="svc-card svc-resource">
+              <h3>{magnet.title}</h3>
+              <p>{magnet.description}</p>
+              {magnet.published ? (
+                <a href={`/lp/${magnet.slug}`}>
+                  Get the free {magnet.title.toLowerCase()}
+                </a>
+              ) : (
+                <p class="svc-soon">Coming soon</p>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2 id="related-title" class="svc-related-title">Related services</h2>
+      <ul class="svc-grid svc-grid-2" role="list" aria-labelledby="related-title">
+        {
+          related.map((other) => (
+            <li class="svc-card svc-related">
+              <span class="svc-related-icon">
+                <ServiceIcon slug={other.slug} />
+              </span>
+              <div>
+                <h3>
+                  <a href={`/${other.slug}`}>{other.name}</a>
+                </h3>
+                <p>{other.summary}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand heading={content.cta.heading} text={content.cta.text} />
+</BaseLayout>
+
+<style>
+  .svc-hero {
+    padding-block: var(--space-5) var(--space-7);
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+
+  .svc-hero-grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 56rem) {
+    .svc-hero-grid {
+      grid-template-columns: 1.15fr 1fr;
+      gap: var(--space-7);
+    }
+  }
+
+  .svc-subhead {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-heading);
+  }
+
+  .svc-intro,
+  .svc-lead {
+    max-width: 62ch;
+    color: var(--color-text-muted);
+  }
+
+  .svc-lead {
+    margin-bottom: var(--space-5);
+  }
+
+  .svc-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  .svc-hero img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    background: var(--color-surface);
+  }
+
+  .svc-alt {
+    background: var(--color-surface);
+  }
+
+  .svc-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .svc-grid-2,
+    .svc-grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .svc-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .svc-card {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+  }
+
+  .svc-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .svc-card p {
+    margin: 0;
+  }
+
+  .svc-card-problem {
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .svc-steps {
+    display: grid;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 48rem;
+  }
+
+  .svc-steps li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  .svc-step-num {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-weight: var(--weight-bold);
+  }
+
+  .svc-steps h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-1);
+  }
+
+  .svc-steps p {
+    margin: 0;
+  }
+
+  .svc-split {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 56rem) {
+    .svc-split {
+      grid-template-columns: 1.4fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .svc-checks {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .svc-checks li {
+    position: relative;
+    padding-left: var(--space-6);
+  }
+
+  .svc-checks li::before {
+    content: '✓' / '';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: var(--weight-bold);
+  }
+
+  .svc-proof h2 {
+    font-size: var(--text-xl);
+  }
+
+  .svc-proof .placeholder-note {
+    background: var(--color-bg);
+  }
+
+  .svc-narrow {
+    max-width: 52rem;
+  }
+
+  .svc-faq {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .svc-faq details {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+  }
+
+  .svc-faq summary {
+    padding: var(--space-4) var(--space-5);
+    font-weight: var(--weight-semibold);
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  .svc-faq details p {
+    margin: 0;
+    padding: 0 var(--space-5) var(--space-5);
+  }
+
+  .svc-resource {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .svc-resource a,
+  .svc-soon {
+    margin-top: auto;
+    padding-top: var(--space-2);
+    font-weight: var(--weight-semibold);
+  }
+
+  .svc-soon {
+    color: var(--color-text-muted);
+  }
+
+  .svc-related-title {
+    margin-top: var(--space-7);
+  }
+
+  .svc-related {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .svc-related-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-primary);
+  }
+</style>

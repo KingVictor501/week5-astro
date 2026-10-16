@@ -1,0 +1,50 @@
+---
+import type { Crumb } from '../lib/schema';
+
+export interface Props {
+  crumbs: Crumb[];
+}
+
+// Visible breadcrumbs that mirror the BreadcrumbList JSON-LD on the same page.
+const { crumbs } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol role="list">
+    {
+      crumbs.map((crumb, index) => (
+        <li>
+          {index === crumbs.length - 1 ? (
+            <span aria-current="page">{crumb.name}</span>
+          ) : (
+            <a href={crumb.path}>{crumb.name}</a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  li + li::before {
+    content: '/' / '';
+    margin-right: var(--space-2);
+    color: var(--color-border-strong);
+  }
+
+  [aria-current] {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+  }
+</style>

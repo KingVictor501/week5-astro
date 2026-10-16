@@ -1,24 +1,43 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import { getCollection, getEntries } from 'astro:content';
 import CrmAutomationSection from '../components/services/CrmAutomationSection.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { BOOK_A_CALL_PATH, SERVICES, type Service } from '../consts';
+import { BLOG_CATEGORIES, SERVICES } from '../consts';
+import ServicePage from '../layouts/ServicePage.astro';
+import { getPostsByCategory } from '../lib/blog';
 
-export const getStaticPaths = (() =>
-  SERVICES.map((service) => ({ params: { service: service.slug }, props: { service } }))) satisfies GetStaticPaths;
+export const getStaticPaths = (async () => {
+  const entries = await getCollection('services');
 
-interface Props {
-  service: Service;
-}
+  return Promise.all(
+    SERVICES.map(async (service) => {
+      const entry = entries.find((e) => e.id === service.slug);
+      if (!entry) throw new Error(`Missing src/content/services/${service.slug}.yaml`);
+      const content = entry.data;
 
-const { service } = Astro.props;
+      // SEO guardrail: the primary keyword must appear in the title, H1, first paragraph, and one H2.
+      const keyword = service.keywords[0].toLowerCase();
+      const h2s = [content.problem, content.included, content.process, content.audience, content.faq].map((s) => s.heading);
+      const placements = { title: content.title, h1: content.heading, intro: content.intro, h2: h2s.join(' | ') };
+      for (const [where, text] of Object.entries(placements)) {
+        if (!text.toLowerCase().includes(keyword)) {
+          throw new Error(`${service.slug}: primary keyword "${keyword}" missing from ${where}`);
+        }
+      }
+
+      const relatedEntries = await getEntries(content.relatedServices);
+      const related = relatedEntries.map((r) => SERVICES.find((s) => s.slug === r.id)!);
+      const category = BLOG_CATEGORIES.find((c) => c.slug === content.blogCategory)!;
+      const posts = await getPostsByCategory(category.slug, 3);
+
+      return { params: { service: service.slug }, props: { service, content, related, category, posts } };
+    }),
+  );
+}) satisfies GetStaticPaths;
+
+const props = Astro.props;
 ---
 
-<BaseLayout title={service.title} description={service.description}>
-  <section class="container section">
-    <h1>{service.heading}</h1>
-    <p class="placeholder-note">Placeholder: the full {service.name} page is built in a later section.</p>
-    <p><a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Book a Call about {service.name}</a></p>
-  </section>
-  {service.slug === 'ai-entrepreneurship' && <CrmAutomationSection />}
-</BaseLayout>
+<ServicePage {...props}>
+  {props.service.slug === 'ai-entrepreneurship' && <CrmAutomationSection slot="extra" />}
+</ServicePage>

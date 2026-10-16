@@ -1,0 +1,101 @@
+title: Small Business Website Development Services
+description: >-
+  Small business website development services: custom website design and development that's fast, accessible, search-friendly, and built for leads.
+heading: Small Business Website Development Services
+subhead: >-
+  Fast, accessible, search-friendly websites built to turn visitors into leads, plus ongoing management so they stay that way.
+intro: >-
+  Your website is often a customer's first impression, and a slow or confusing site sends them straight to a competitor. My small business website development services cover everything from planning and design to launch and ongoing management, drawing on hands-on webmaster experience at a Big Tech company.
+hero:
+  src: https://loremflickr.com/1200/900/website,design?lock=3006
+  alt: A web designer working on a responsive website layout shown on a laptop and a phone
+  width: 1200
+  height: 900
+ogImage:
+  src: https://loremflickr.com/1200/630/website,design?lock=3106
+  alt: A website design mockup open on a desktop monitor
+  width: 1200
+  height: 630
+problem:
+  heading: Common website problems that cost small businesses customers
+  intro: If your site isn't bringing in inquiries, one of these is usually why.
+  points:
+    - title: Slow and outdated
+      text: Heavy pages and old templates load slowly, especially on phones, and visitors leave before they see your offer.
+    - title: Hard to use on mobile
+      text: Most visitors arrive on a phone, and tiny buttons or broken layouts make it hard for them to contact you.
+    - title: No clear next step
+      text: Pages describe your business but never make it obvious how to call, book, or request a quote.
+    - title: Hard to update
+      text: Simple changes require a developer, so the site falls out of date.
+included:
+  heading: What's included in my small business website development services
+  items:
+    - title: Strategy and sitemap
+      text: We plan pages around your services and the questions customers ask, so the site works for visitors and search engines.
+    - title: Custom design
+      text: A clean, on-brand design built for your business, not a generic template.
+    - title: Fast, accessible development
+      text: Modern code built for speed, accessibility, and strong Core Web Vitals.
+    - title: SEO foundations
+      text: Clean URLs, titles, meta descriptions, structured data, and a sitemap from day one.
+    - title: Lead capture
+      text: Clear calls to action, forms, and booking options, with conversion tracking set up.
+    - title: Ongoing management
+      text: Updates, backups, security monitoring, and content changes so your site keeps working for you.
+process:
+  heading: How a website project works
+  steps:
+    - title: Discovery and planning
+      text: We define your goals, audience, and pages, and gather the content and branding you already have.
+    - title: Design
+      text: You review designs for key pages, and we refine them together before development starts.
+    - title: Build
+      text: I develop the site, test it on real devices, and check speed and accessibility.
+    - title: Launch
+      text: The site goes live with redirects, analytics, and Google Search Console set up correctly.
+    - title: Manage and improve
+      text: Ongoing updates and improvements keep the site fast, secure, and current.
+audience:
+  heading: Who website development is for
+  intro: 'This is a good fit if you:'
+  items:
+    - Have an outdated site that doesn't reflect your business today
+    - Are launching a new business and need a professional website
+    - Get traffic but few inquiries from your current site
+    - Want someone reliable to handle updates and maintenance
+proof:
+  heading: Website projects
+  placeholder: '[REPLACE: website project example or before-and-after, shared with permission]'
+faq:
+  heading: 'Custom website design and development for small businesses: FAQ'
+  items:
+    - question: What does custom website design and development for small businesses include?
+      answer: >-
+        It covers planning your pages, designing a site around your brand, building it with fast and accessible code, setting up SEO foundations and lead capture, and launching it properly. Unlike a template, every page is designed for your services and customers.
+    - question: How long does it take to build a small business website?
+      answer: >-
+        Most small business sites take several weeks from kickoff to launch, depending on the number of pages and how ready your content is. You'll get a timeline after our planning call.
+    - question: Will I be able to update my website myself?
+      answer: >-
+        Yes, if you'd like to. I can set up an easy way for you to edit text and images, or handle updates for you as part of ongoing management.
+    - question: Do you redesign existing websites?
+      answer: >-
+        Yes. A redesign starts with a review of what's already working on your current site, including pages that rank in search, so you keep that value and redirects are set up properly at launch.
+    - question: Is SEO included in website development?
+      answer: >-
+        SEO foundations are built in: fast pages, clean structure, titles and descriptions, structured data, and a sitemap. Ongoing SEO work, like content and local search, is available as a separate service.
+relatedServices:
+  - search-engine-optimization
+  - paid-search
+blogCategory: web-development
+leadMagnets:
+  - slug: website-launch-checklist
+    title: Small Business Website Launch Checklist
+    description: Everything to check before and after launch so nothing breaks and search engines find you.
+  - slug: website-conversion-audit
+    title: Website Conversion Audit Worksheet
+    description: Score your current site on the details that turn visitors into calls and form fills.
+cta:
+  heading: Ready for a website that works as hard as you do?
+  text: Book a free call and tell me what you want your website to do for your business.

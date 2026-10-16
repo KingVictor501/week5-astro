@@ -91,7 +91,7 @@ export default function RoiCalculator({ ctaHref }: Props) {
       {/* Collapsed content is inert: not focusable, not read by screen readers. */}
       <div id="roi-panel" class="roi-panel" inert={!open}>
         <div class="roi-panel-inner">
-          <form class="roi-form" noValidate onSubmit={(e) => e.preventDefault()}>
+          <div class="roi-form">
             <fieldset>
               <legend class="visually-hidden">Your ad account numbers</legend>
               <div class="roi-fields">
@@ -173,7 +173,7 @@ export default function RoiCalculator({ ctaHref }: Props) {
                 </div>
               </div>
             </fieldset>
-          </form>
+          </div>
 
           <div class="roi-results" aria-labelledby="roi-results-title" role="group">
             <h3 id="roi-results-title">Your estimate</h3>
