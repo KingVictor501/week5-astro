@@ -1,0 +1,146 @@
+/* Listen player island. Prefixed `listen-` because framework-component CSS is global. */
+
+/* Reserves the pill's space in the page so the article doesn't jump when the
+   player detaches into the sticky mini player. */
+.listen-slot {
+  min-height: 3.25rem;
+}
+
+.listen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-raised);
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* Playing or paused: becomes a mini player pinned under the site header. */
+.listen-active {
+  position: fixed;
+  z-index: 45;
+  top: calc(var(--header-height) + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(42rem, calc(100% - 2 * var(--space-3)));
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.listen-play {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 var(--space-4) 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-heading);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.listen-icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.listen-duration {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-regular);
+}
+
+.listen-btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-heading);
+  cursor: pointer;
+}
+
+.listen-progress {
+  display: grid;
+  flex: 1 1 10rem;
+  gap: 2px;
+  min-width: 8rem;
+}
+
+.listen-progress progress {
+  width: 100%;
+  height: 0.5rem;
+  accent-color: var(--color-primary);
+}
+
+.listen-time {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.listen-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.listen-field select {
+  min-height: 2.75rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+.listen-voice {
+  max-width: 12rem;
+}
+
+.listen-follow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.listen-follow input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-primary);
+}
+
+/* Paragraph currently being read (only when "Follow along" is on). */
+.prose [data-listen-current] {
+  border-radius: var(--radius-sm);
+  background: #fff1c2;
+  box-shadow: 0 0 0 0.3em #fff1c2;
+  color: #0f1c2e;
+}
+
+:root[data-theme='dark'] .prose [data-listen-current] {
+  background: #3b3416;
+  box-shadow: 0 0 0 0.3em #3b3416;
+  color: #f1f5fb;
+}

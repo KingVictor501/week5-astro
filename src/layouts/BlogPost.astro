@@ -3,6 +3,7 @@ import type { MarkdownHeading } from 'astro';
 import AuthorBox from '../components/blog/AuthorBox.astro';
 import CtaPopup from '../components/blog/CtaPopup.astro';
 import TableOfContents from '../components/blog/TableOfContents.astro';
+import ListenPlayer from '../components/islands/react/ListenPlayer';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -119,9 +120,9 @@ const popup = leadMagnet
         fetchpriority="high"
         decoding="async"
       />
-      <!-- Section 8 mount point: the "Listen to this post" player island goes here. -->
+      <!-- "Listen to this post" player (React island). Hides itself if speechSynthesis is unsupported. -->
       <div class="listen-mount" data-listen-mount>
-        <slot name="listen" />
+        <ListenPlayer client:idle />
       </div>
     </header>
 

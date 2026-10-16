@@ -10,7 +10,7 @@ const label = title ?? (type === 'tip' ? 'Tip' : 'Note');
 ---
 
 <aside class={`callout callout-${type}`} aria-label={label}>
-  <p class="callout-title">{label}</p>
+  <p class="callout-title" data-no-listen>{label}</p>
   <div class="callout-body"><slot /></div>
 </aside>
 
