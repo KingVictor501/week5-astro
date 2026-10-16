@@ -1,27 +1,48 @@
 ---
 // In-article image for MDX posts: explicit size (no layout shift), lazy-loaded, optional caption.
+// `align` floats the image so text wraps around it ("right" by default); "full" spans the column.
+// On narrow screens every image is full width, since wrapped text would be too cramped to read.
 export interface Props {
   src: string;
   alt: string;
   width: number;
   height: number;
   caption?: string;
+  align?: 'right' | 'left' | 'full';
 }
 
-const { src, alt, width, height, caption } = Astro.props;
+const { src, alt, width, height, caption, align = 'right' } = Astro.props;
 if (!src.startsWith('https://loremflickr.com/') || !/[?&]lock=\d+/.test(src)) {
   throw new Error(`BlogImage: use https://loremflickr.com/{w}/{h}/{keywords}?lock={n} (got ${src})`);
 }
 ---
 
-<figure class="blog-figure">
+<figure class={`blog-figure blog-figure-${align}`}>
   <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
   {caption && <figcaption>{caption}</figcaption>}
 </figure>
 
 <style>
   .blog-figure {
-    margin: var(--space-6) 0;
+    margin: var(--space-5) 0;
+  }
+
+  @media (min-width: 40rem) {
+    .blog-figure-right,
+    .blog-figure-left {
+      width: min(42%, 18rem);
+      margin-block: 0.4rem var(--space-4);
+    }
+
+    .blog-figure-right {
+      float: right;
+      margin-left: var(--space-5);
+    }
+
+    .blog-figure-left {
+      float: left;
+      margin-right: var(--space-5);
+    }
   }
 
   img {
@@ -34,7 +55,7 @@ if (!src.startsWith('https://loremflickr.com/') || !/[?&]lock=\d+/.test(src)) {
   figcaption {
     margin-top: var(--space-2);
     color: var(--color-text-muted);
-    font-size: var(--text-sm);
-    text-align: center;
+    font-size: var(--text-xs);
+    line-height: 1.4;
   }
 </style>

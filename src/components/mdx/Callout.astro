@@ -16,6 +16,8 @@ const label = title ?? (type === 'tip' ? 'Tip' : 'Note');
 
 <style>
   .callout {
+    /* Sit beside floated images instead of running underneath them. */
+    display: flow-root;
     margin: var(--space-6) 0;
     padding: var(--space-4) var(--space-5);
     border-left: 4px solid var(--color-primary);

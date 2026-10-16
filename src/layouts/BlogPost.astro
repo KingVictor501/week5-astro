@@ -110,19 +110,9 @@ const popup = leadMagnet
         <span aria-hidden="true">·</span>
         <span>{readingTime} min read</span>
       </p>
-      <img
-        class="post-hero"
-        src={featuredImage.src}
-        alt={featuredImage.alt}
-        width={featuredImage.width}
-        height={featuredImage.height}
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
       <!-- "Listen to this post" player (React island). Hides itself if speechSynthesis is unsupported. -->
       <div class="listen-mount" data-listen-mount>
-        <ListenPlayer client:idle />
+        <ListenPlayer client:idle words={wordCount} />
       </div>
     </header>
 
@@ -133,6 +123,18 @@ const popup = leadMagnet
 
       <div class="post-body">
         <div class="prose">
+          <!-- Featured image: floats right so the opening text wraps around it (full width on phones). -->
+          <figure class="post-featured">
+            <img
+              src={featuredImage.src}
+              alt={featuredImage.alt}
+              width={featuredImage.width}
+              height={featuredImage.height}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </figure>
           <slot />
           <!-- Halfway marker for the CTA pop-up (positioned at 50% of the article body). -->
           <div id="read-halfway" class="halfway" aria-hidden="true"></div>
@@ -215,21 +217,13 @@ const popup = leadMagnet
     font-size: var(--text-sm);
   }
 
-  .post-hero {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    margin-top: var(--space-5);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-  }
 
   .listen-mount:empty {
     display: none;
   }
 
   .listen-mount {
-    margin-top: var(--space-4);
+    margin-top: var(--space-2);
   }
 
   .post-grid {
@@ -275,8 +269,32 @@ const popup = leadMagnet
 
   .prose {
     position: relative;
+    /* Contain floated images inside the article body. */
+    display: flow-root;
     font-size: 1.125rem;
     line-height: 1.75;
+  }
+
+  .post-featured {
+    margin: 0 0 var(--space-5);
+  }
+
+  .post-featured img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  /* Wide enough for text to wrap comfortably beside the image. */
+  @media (min-width: 40rem) {
+    .post-featured {
+      float: right;
+      width: min(45%, 20rem);
+      margin: 0.4rem 0 var(--space-4) var(--space-5);
+    }
   }
 
   .halfway {
@@ -288,7 +306,9 @@ const popup = leadMagnet
     pointer-events: none;
   }
 
+  /* Each new section starts below any floated image from the previous one. */
   .prose :global(h2) {
+    clear: both;
     margin-top: var(--space-7);
     scroll-margin-top: calc(var(--header-height) + var(--space-4));
   }

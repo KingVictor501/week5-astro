@@ -55,7 +55,12 @@ function savePrefs(prefs: { rate: number; voice: string; follow: boolean }) {
   }
 }
 
-export default function ListenPlayer() {
+interface Props {
+  /** Article word count from the server, so the "· N min" estimate renders before hydration (no layout shift). */
+  words: number;
+}
+
+export default function ListenPlayer({ words }: Props) {
   // Assume support for the server render; the real check runs after hydration.
   const [supported, setSupported] = useState(true);
   const [status, setStatus] = useState<Status>('idle');
@@ -66,6 +71,9 @@ export default function ListenPlayer() {
   const [progress, setProgress] = useState(0);
   const [totalChars, setTotalChars] = useState(0);
   const [announcement, setAnnouncement] = useState('');
+  const [optionsOpen, setOptionsOpen] = useState(false);
+  const optionsButton = useRef<HTMLButtonElement>(null);
+  const optionsPanel = useRef<HTMLDivElement>(null);
 
   const chunks = useRef<Chunk[]>([]);
   const index = useRef(0);
@@ -216,10 +224,29 @@ export default function ListenPlayer() {
     if (!follow) clearHighlight();
   }, [follow]);
 
+  // Options pop-out: close on outside click or Escape (focus returns to its button).
+  useEffect(() => {
+    if (!optionsOpen) return;
+    const onPointer = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (!optionsPanel.current?.contains(target) && !optionsButton.current?.contains(target)) setOptionsOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setOptionsOpen(false);
+      optionsButton.current?.focus();
+    };
+    document.addEventListener('pointerdown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [optionsOpen]);
+
   if (!supported) return null;
 
   const percent = totalChars ? Math.min(100, Math.round((progress / totalChars) * 100)) : 0;
-  const words = Math.round(totalChars / 5.5);
   const minutesLeft = Math.max(1, Math.ceil(((words * (1 - percent / 100)) / WORDS_PER_MINUTE_AT_1X) / rate));
   const active = status !== 'idle';
   const playLabel = status === 'playing' ? 'Pause' : status === 'paused' ? 'Resume' : 'Listen to this post';
@@ -242,7 +269,7 @@ export default function ListenPlayer() {
           <span className="listen-play-text" aria-hidden="true">
             {active ? playLabel : 'Listen'}
           </span>
-          {!active && totalChars > 0 && (
+          {!active && words > 0 && (
             <span className="listen-duration" aria-hidden="true">
               · {minutesLeft} min
             </span>
@@ -283,30 +310,63 @@ export default function ListenPlayer() {
             </select>
           </label>
 
-          {voices.length > 1 && (
-            <label className="listen-field">
-              <span className="visually-hidden">Voice</span>
-              <select
-                className="listen-voice"
-                value={voiceURI}
-                onChange={(e) => {
-                  setVoiceURI(e.target.value);
-                  changeSetting({ voiceURI: e.target.value });
-                }}
-              >
-                {voices.map((v) => (
-                  <option key={v.voiceURI} value={v.voiceURI}>
-                    {v.name} ({v.lang})
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
+          {/* Voice + follow-along live in a pop-out, so the pill is the same size before and
+              after the browser reports its voices (no layout shift on hydration). */}
+          <button
+            type="button"
+            ref={optionsButton}
+            className="listen-btn"
+            aria-expanded={optionsOpen}
+            aria-controls="listen-options-panel"
+            aria-label="Listening options"
+            onClick={() => setOptionsOpen((o) => !o)}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M4 7h10M18 7h2M4 17h4M12 17h8"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <circle cx="16" cy="7" r="2.25" stroke="currentColor" strokeWidth="2" fill="none" />
+              <circle cx="10" cy="17" r="2.25" stroke="currentColor" strokeWidth="2" fill="none" />
+            </svg>
+          </button>
 
-          <label className="listen-follow">
-            <input type="checkbox" checked={follow} onChange={(e) => setFollow(e.target.checked)} />
-            Follow along
-          </label>
+          <div
+            id="listen-options-panel"
+            ref={optionsPanel}
+            className="listen-panel"
+            role="group"
+            aria-label="Listening options"
+            hidden={!optionsOpen}
+          >
+            {voices.length > 1 && (
+              <label className="listen-field listen-field-stacked">
+                Voice
+                <select
+                  className="listen-voice"
+                  value={voiceURI}
+                  onChange={(e) => {
+                    setVoiceURI(e.target.value);
+                    changeSetting({ voiceURI: e.target.value });
+                  }}
+                >
+                  {voices.map((v) => (
+                    <option key={v.voiceURI} value={v.voiceURI}>
+                      {v.name} ({v.lang})
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+
+            <label className="listen-follow">
+              <input type="checkbox" checked={follow} onChange={(e) => setFollow(e.target.checked)} />
+              Highlight and follow along
+            </label>
+          </div>
         </div>
       </section>
 
