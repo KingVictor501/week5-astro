@@ -23,6 +23,7 @@
   --color-primary-hover: #0b544e;
   --color-on-primary: #ffffff;
   --color-focus: #1d4ed8;
+  --color-error: #b42318;
   --color-header-bg: rgb(255 255 255 / 0.92);
 
   /* Typography (system fonts: zero network cost, no layout shift) */
@@ -96,6 +97,7 @@
   --color-primary-hover: #6fdccf;
   --color-on-primary: #04211d;
   --color-focus: #93c5fd;
+  --color-error: #ff9b8f;
   --color-header-bg: rgb(11 18 32 / 0.92);
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45), 0 1px 3px rgb(0 0 0 / 0.35);
@@ -120,6 +122,7 @@
     --color-primary-hover: #6fdccf;
     --color-on-primary: #04211d;
     --color-focus: #93c5fd;
+  --color-error: #ff9b8f;
     --color-header-bg: rgb(11 18 32 / 0.92);
   }
 }
