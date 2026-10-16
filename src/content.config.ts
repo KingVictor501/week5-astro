@@ -59,4 +59,28 @@ const services = defineCollection({
   }),
 });
 
-export const collections = { services };
+// Blog posts: one MDX (or Markdown) file per post; the file name is the URL slug.
+// Reading time is calculated from the body in src/lib/blog.ts, not stored in frontmatter.
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: z
+    .object({
+      title: z.string().max(70),
+      description: z.string().min(70).max(160),
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      category: z.enum(BLOG_CATEGORIES.map((c) => c.slug) as [string, ...string[]]),
+      tags: z.array(z.string()).default([]),
+      type: z.enum(['article', 'case-study']).default('article'),
+      featuredImage: loremflickr(1200, 675),
+      /** Pin as the featured post on the blog index (otherwise the newest post is featured). */
+      featured: z.boolean().default(false),
+      draft: z.boolean().default(false),
+    })
+    .refine((post) => !post.updatedDate || post.updatedDate >= post.pubDate, {
+      message: 'updatedDate cannot be earlier than pubDate',
+      path: ['updatedDate'],
+    }),
+});
+
+export const collections = { services, blog };

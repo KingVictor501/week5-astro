@@ -1,0 +1,39 @@
+---
+// Highlighted tip or note inside an MDX post.
+export interface Props {
+  title?: string;
+  type?: 'tip' | 'note';
+}
+
+const { title, type = 'tip' } = Astro.props;
+const label = title ?? (type === 'tip' ? 'Tip' : 'Note');
+---
+
+<aside class={`callout callout-${type}`} aria-label={label}>
+  <p class="callout-title">{label}</p>
+  <div class="callout-body"><slot /></div>
+</aside>
+
+<style>
+  .callout {
+    margin: var(--space-6) 0;
+    padding: var(--space-4) var(--space-5);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+  }
+
+  .callout-note {
+    border-left-color: var(--color-link);
+  }
+
+  .callout-title {
+    margin: 0 0 var(--space-1);
+    color: var(--color-heading);
+    font-weight: var(--weight-bold);
+  }
+
+  .callout-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

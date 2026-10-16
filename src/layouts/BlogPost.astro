@@ -1,0 +1,364 @@
+---
+import type { MarkdownHeading } from 'astro';
+import AuthorBox from '../components/blog/AuthorBox.astro';
+import CtaPopup from '../components/blog/CtaPopup.astro';
+import TableOfContents from '../components/blog/TableOfContents.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import JsonLd from '../components/JsonLd.astro';
+import LatestPosts from '../components/home/LatestPosts.astro';
+import { BOOK_A_CALL_PATH, OWNER_NAME, type BlogCategory, type Service } from '../consts';
+import type { BlogPost, PostSummary } from '../lib/blog';
+import { blogPostingSchema, breadcrumbSchema, type Crumb } from '../lib/schema';
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  post: BlogPost;
+  headings: MarkdownHeading[];
+  readingTime: number;
+  wordCount: number;
+  category: BlogCategory;
+  service: Service;
+  related: PostSummary[];
+  /** First published lead magnet for the matching service, if any. */
+  leadMagnet?: { slug: string; title: string };
+}
+
+const { post, headings, readingTime, wordCount, category, service, related, leadMagnet } = Astro.props;
+const { title, description, pubDate, updatedDate, featuredImage, tags, type } = post.data;
+const path = `/blog/${post.id}`;
+const bookHref = `${BOOK_A_CALL_PATH}?service=${service.slug}`;
+
+const crumbs: Crumb[] = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: category.name, path: `/blog/category/${category.slug}` },
+  { name: title, path },
+];
+
+const structuredData = [
+  blogPostingSchema(
+    {
+      title,
+      description,
+      path,
+      image: featuredImage.src,
+      datePublished: pubDate,
+      dateModified: updatedDate,
+      section: category.name,
+      keywords: tags,
+      wordCount,
+      authorName: OWNER_NAME,
+    },
+    Astro.site!,
+  ),
+  breadcrumbSchema(crumbs, Astro.site!),
+];
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const popup = leadMagnet
+  ? {
+      eyebrow: 'Free resource',
+      heading: `Get the ${leadMagnet.title}`,
+      text: `A practical companion to this article, free for small business owners.`,
+      href: `/lp/${leadMagnet.slug}`,
+      linkText: 'Get it free',
+      secondary: { href: `/${service.slug}`, text: `About ${service.name.toLowerCase()}` },
+    }
+  : {
+      eyebrow: `${service.name} help`,
+      heading: 'Want a second set of eyes on this?',
+      text: `Book a free call and I'll share the biggest ${service.name.toLowerCase()} opportunities I see for your business.`,
+      href: bookHref,
+      linkText: 'Book a free call',
+      secondary: { href: `/${service.slug}`, text: `See ${service.name.toLowerCase()} services` },
+    };
+---
+
+<BaseLayout title={title} description={description} image={{ ...featuredImage }} type="article">
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://loremflickr.com" />
+    <meta property="article:published_time" content={pubDate.toISOString()} />
+    {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+    <meta property="article:section" content={category.name} />
+    <JsonLd data={structuredData} />
+  </Fragment>
+
+  <article class="post" aria-labelledby="post-title">
+    <header class="container post-header">
+      <Breadcrumbs crumbs={crumbs} />
+      <p class="post-kicker">
+        <a href={`/blog/category/${category.slug}`}>{category.name}</a>
+        {type === 'case-study' && <span class="post-type">Case study</span>}
+      </p>
+      <h1 id="post-title">{title}</h1>
+      <p class="post-meta">
+        <span>By <a href="/about">{OWNER_NAME}</a></span>
+        <span aria-hidden="true">·</span>
+        <span>Published <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time></span>
+        {
+          updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Updated <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time></span>
+            </>
+          )
+        }
+        <span aria-hidden="true">·</span>
+        <span>{readingTime} min read</span>
+      </p>
+      <img
+        class="post-hero"
+        src={featuredImage.src}
+        alt={featuredImage.alt}
+        width={featuredImage.width}
+        height={featuredImage.height}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <!-- Section 8 mount point: the "Listen to this post" player island goes here. -->
+      <div class="listen-mount" data-listen-mount>
+        <slot name="listen" />
+      </div>
+    </header>
+
+    <div class="container post-grid">
+      <div class="post-toc">
+        <TableOfContents headings={headings} />
+      </div>
+
+      <div class="post-body">
+        <div class="prose">
+          <slot />
+          <!-- Halfway marker for the CTA pop-up (positioned at 50% of the article body). -->
+          <div id="read-halfway" class="halfway" aria-hidden="true"></div>
+        </div>
+
+        {
+          tags.length > 0 && (
+            <ul class="post-tags" role="list" aria-label="Tags">
+              {tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+
+        <aside class="post-service" aria-labelledby="post-service-title">
+          <h2 id="post-service-title">Need help with {service.name.toLowerCase()}?</h2>
+          <p>{service.summary}</p>
+          <div class="post-service-actions">
+            <a class="btn btn-primary" href={bookHref}>Book a free call</a>
+            <a href={`/${service.slug}`}>Explore {service.name.toLowerCase()} services</a>
+          </div>
+        </aside>
+
+        <AuthorBox />
+      </div>
+    </div>
+  </article>
+
+  <LatestPosts
+    posts={related}
+    heading="Related articles"
+    viewAllHref={`/blog/category/${category.slug}`}
+    viewAllText={`More ${category.name} articles`}
+    emptyText={`More ${category.name.toLowerCase()} articles are on the way.`}
+  />
+
+  <CtaBand
+    heading={`Ready to put ${service.name.toLowerCase()} to work?`}
+    text="Book a free call and tell me what you're trying to achieve. You'll leave with clear next steps."
+    href={bookHref}
+  />
+
+  <CtaPopup {...popup} />
+</BaseLayout>
+
+<style>
+  .post-header {
+    padding-top: var(--space-5);
+    max-width: 52rem;
+  }
+
+  .post-kicker {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    margin: var(--space-5) 0 var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .post-kicker a {
+    text-decoration: none;
+  }
+
+  .post-type {
+    padding: 0 var(--space-2);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    color: var(--color-text-muted);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .post-hero {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin-top: var(--space-5);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .listen-mount:empty {
+    display: none;
+  }
+
+  .listen-mount {
+    margin-top: var(--space-4);
+  }
+
+  .post-grid {
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+  }
+
+  @media (min-width: 64rem) {
+    .post-grid {
+      grid-template-columns: minmax(0, 46rem) 16rem;
+      justify-content: center;
+      gap: var(--space-7);
+    }
+
+    .post-toc {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .post-toc > :global(nav) {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-5));
+    }
+
+    .post-body {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .post-header {
+      max-width: calc(46rem + 16rem + var(--space-7));
+    }
+  }
+
+  .post-body {
+    display: grid;
+    gap: var(--space-6);
+    min-width: 0;
+  }
+
+  .prose {
+    position: relative;
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+
+  .halfway {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-7);
+    scroll-margin-top: calc(var(--header-height) + var(--space-4));
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--space-6);
+    scroll-margin-top: calc(var(--header-height) + var(--space-4));
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: var(--space-5);
+    margin: 0 0 var(--space-4);
+  }
+
+  .prose :global(li + li) {
+    margin-top: var(--space-2);
+  }
+
+  .prose :global(blockquote) {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-4);
+    border-left: 4px solid var(--color-border-strong);
+    color: var(--color-text-muted);
+  }
+
+  .prose :global(code) {
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .post-tags li {
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+  }
+
+  .post-service {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-top: 4px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+  }
+
+  .post-service h2 {
+    font-size: var(--text-xl);
+  }
+
+  .post-service-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+  }
+
+  .post-service-actions a:not(.btn) {
+    font-weight: var(--weight-semibold);
+  }
+</style>

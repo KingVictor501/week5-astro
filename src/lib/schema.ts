@@ -104,3 +104,50 @@ export function personSchema(
     ...(sameAs.length > 0 && { sameAs }),
   };
 }
+
+export function blogPostingSchema(
+  {
+    title,
+    description,
+    path,
+    image,
+    datePublished,
+    dateModified,
+    section,
+    keywords,
+    wordCount,
+    authorName,
+  }: {
+    title: string;
+    description: string;
+    path: string;
+    image: string;
+    datePublished: Date;
+    dateModified?: Date;
+    section: string;
+    keywords: string[];
+    wordCount: number;
+    authorName: string;
+  },
+  site: URL,
+) {
+  const url = new URL(path, site).href;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    headline: title,
+    description,
+    url,
+    mainEntityOfPage: url,
+    image: [image],
+    datePublished: datePublished.toISOString(),
+    dateModified: (dateModified ?? datePublished).toISOString(),
+    author: { '@type': 'Person', '@id': personId(site), name: authorName, url: new URL('/about', site).href },
+    publisher: { '@id': organizationId(site) },
+    articleSection: section,
+    ...(keywords.length > 0 && { keywords: keywords.join(', ') }),
+    wordCount,
+    inLanguage: 'en-US',
+  };
+}

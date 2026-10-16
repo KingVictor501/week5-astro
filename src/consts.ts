@@ -85,19 +85,53 @@ export interface BlogCategory {
   name: string;
   /** Slug of the matching service page. */
   service: string;
+  /** Intro paragraph for the category page. */
+  intro: string;
 }
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
-  { slug: 'technical-seo', name: 'Technical SEO', service: 'search-engine-optimization' },
-  { slug: 'paid-search', name: 'Paid Search', service: 'paid-search' },
-  { slug: 'social-media-marketing', name: 'Social Media Marketing', service: 'social-media-marketing' },
+  {
+    slug: 'technical-seo',
+    name: 'Technical SEO',
+    service: 'search-engine-optimization',
+    intro:
+      'Practical guides to the technical side of search: site speed, crawling and indexing, structured data, and the fixes that help Google understand your small business website.',
+  },
+  {
+    slug: 'paid-search',
+    name: 'Paid Search',
+    service: 'paid-search',
+    intro:
+      'How to get more leads from Google Ads without wasting budget: keyword strategy, negative keywords, landing pages, and conversion tracking for small businesses.',
+  },
+  {
+    slug: 'social-media-marketing',
+    name: 'Social Media Marketing',
+    service: 'social-media-marketing',
+    intro:
+      'Ideas and how-tos for social media that brings in customers, from content planning and community management to social ads that reach the right people.',
+  },
   {
     slug: 'marketing-analytics-and-dashboards',
     name: 'Marketing Analytics & Dashboards',
     service: 'marketing-analytics-and-dashboards',
+    intro:
+      'Make sense of your marketing data: Google Analytics 4, conversion tracking, KPIs worth watching, and dashboards that show which channels actually work.',
   },
-  { slug: 'ai-entrepreneurship', name: 'AI for Entrepreneurs', service: 'ai-entrepreneurship' },
-  { slug: 'web-development', name: 'Web Development', service: 'website-development-and-management' },
+  {
+    slug: 'ai-entrepreneurship',
+    name: 'AI for Entrepreneurs',
+    service: 'ai-entrepreneurship',
+    intro:
+      'Practical ways entrepreneurs can use AI and automation in their marketing, including content workflows, CRM and email follow-up, and keeping a human touch.',
+  },
+  {
+    slug: 'web-development',
+    name: 'Web Development',
+    service: 'website-development-and-management',
+    intro:
+      'Building and running a small business website that turns visitors into leads: speed, accessibility, design, and the details that make people get in touch.',
+  },
 ];
 
 export const BOOK_A_CALL_PATH = '/book-a-call';

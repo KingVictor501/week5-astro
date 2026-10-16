@@ -1,27 +1,80 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import JsonLd from '../../../components/JsonLd.astro';
+import LatestPosts from '../../../components/home/LatestPosts.astro';
+import { BLOG_CATEGORIES, BOOK_A_CALL_PATH, SERVICES } from '../../../consts';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { BLOG_CATEGORIES, SERVICES, type BlogCategory } from '../../../consts';
+import { getPostsByCategory } from '../../../lib/blog';
+import { breadcrumbSchema, type Crumb } from '../../../lib/schema';
 
-export const getStaticPaths = (() =>
-  BLOG_CATEGORIES.map((category) => ({ params: { category: category.slug }, props: { category } }))) satisfies GetStaticPaths;
+export const getStaticPaths = (async () =>
+  Promise.all(
+    BLOG_CATEGORIES.map(async (category) => ({
+      params: { category: category.slug },
+      props: {
+        category,
+        service: SERVICES.find((s) => s.slug === category.service)!,
+        posts: await getPostsByCategory(category.slug, Infinity),
+      },
+    })),
+  )) satisfies GetStaticPaths;
 
-interface Props {
-  category: BlogCategory;
-}
-
-const { category } = Astro.props;
-const service = SERVICES.find((s) => s.slug === category.service);
+const { category, service, posts } = Astro.props;
+const path = `/blog/category/${category.slug}`;
+const crumbs: Crumb[] = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: category.name, path },
+];
 ---
 
-<BaseLayout
-  title={`${category.name} Articles`}
-  description={`Articles about ${category.name.toLowerCase()} for small business owners and marketers.`}
->
-  <section class="container section">
-    <h1>{category.name} Articles</h1>
-    <p class="placeholder-note">Placeholder: posts in this category are listed in a later section.</p>
-    {service && <p>Related service: <a href={`/${service.slug}`}>{service.name} services</a></p>}
-    <p><a href="/blog">Back to all articles</a></p>
+<BaseLayout title={`${category.name} Articles for Small Businesses`} description={category.intro}>
+  <JsonLd slot="head" data={breadcrumbSchema(crumbs, Astro.site!)} />
+
+  <section class="section category-hero" aria-labelledby="category-title">
+    <div class="container">
+      <Breadcrumbs crumbs={crumbs} />
+      <h1 id="category-title">{category.name} articles</h1>
+      <p class="category-intro">{category.intro}</p>
+      <p class="category-service">
+        Want hands-on help? <a href={`/${service.slug}`}>Explore {service.name.toLowerCase()} services</a>
+      </p>
+    </div>
   </section>
+
+  <LatestPosts
+    posts={posts}
+    heading={`All ${category.name} articles`}
+    viewAllHref="/blog"
+    viewAllText="All articles"
+    emptyText={`${category.name} articles are on the way.`}
+  />
+
+  <CtaBand
+    heading={`Need help with ${service.name.toLowerCase()}?`}
+    text="Book a free call and get clear, practical next steps for your business."
+    href={`${BOOK_A_CALL_PATH}?service=${service.slug}`}
+  />
 </BaseLayout>
+
+<style>
+  .category-hero {
+    padding-bottom: 0;
+  }
+
+  .category-hero h1 {
+    margin-top: var(--space-5);
+  }
+
+  .category-intro {
+    max-width: 62ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .category-service {
+    font-weight: var(--weight-semibold);
+  }
+</style>

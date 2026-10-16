@@ -1,0 +1,228 @@
+---
+// Slide-in CTA shown once per session when the reader passes the halfway marker
+// (#read-halfway, placed by the post layout at 50% of the article body).
+// Not an interstitial: a small card (bottom sheet on phones, capped height), never full-screen.
+// It doesn't steal focus; it's announced politely and closes with Esc or the close button.
+export interface Props {
+  eyebrow: string;
+  heading: string;
+  text: string;
+  href: string;
+  linkText: string;
+  secondary?: { href: string; text: string };
+}
+
+const { eyebrow, heading, text, href, linkText, secondary } = Astro.props;
+---
+
+<cta-popup>
+  <aside class="cta-pop" aria-labelledby="cta-pop-title" hidden data-pop>
+    <button type="button" class="cta-pop-close" data-close aria-label="Close suggestion">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"></path>
+      </svg>
+    </button>
+    <p class="cta-pop-eyebrow">{eyebrow}</p>
+    <h2 id="cta-pop-title">{heading}</h2>
+    <p class="cta-pop-text">{text}</p>
+    <div class="cta-pop-actions">
+      <a class="btn btn-primary" href={href}>{linkText}</a>
+      {secondary && <a href={secondary.href}>{secondary.text}</a>}
+    </div>
+  </aside>
+  <div class="visually-hidden" aria-live="polite" data-announce></div>
+</cta-popup>
+
+<style>
+  .cta-pop {
+    position: fixed;
+    z-index: 40;
+    inset: auto var(--space-3) var(--space-3);
+    max-height: 45vh;
+    overflow-y: auto;
+    padding: var(--space-5);
+    padding-right: var(--space-7);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(calc(100% + var(--space-5)));
+    opacity: 0;
+    transition:
+      transform 300ms var(--ease-out),
+      opacity 300ms var(--ease-out);
+  }
+
+  @media (min-width: 40rem) {
+    .cta-pop {
+      inset: auto var(--space-5) var(--space-5) auto;
+      width: 22rem;
+      max-height: 60vh;
+    }
+  }
+
+  .cta-pop[data-open] {
+    transform: none;
+    opacity: 1;
+  }
+
+  /* Reduced motion: appear in place, no slide. */
+  @media (prefers-reduced-motion: reduce) {
+    .cta-pop {
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .cta-pop-close {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  .cta-pop-close:hover {
+    background: var(--color-surface);
+  }
+
+  .cta-pop-eyebrow {
+    margin: 0 0 var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-lg);
+  }
+
+  .cta-pop-text {
+    font-size: var(--text-sm);
+  }
+
+  .cta-pop-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .cta-pop-actions a:not(.btn) {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+</style>
+
+<script>
+  const SESSION_KEY = 'cta-popup-shown';
+
+  const alreadyShown = () => {
+    try {
+      return sessionStorage.getItem(SESSION_KEY) === '1';
+    } catch {
+      return false;
+    }
+  };
+
+  const markShown = () => {
+    try {
+      sessionStorage.setItem(SESSION_KEY, '1');
+    } catch {
+      // Storage blocked: it may show again on another page, which is acceptable.
+    }
+  };
+
+  class CtaPopup extends HTMLElement {
+    private observer?: IntersectionObserver;
+    private lastFocusOutside: HTMLElement | null = null;
+
+    connectedCallback() {
+      const marker = document.getElementById('read-halfway');
+      if (!marker || alreadyShown()) return;
+
+      this.observer = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        // Fire when the marker is on screen, or already scrolled past (fast scroll / anchor jump).
+        if (entry.isIntersecting || entry.boundingClientRect.top < 0) this.show();
+      });
+      this.observer.observe(marker);
+    }
+
+    disconnectedCallback() {
+      this.teardown();
+    }
+
+    private get pop() {
+      return this.querySelector<HTMLElement>('[data-pop]')!;
+    }
+
+    private show() {
+      this.observer?.disconnect();
+      if (alreadyShown()) return;
+      markShown();
+
+      // Where the reader is right now; focusin keeps this current while the card is open.
+      const active = document.activeElement as HTMLElement | null;
+      if (active && active !== document.body) this.lastFocusOutside = active;
+
+      const pop = this.pop;
+      pop.hidden = false;
+      // Next frame so the slide-in transition runs from the hidden position.
+      requestAnimationFrame(() => requestAnimationFrame(() => pop.setAttribute('data-open', '')));
+
+      const title = pop.querySelector('h2')?.textContent ?? '';
+      this.querySelector('[data-announce]')!.textContent = `Suggestion: ${title}. Press Escape to dismiss.`;
+
+      this.querySelector('[data-close]')!.addEventListener('click', this.close);
+      document.addEventListener('keydown', this.onKeydown);
+      document.addEventListener('focusin', this.onFocusIn);
+    }
+
+    // Remember where the reader was, so closing from inside the card puts focus back there.
+    private onFocusIn = (event: FocusEvent) => {
+      const target = event.target as HTMLElement;
+      if (!this.pop.contains(target)) this.lastFocusOutside = target;
+    };
+
+    private onKeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !this.pop.hidden) this.close();
+    };
+
+    private close = () => {
+      const pop = this.pop;
+      const focusWasInside = pop.contains(document.activeElement);
+      pop.removeAttribute('data-open');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setTimeout(() => (pop.hidden = true), reduced ? 0 : 300);
+      this.querySelector('[data-announce]')!.textContent = '';
+      this.teardown();
+
+      if (focusWasInside) {
+        const fallback = document.getElementById('main');
+        (this.lastFocusOutside && document.contains(this.lastFocusOutside) ? this.lastFocusOutside : fallback)?.focus({
+          preventScroll: true,
+        });
+      }
+    };
+
+    private teardown() {
+      this.observer?.disconnect();
+      document.removeEventListener('keydown', this.onKeydown);
+      document.removeEventListener('focusin', this.onFocusIn);
+    }
+  }
+
+  if (!customElements.get('cta-popup')) customElements.define('cta-popup', CtaPopup);
+</script>

@@ -1,18 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { BLOG_CATEGORIES } from '../../consts';
+import BlogIndex from '../../components/blog/BlogIndex.astro';
+import { getPublishedPosts, paginate, pickFeatured, toSummary } from '../../lib/blog';
+
+const posts = await getPublishedPosts();
+const featured = pickFeatured(posts);
+// The featured post leads page 1, so it isn't repeated in the paginated list.
+const pages = paginate(posts.filter((p) => p !== featured));
 ---
 
-<BaseLayout
-  title="Digital Marketing Blog for Small Businesses"
-  description="Practical articles on SEO, paid search, social media, analytics dashboards, AI automation, and web development for small businesses."
->
-  <section class="container section">
-    <h1>Digital Marketing Blog for Small Businesses</h1>
-    <p class="placeholder-note">Placeholder: posts and the filter are built in a later section.</p>
-    <h2>Categories</h2>
-    <ul>
-      {BLOG_CATEGORIES.map((category) => <li><a href={`/blog/category/${category.slug}`}>{category.name} articles</a></li>)}
-    </ul>
-  </section>
-</BaseLayout>
+<BlogIndex
+  allPosts={posts.map(toSummary)}
+  pagePosts={pages[0].map(toSummary)}
+  featured={featured ? toSummary(featured) : null}
+  current={1}
+  last={pages.length}
+/>

@@ -1,0 +1,40 @@
+---
+// In-article image for MDX posts: explicit size (no layout shift), lazy-loaded, optional caption.
+export interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+}
+
+const { src, alt, width, height, caption } = Astro.props;
+if (!src.startsWith('https://loremflickr.com/') || !/[?&]lock=\d+/.test(src)) {
+  throw new Error(`BlogImage: use https://loremflickr.com/{w}/{h}/{keywords}?lock={n} (got ${src})`);
+}
+---
+
+<figure class="blog-figure">
+  <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .blog-figure {
+    margin: var(--space-6) 0;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  figcaption {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    text-align: center;
+  }
+</style>

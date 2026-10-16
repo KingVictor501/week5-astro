@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
+import mdx from '@astrojs/mdx';
 import preact from '@astrojs/preact';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -16,6 +17,8 @@ export default defineConfig({
     // tsconfig defaults JSX types to React; Preact files add a jsxImportSource pragma.
     preact({ include: ['**/preact/**/*.{jsx,tsx}'] }),
     react({ include: ['**/react/**/*.{jsx,tsx}'] }),
+    // Blog posts are MDX so they can hold images and components.
+    mdx(),
     sitemap({
       // Lead-magnet landing pages are noindex and stay out of the sitemap.
       filter: (page) => !new URL(page).pathname.startsWith('/lp/'),

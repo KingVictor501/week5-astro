@@ -1,0 +1,41 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getEntry, render } from 'astro:content';
+import BlogImage from '../../components/mdx/BlogImage.astro';
+import Callout from '../../components/mdx/Callout.astro';
+import { SERVICES } from '../../consts';
+import BlogPost from '../../layouts/BlogPost.astro';
+import { categoryFor, countWords, getPostsByCategory, getPublishedPosts, readingTime } from '../../lib/blog';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  return Promise.all(
+    posts.map(async (post) => {
+      const category = categoryFor(post.data.category);
+      const service = SERVICES.find((s) => s.slug === category.service)!;
+      const serviceEntry = await getEntry('services', service.slug);
+      const leadMagnet = serviceEntry?.data.leadMagnets.find((m) => m.published);
+      const related = await getPostsByCategory(category.slug, 3, post.id);
+      return { params: { slug: post.id }, props: { post, category, service, related, leadMagnet } };
+    }),
+  );
+}) satisfies GetStaticPaths;
+
+const { post, category, service, related, leadMagnet } = Astro.props;
+const { Content, headings } = await render(post);
+const minutes = readingTime(post.body);
+const wordCount = countWords(post.body);
+---
+
+<BlogPost
+  post={post}
+  headings={headings}
+  readingTime={minutes}
+  wordCount={wordCount}
+  category={category}
+  service={service}
+  related={related}
+  leadMagnet={leadMagnet}
+>
+  <Content components={{ BlogImage, Callout }} />
+</BlogPost>

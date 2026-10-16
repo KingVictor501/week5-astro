@@ -2,14 +2,14 @@
 import CtaBand from '../components/CtaBand.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Hero from '../components/home/Hero.astro';
-import LatestPosts, { type PostSummary } from '../components/home/LatestPosts.astro';
+import LatestPosts from '../components/home/LatestPosts.astro';
 import ServiceCards from '../components/home/ServiceCards.astro';
 import RoiCalculator from '../components/islands/preact/RoiCalculator';
 import { BOOK_A_CALL_PATH, SERVICES, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLatestPosts } from '../lib/blog';
 
-// TODO(blog section): replace with the 3 newest entries from the blog content collection.
-const latestPosts: PostSummary[] = [];
+const latestPosts = await getLatestPosts(3);
 
 const siteURL = new URL('/', Astro.site).href;
 const webSite = {

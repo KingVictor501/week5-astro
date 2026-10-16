@@ -1,0 +1,65 @@
+---
+import { OWNER_NAME } from '../../consts';
+
+// Built only from the About-page facts. [REPLACE: headshot] matches the About page placeholder.
+const headshot = {
+  src: 'https://loremflickr.com/160/160/portrait,professional?lock=5002',
+  alt: `Placeholder portrait standing in for ${OWNER_NAME}'s headshot`,
+};
+---
+
+<aside class="author" aria-labelledby="author-title">
+  <img src={headshot.src} alt={headshot.alt} width="80" height="80" loading="lazy" decoding="async" />
+  <div>
+    <h2 id="author-title">Written by {OWNER_NAME}</h2>
+    <p>
+      Air Force veteran with more than 12 years of experience, including digital marketing leadership. Former Big Tech
+      Digital Marketing Manager and Webmaster, CDMP, and Google Analytics and Meta certified, with a Master of Science in
+      Digital Audiences Strategy from Arizona State University. Now building AI and automation solutions for marketing.
+    </p>
+    <a href="/about">More about {OWNER_NAME}</a>
+  </div>
+</aside>
+
+<style>
+  .author {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  img {
+    flex: none;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-pill);
+    object-fit: cover;
+    background: var(--color-surface-raised);
+  }
+
+  @media (min-width: 40rem) {
+    img {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+
+  h2 {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-lg);
+  }
+
+  p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  a {
+    font-weight: var(--weight-semibold);
+  }
+</style>

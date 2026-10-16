@@ -1,11 +1,6 @@
 ---
-export interface PostSummary {
-  title: string;
-  description: string;
-  href: string;
-  date: Date;
-  image: { src: string; alt: string; width: number; height: number };
-}
+import type { PostSummary } from '../../lib/blog';
+export type { PostSummary };
 
 export interface Props {
   posts: PostSummary[];
@@ -48,7 +43,10 @@ const formatDate = (date: Date) =>
                 decoding="async"
               />
               <div class="post-body">
-                <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+                <p class="meta">
+                  <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+                  {post.readingTime && <span> · {post.readingTime} min read</span>}
+                </p>
                 <h3>
                   <a href={post.href}>{post.title}</a>
                 </h3>
@@ -118,7 +116,8 @@ const formatDate = (date: Date) =>
     padding: var(--space-4) var(--space-5) var(--space-5);
   }
 
-  time {
+  .meta {
+    margin: 0;
     color: var(--color-text-muted);
     font-size: var(--text-xs);
   }
