@@ -50,8 +50,11 @@ export const EMPTY_LEAD: LeadValues = {
 };
 
 // Local part: letters, digits and . _ % + - (no leading, trailing or double dots).
-// Domain: one or more labels, then a letters-only ending such as .com or .co.uk.
+// Domain: one or more labels, then one of the accepted endings below.
 const EMAIL_RE = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
+/** The only email endings the forms accept. Add to this list to allow more. */
+export const EMAIL_ENDINGS = ['com', 'gov', 'edu', 'org', 'mil', 'net', 'us', 'co', 'io'];
+const EMAIL_ENDINGS_TEXT = new Intl.ListFormat('en', { type: 'disjunction' }).format(EMAIL_ENDINGS.map((e) => `.${e}`));
 const HOST_RE = /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/i;
 // Names: letters (any language), spaces, and . ' ’ - only.
 const NAME_RE = /^[\p{L}\p{M}][\p{L}\p{M} .'’-]*$/u;
@@ -70,6 +73,8 @@ const allSameChar = (text: string) => /^(.)\1*$/su.test(text.replace(/\s/g, ''))
 function emailError(email: string): string | undefined {
   if (!email) return 'Enter your email address.';
   if (email.length > 254 || !EMAIL_RE.test(email)) return 'Enter an email address like name@example.com.';
+  const ending = email.slice(email.lastIndexOf('.') + 1).toLowerCase();
+  if (!EMAIL_ENDINGS.includes(ending)) return `Use an email address ending in ${EMAIL_ENDINGS_TEXT}.`;
   return undefined;
 }
 
