@@ -82,7 +82,9 @@ With nothing typed, the bar shows quick actions (book a call, jump to a service,
 
 Both forms share the same validation and error handling (`src/lib/lead.ts`). An empty submit shows an error next to each field that needs one and moves focus to the first one. A valid submit shows a success message.
 
-The forms are meant to send through [Formspree](https://formspree.io). Until the `PUBLIC_FORMSPREE_ENDPOINT` environment variable is set, they run in **demo mode**: nothing is sent, and the page says so. Landing pages show a placeholder in place of the download link. In demo mode you can test failures with `?simulate=` in the URL (the values are in `SIMULATIONS` in `src/lib/lead.ts`).
+The forms send through [Formspree](https://formspree.io). The endpoint is set as the default for `PUBLIC_FORMSPREE_ENDPOINT` in `astro.config.mjs`. It isn't a secret (the browser needs it to send the form), so it doesn't need to be set in Vercel. Setting that variable overrides it. Landing pages still show a placeholder in place of the download link.
+
+Without an endpoint, the forms run in **demo mode**: nothing is sent, the page says so, and you can test failures with `?simulate=` in the URL (the values are in `SIMULATIONS` in `src/lib/lead.ts`).
 
 ## Third-party script audit
 
@@ -116,5 +118,4 @@ The site never invents clients, testimonials or results. Anything not yet known 
 - `CONTACT_EMAIL`, `OWNER_NAME` and `SOCIAL_LINKS` in `src/consts.ts`
 - The headshot on the About page
 - The lead magnet download files (`file` in each `src/content/services/*.yaml`)
-- `PUBLIC_FORMSPREE_ENDPOINT` (set it in Vercel's environment variables)
 - The placeholder photos, including the `og:image` share images

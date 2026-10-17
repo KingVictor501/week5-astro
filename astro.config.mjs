@@ -67,9 +67,15 @@ export default defineConfig({
   ],
   env: {
     schema: {
-      // Formspree form endpoint, e.g. https://formspree.io/f/abcdwxyz.
-      // Unset = the Book a Call form runs in demo mode (nothing is sent).
-      PUBLIC_FORMSPREE_ENDPOINT: envField.string({ context: 'client', access: 'public', optional: true }),
+      // Formspree form endpoint for the Book a Call and lead magnet forms. It isn't a secret:
+      // the browser needs it to send the form, so it lives here instead of in Vercel's settings.
+      // Setting PUBLIC_FORMSPREE_ENDPOINT overrides it. Remove the default to go back to demo mode.
+      PUBLIC_FORMSPREE_ENDPOINT: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+        default: 'https://formspree.io/f/xyekoqyl',
+      }),
     },
   },
 });
