@@ -39,6 +39,7 @@ function PostCard({ post, featured = false }: { post: PostSummary; featured?: bo
         <p className="bb-card-kicker">
           {post.category?.name}
           {post.type === 'case-study' && <span className="bb-type">Case study</span>}
+          {post.type === 'news' && <span className="bb-type">News</span>}
         </p>
         <HeadingTag className="bb-card-title">
           <a href={post.href}>{post.title}</a>

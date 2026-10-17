@@ -1,0 +1,92 @@
+---
+title: 'How to Set Up Google Ads Conversion Tracking'
+description: 'A step-by-step guide to Google Ads conversion tracking for small businesses: track form fills, phone calls, and bookings so you know what each lead costs.'
+pubDate: 2026-03-03
+category: paid-search
+tags: ['Google Ads', 'conversion tracking', 'PPC']
+featuredImage:
+  src: 'https://loremflickr.com/1200/675/analytics,dashboard?lock=8008'
+  alt: 'A laptop displaying an advertising dashboard with conversion charts on a wooden desk'
+  width: 1200
+  height: 675
+---
+
+If you can't see which ads produce leads, you're guessing with your budget. Google Ads conversion tracking connects your spending to real results, like form submissions, phone calls, and bookings. It also gives Google's automated bidding the information it needs to find more people like your best customers.
+
+<Callout title="TL;DR">
+  Decide which actions count as leads, create a conversion action for each in Google Ads, install the tag (directly, through Google Tag Manager, or by importing from Google Analytics), set up call tracking, then test every conversion before you rely on the data.
+</Callout>
+
+## Step 1: Decide what counts as a conversion
+
+A conversion is any action that has real value to your business. For most small businesses, that means:
+
+- Contact or quote form submissions
+- Phone calls from your ads or website
+- Online bookings or appointment requests
+- Purchases, if you sell online
+
+Avoid counting low-value actions, like page views, as primary conversions. If they're mixed in, your numbers look better than reality and automated bidding chases the wrong thing.
+
+## Step 2: Create conversion actions in Google Ads
+
+In your Google Ads account, go to **Goals → Conversions** and create a new conversion action. Google's guide to [conversion measurement](https://support.google.com/google-ads/answer/1722022) explains each type. For each action, you'll choose:
+
+- **Category**, such as "Submit lead form" or "Phone call lead"
+- **Value**, if you can estimate what a lead is worth
+- **Count**, usually "One" for leads, so one person submitting a form twice counts once
+
+## Step 3: Install the tag
+
+You have three common options:
+
+1. **Install the Google tag directly** on your site and add an event snippet to your thank-you page or form.
+2. **Use Google Tag Manager**, which lets you manage tracking without editing site code each time. This is the most flexible option.
+3. **Import conversions from Google Analytics 4**, if you already track key events there.
+
+Whichever you choose, use a single method per conversion so actions aren't counted twice.
+
+<BlogImage
+  src="https://loremflickr.com/1200/700/website,form?lock=8108"
+  alt="A website contact form displayed on a laptop with a cursor over the submit button"
+  width={1200}
+  height={700}
+  caption="A dedicated thank-you page after each form makes conversions easy to track reliably."
+/>
+
+### Tip: use thank-you pages
+
+The simplest reliable setup sends people to a unique thank-you page after they submit a form. Tracking that page view as a conversion is easier to set up and troubleshoot than tracking button clicks.
+
+## Step 4: Track phone calls
+
+For many local businesses, phone calls are the most valuable leads. Track them in two places:
+
+- **Calls from ads**, using call assets with a Google forwarding number.
+- **Calls from your website**, where Google can swap the number on your site so calls from ad visitors are recorded. Google explains how to set up [tracking calls to a phone number on your website](https://support.google.com/google-ads/answer/6095883).
+
+Set a minimum call length so quick hang-ups and wrong numbers don't count as leads.
+
+## Step 5: Test every conversion
+
+Before trusting the data:
+
+1. Submit your own form and confirm the thank-you page loads.
+2. Use Google Tag Assistant to check the tag fires.
+3. Check the conversion action's status in Google Ads over the next day or two.
+4. Make a test call if you've set up call tracking.
+
+## Step 6: Review conversions weekly
+
+Once tracking works, your weekly routine changes. Instead of looking at clicks, compare **cost per conversion** across campaigns, ad groups, and keywords, and move budget toward what produces leads.
+
+## Common tracking mistakes
+
+- Counting the same lead twice through two different tags
+- Tracking a button click that fires even when the form has errors
+- Forgetting to update tracking after a website redesign
+- Including page views or scrolls as primary conversions
+
+## Where tracking fits
+
+Conversion tracking is the foundation every other optimization depends on, as our [complete guide to Google Ads for small business](/blog/google-ads-for-small-business-guide) explains. Once it's in place, you can confidently set a budget and improve results. If you'd like tracking set up and verified for you, it's the first step of our [Google Ads management services for small businesses](/paid-search).

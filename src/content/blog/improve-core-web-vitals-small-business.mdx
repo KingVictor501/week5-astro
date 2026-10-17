@@ -1,0 +1,80 @@
+---
+title: 'How to Improve Core Web Vitals on a Small Business Site'
+description: 'Learn how to improve Core Web Vitals on your small business website: what LCP, INP, and CLS measure and the fixes that make the biggest difference.'
+pubDate: 2026-04-09
+category: technical-seo
+tags: ['Core Web Vitals', 'site speed', 'technical SEO']
+featuredImage:
+  src: 'https://loremflickr.com/1200/675/speedometer,technology?lock=8003'
+  alt: 'A speedometer-style gauge on a screen representing website performance scores'
+  width: 1200
+  height: 675
+---
+
+A slow, jumpy website costs you customers before they read a word. Google measures that experience with three metrics called Core Web Vitals, and they're part of how it evaluates pages. If you want to improve Core Web Vitals, you don't need to become a developer. You need to know what each metric measures and which fixes matter most.
+
+<Callout title="TL;DR">
+  Core Web Vitals measure loading (LCP), responsiveness (INP), and visual stability (CLS). On small business sites, the biggest wins usually come from smaller images, fewer third-party scripts, explicit image sizes, and better hosting. Test your key pages on mobile first.
+</Callout>
+
+## The three metrics in plain English
+
+According to Google's [Web Vitals documentation](https://web.dev/articles/vitals), a page has a good experience when it meets these targets for most visits:
+
+| Metric | What it measures | Good target |
+|---|---|---|
+| Largest Contentful Paint (LCP) | How fast the main content appears | 2.5 seconds or less |
+| Interaction to Next Paint (INP) | How fast the page responds to taps and clicks | 200 ms or less |
+| Cumulative Layout Shift (CLS) | How much the layout jumps around | 0.1 or less |
+
+## How to check your scores
+
+Run your homepage and one key service page through PageSpeed Insights. Look at two sections:
+
+- **Field data** shows what real visitors experienced over recent weeks, if your site has enough traffic.
+- **Lab data** is a simulated test. It's useful for diagnosing problems, but field data is what counts.
+
+Test the mobile results first. That's how most customers see your site, and it's usually where problems show up.
+
+<BlogImage
+  src="https://loremflickr.com/1200/750/laptop,charts?lock=8103"
+  alt="A laptop on a desk displaying website performance charts and colored score indicators"
+  width={1200}
+  height={750}
+  caption="Field data reflects real visitors. Lab data helps you find the cause."
+/>
+
+## Fixing slow loading (LCP)
+
+The largest element on most small business pages is a hero image or a big headline. To speed it up:
+
+1. **Resize and compress images.** A photo straight off a phone can be many times larger than needed. Export images at the size they're displayed and use modern formats like WebP or AVIF.
+2. **Don't lazy-load the hero image.** Lazy loading is great for images further down the page, but the main image should load right away.
+3. **Cut render-blocking scripts.** Sliders, chat widgets, and multiple tracking tags all compete for the browser's attention early on.
+4. **Upgrade slow hosting.** If your server takes a long time to respond, every page starts late. Google's guide to [optimizing LCP](https://web.dev/articles/optimize-lcp) breaks down where the time goes.
+
+## Fixing sluggish responsiveness (INP)
+
+Poor INP usually means too much JavaScript is running when someone taps a button or opens a menu. Common fixes:
+
+- Remove plugins and widgets you no longer use.
+- Delay non-essential scripts, such as chat tools, until after the page loads or until someone interacts.
+- Replace heavy page builders on key pages with simpler templates.
+
+## Fixing layout shift (CLS)
+
+Layout shift happens when something loads late and pushes content down. It's the reason people accidentally tap the wrong button. To prevent it:
+
+- **Set width and height on every image and video** so the browser reserves space.
+- **Reserve space for ads, embeds, and banners** before they load.
+- **Avoid inserting pop-ups or banners above existing content** after the page has started rendering.
+
+## Prioritize by page value
+
+You don't need perfect scores on every page. Start with the pages that bring in leads: your homepage, top service pages, and contact or booking page. A noticeable improvement there is worth more than a perfect score on an old blog post.
+
+## Re-test, then monitor
+
+After each change, run PageSpeed Insights again to confirm it helped. Field data in Google Search Console updates more slowly, so give it a few weeks before judging results. Check your key pages every quarter, especially after adding new plugins or redesigning a page.
+
+Site speed is one part of a healthy site. Our [complete guide to technical SEO for small businesses](/blog/technical-seo-guide-for-small-businesses) covers crawling, indexing, and structured data too. If you'd like the fixes handled for you, our [SEO services for small businesses](/search-engine-optimization) include performance work as part of every technical audit.

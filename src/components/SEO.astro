@@ -7,11 +7,13 @@ export interface Props {
   image?: { src: string; alt: string; width: number; height: number };
   type?: 'website' | 'article';
   noindex?: boolean;
+  /** Use the title as-is, without the " | Doc's Digital Consulting" suffix (blog posts). */
+  bareTitle?: boolean;
 }
 
-const { title, description, image = DEFAULT_OG_IMAGE, type = 'website', noindex = false } = Astro.props;
+const { title, description, image = DEFAULT_OG_IMAGE, type = 'website', noindex = false, bareTitle = false } = Astro.props;
 
-const fullTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
+const fullTitle = bareTitle || title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
 
 // trailingSlash is 'never', so strip any trailing slash (except on the homepage)
 // to keep canonical URLs identical to the sitemap entries.

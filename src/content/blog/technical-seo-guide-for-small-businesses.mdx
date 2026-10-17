@@ -1,0 +1,146 @@
+---
+title: 'Technical SEO for Small Businesses: The Complete Guide'
+description: 'A plain-English guide to technical SEO for small business websites: crawling, indexing, speed, structured data, and the fixes that matter most.'
+pubDate: 2026-01-05
+category: technical-seo
+tags: ['technical SEO', 'Google Search Console', 'site speed', 'structured data']
+featuredImage:
+  src: 'https://loremflickr.com/1200/675/website,server?lock=8001'
+  alt: 'A small business owner reviewing website health reports on a laptop at a tidy desk'
+  width: 1200
+  height: 675
+---
+
+Technical SEO is the part of search engine optimization that happens behind the scenes. It doesn't involve writing blog posts or choosing keywords. It's about making sure Google can find your pages, load them quickly, understand what they're about, and show them to the right people.
+
+For a small business, technical problems are often the hidden reason a good website gets very little search traffic. This guide walks through each piece in plain English, explains what to check, and points you to deeper guides when you're ready to fix something.
+
+<Callout title="TL;DR">
+  Technical SEO for small business comes down to five jobs: let Google crawl your site, get your important pages indexed, keep pages fast on phones, describe your business with structured data, and keep your local information consistent. Check each one a few times a year and fix problems in order of impact.
+</Callout>
+
+## How search engines see your website
+
+Before a page can rank, it goes through three steps:
+
+1. **Crawling.** Google's crawler, Googlebot, follows links and sitemaps to discover pages.
+2. **Indexing.** Google reads the page, works out what it's about, and decides whether to store it in its index.
+3. **Ranking.** When someone searches, Google picks the most helpful indexed pages and orders them.
+
+Content and links mostly influence ranking. Technical SEO protects the first two steps. If a page is never crawled or never indexed, nothing else you do for it matters. Google's own [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) is a good companion to this article if you want the official view.
+
+## Crawlability: let Google in
+
+Crawl problems usually come from three places:
+
+- **A robots.txt file that blocks too much.** One wrong line can hide your entire site.
+- **Broken internal links.** Googlebot can't follow a link to a page that returns an error.
+- **Pages with no links pointing to them.** If nothing links to a page and it isn't in your sitemap, Google may never find it.
+
+An XML sitemap lists the pages you want found, and robots.txt tells crawlers where not to go. Both are small files with a big influence. Our guide to [XML sitemaps and robots.txt for small business sites](/blog/xml-sitemap-robots-txt-small-business) shows what each should contain.
+
+## Indexing: make sure the right pages count
+
+Crawling doesn't guarantee indexing. Google may skip pages it sees as duplicates, low value, or explicitly excluded with a `noindex` tag. The **Page indexing** report in Google Search Console shows which pages are indexed and why others aren't.
+
+Common culprits on small business sites:
+
+- A leftover `noindex` tag from when the site was being built
+- Several URLs showing the same content, such as `http://` and `https://` versions
+- Thin pages, like empty tag archives, that compete with your real pages
+
+When you find errors, work through them with our step-by-step guide to [fixing indexing errors in Google Search Console](/blog/fix-indexing-errors-google-search-console).
+
+<BlogImage
+  src="https://loremflickr.com/1200/700/analytics,report?lock=8101"
+  alt="A laptop screen showing a website report with charts for indexed and excluded pages"
+  width={1200}
+  height={700}
+  caption="The Page indexing report in Search Console is the quickest way to spot pages Google is skipping."
+/>
+
+## Speed and Core Web Vitals
+
+Google measures real-world page experience with three Core Web Vitals:
+
+- **Largest Contentful Paint (LCP):** how quickly the main content appears. Aim for 2.5 seconds or less.
+- **Interaction to Next Paint (INP):** how quickly the page responds to taps and clicks. Aim for 200 milliseconds or less.
+- **Cumulative Layout Shift (CLS):** how much the layout jumps while loading. Aim for 0.1 or less.
+
+These thresholds come from Google's [Web Vitals guidance](https://web.dev/articles/vitals). On small business sites, the usual problems are oversized images, too many third-party scripts, and slow hosting. Our guide to [improving Core Web Vitals on a small business site](/blog/improve-core-web-vitals-small-business) covers the fixes in order of impact.
+
+## Mobile-friendliness
+
+Google primarily uses the mobile version of your site for indexing and ranking. If your mobile pages hide content, load slowly, or make buttons hard to tap, that's the version Google judges.
+
+A quick test: open your site on your own phone and try to call you, book an appointment, or find your opening hours. Anything that feels fiddly is worth fixing.
+
+## Structured data
+
+Structured data is a small block of code that describes your business in a format search engines understand: your name, address, phone number, hours, and the services you offer. It doesn't directly raise rankings, but it helps Google understand your business and can make your results eligible for richer displays.
+
+For most local businesses, `LocalBusiness` markup is the place to start. Our [beginner's guide to local business schema markup](/blog/local-business-schema-markup-guide) includes a copy-and-adapt example.
+
+## Local signals
+
+If you serve customers in a specific area, your Google Business Profile matters as much as your website. Keep your name, address, and phone number identical everywhere they appear, choose accurate categories, and keep your hours current. Our guide on [how to optimize your Google Business Profile](/blog/optimize-google-business-profile) walks through each section.
+
+## HTTPS, URLs, and site structure
+
+A few foundations round out the technical picture:
+
+- **HTTPS everywhere.** Every page should load securely, and the `http://` version should redirect to it.
+- **Clean, readable URLs.** `/services/water-heater-repair` is clearer to people and search engines than `/page?id=482`.
+- **Logical structure.** Important pages should be reachable within a few clicks from your homepage, with descriptive internal links.
+
+## The most common technical SEO mistakes
+
+The same handful of problems show up on small business websites again and again. Most aren't complicated to fix once you know they're there.
+
+### Launching with search engines still blocked
+
+Developers often block search engines while a site is being built, using a `noindex` setting or a robots.txt rule. If nobody removes it at launch, the new site stays invisible. It's the first thing to check after any redesign.
+
+### Losing old pages in a redesign
+
+When a site is rebuilt, page addresses often change. Without redirects from the old URLs to the new ones, any search visibility the old pages had is lost, and visitors from old links land on error pages.
+
+### Heavy images and too many plugins
+
+Each plugin, widget, and tracking script adds code that has to load. A site that started fast can slow down over a few years as features pile up. A periodic cleanup often brings back much of the lost speed.
+
+### Duplicate and thin pages
+
+Location pages that only swap the city name, empty category archives, and near-identical service pages compete with each other and dilute your site's quality. Combine or improve them so each page has a clear, unique purpose.
+
+### Inconsistent business information
+
+Different phone numbers on your website, Google Business Profile, and directory listings make it harder for Google and customers to trust which details are correct.
+
+## How to prioritize fixes
+
+Not every issue deserves the same urgency. A simple way to decide what to fix first:
+
+| Priority | Fix first when… | Examples |
+|---|---|---|
+| High | Important pages can't be found or indexed | Site-wide noindex, robots.txt blocking, broken redirects after a redesign |
+| Medium | Pages are indexed but slow or hard to use | Poor Core Web Vitals on service pages, mobile usability problems |
+| Lower | Pages work but could be clearer to Google | Missing structured data, minor duplicate content, untidy URLs |
+
+Work from the top down. A single high-priority fix, like removing an accidental noindex tag, can matter more than months of content work.
+
+## A quarterly technical SEO routine
+
+You don't need to watch these every day. A short review every three months catches most problems early:
+
+1. Check the Page indexing report for new errors.
+2. Run your homepage and top service page through PageSpeed Insights.
+3. Confirm your sitemap was read successfully.
+4. Test one important page with the URL Inspection tool.
+5. Make sure your business hours and contact details are still accurate everywhere.
+
+For a faster first pass, try our [30-minute technical SEO check](/blog/30-minute-technical-seo-check).
+
+## When to bring in help
+
+You can handle many of these checks yourself. Outside help pays off when fixes involve code, hosting, redirects, or a site migration, where a small mistake can undo years of search visibility. If that's where you are, our [SEO services for small businesses](/search-engine-optimization) start with a full technical audit and a prioritized plan.

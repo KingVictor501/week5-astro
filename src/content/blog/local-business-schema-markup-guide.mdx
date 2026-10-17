@@ -1,0 +1,97 @@
+---
+title: 'Local Business Schema Markup: A Beginner’s Guide'
+description: 'What local business schema markup is, why it helps Google understand your business, and a simple example you can adapt and test today.'
+pubDate: 2026-05-27
+category: technical-seo
+tags: ['structured data', 'schema markup', 'local SEO']
+featuredImage:
+  src: 'https://loremflickr.com/1200/675/code,computer?lock=8004'
+  alt: 'Lines of website code on a monitor in a dimly lit office'
+  width: 1200
+  height: 675
+---
+
+Your website tells people what your business does, where you are, and when you're open. Local business schema markup tells search engines the same thing in a format they can read without guessing. It's a small addition that helps Google connect your website to your business.
+
+<Callout title="TL;DR">
+  Local business schema markup is a block of structured data (usually JSON-LD) that lists your business name, address, phone, hours, and website. Add it to your homepage or contact page, make sure it matches what's visible on the page, and test it with Google's Rich Results Test.
+</Callout>
+
+## What structured data actually is
+
+Structured data is code that labels information on your page. Instead of Google working out that "Mon–Fri 8–5" means opening hours, structured data says so directly. It removes ambiguity, which matters most for details customers rely on, like your phone number and when you're open.
+
+The vocabulary comes from Schema.org, a shared standard used by Google and other search engines. The format Google recommends is **JSON-LD**: a script block you add to the page that doesn't change how it looks.
+
+## What local business markup can include
+
+Google's [LocalBusiness structured data guide](https://developers.google.com/search/docs/appearance/structured-data/local-business) lists the properties it understands. The most useful for small businesses are:
+
+- **name**: your business name exactly as customers know it
+- **address**: street, city, region, postal code, and country
+- **telephone**: your main phone number
+- **url**: your website address
+- **openingHoursSpecification**: your regular hours
+- **geo**: latitude and longitude, if you have a physical location
+- **image**: a photo of your business or logo
+
+You can also choose a more specific type than `LocalBusiness`, such as `Plumber`, `Dentist`, or `Restaurant`, when one fits.
+
+<BlogImage
+  src="https://loremflickr.com/1200/700/developer,desk?lock=8104"
+  alt="A developer at a desk editing code on a laptop next to a notebook"
+  width={1200}
+  height={700}
+  caption="JSON-LD sits in your page's code and doesn't change what visitors see."
+/>
+
+## A simple example to adapt
+
+Here's a basic JSON-LD block for a fictional plumbing company. Replace every value with your own details:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Plumber",
+  "name": "Example Plumbing Co.",
+  "url": "https://www.example.com",
+  "telephone": "+1-555-010-0123",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main Street",
+    "addressLocality": "Springfield",
+    "addressRegion": "IL",
+    "postalCode": "62701",
+    "addressCountry": "US"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:00",
+    "closes": "17:00"
+  }]
+}
+```
+
+Wrap it in a `<script type="application/ld+json">` tag and add it to your homepage or contact page. Many website platforms and SEO plugins can generate this for you, so check your settings before adding it by hand.
+
+## Rules to follow
+
+- **Match what's on the page.** Your markup should describe information visitors can see. Don't add services, reviews, or hours that aren't shown.
+- **Keep it consistent.** Use the same name, address, and phone number as your Google Business Profile.
+- **Don't mark up fake reviews or ratings.** Self-serving review markup can lead to a manual action.
+- **Update it when details change.** Old hours in your markup are as unhelpful as old hours on your door.
+
+## Test before and after publishing
+
+Paste your page URL or code into Google's [Rich Results Test](https://search.google.com/test/rich-results). It shows which structured data Google detected and flags errors or missing recommended fields. After publishing, Google Search Console reports structured data issues across your whole site.
+
+## Where to add it
+
+Put your main LocalBusiness markup on the page that best represents your business, usually the homepage or contact page. You don't need it on every page. If you have several locations, give each location its own page with its own address, phone number, and hours, and add separate markup to each one. That way each location can be understood on its own instead of being blended together.
+
+## What to expect
+
+Structured data isn't a ranking shortcut. It helps Google understand your business accurately, which supports your other local SEO efforts, and it can make your pages eligible for enhanced search features. Think of it as removing guesswork.
+
+Structured data is one piece of a healthy site. See how it fits with crawling, speed, and indexing in our [technical SEO guide for small businesses](/blog/technical-seo-guide-for-small-businesses), and pair it with an [optimized Google Business Profile](/blog/optimize-google-business-profile). If you'd like structured data set up and validated across your site, it's included in our [technical SEO services for small businesses](/search-engine-optimization).

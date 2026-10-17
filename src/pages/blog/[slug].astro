@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { getEntry, render } from 'astro:content';
 import BlogImage from '../../components/mdx/BlogImage.astro';
 import Callout from '../../components/mdx/Callout.astro';
+import TableHeader from '../../components/mdx/TableHeader.astro';
 import { SERVICES } from '../../consts';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { categoryFor, countWords, getPostsByCategory, getPublishedPosts, readingTime } from '../../lib/blog';
@@ -37,5 +38,5 @@ const wordCount = countWords(post.body);
   related={related}
   leadMagnet={leadMagnet}
 >
-  <Content components={{ BlogImage, Callout }} />
+  <Content components={{ BlogImage, Callout, th: TableHeader }} />
 </BlogPost>

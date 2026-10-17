@@ -1,0 +1,7 @@
+---
+// Markdown table header cells get scope="col" so screen readers associate each
+// column header with its cells. Original attributes (e.g. alignment) pass through.
+const props = Astro.props;
+---
+
+<th scope="col" {...props}><slot /></th>

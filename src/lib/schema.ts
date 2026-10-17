@@ -117,6 +117,7 @@ export function blogPostingSchema(
     keywords,
     wordCount,
     authorName,
+    news = false,
   }: {
     title: string;
     description: string;
@@ -128,13 +129,15 @@ export function blogPostingSchema(
     keywords: string[];
     wordCount: number;
     authorName: string;
+    /** NewsArticle for posts about dated events; BlogPosting otherwise. */
+    news?: boolean;
   },
   site: URL,
 ) {
   const url = new URL(path, site).href;
   return {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': news ? 'NewsArticle' : 'BlogPosting',
     '@id': `${url}#article`,
     headline: title,
     description,

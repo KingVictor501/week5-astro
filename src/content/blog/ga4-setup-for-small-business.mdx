@@ -1,0 +1,92 @@
+---
+title: 'GA4 Setup for Small Business: Step by Step'
+description: 'A step-by-step GA4 setup for small business websites: create your property, install the tag, mark key events for leads, and check your data is accurate.'
+pubDate: 2026-03-23
+category: marketing-analytics-and-dashboards
+tags: ['Google Analytics 4', 'GA4', 'tracking']
+featuredImage:
+  src: 'https://loremflickr.com/1200/675/laptop,statistics?lock=8020'
+  alt: 'A laptop displaying website analytics with line graphs on a desk beside a notebook'
+  width: 1200
+  height: 675
+---
+
+Google Analytics 4 is free, powerful, and often set up in a way that hides what small business owners most want to know: where leads come from. A careful GA4 setup for small business takes about an hour and pays off every time you make a marketing decision.
+
+<Callout title="TL;DR">
+  Create a GA4 property and web data stream, install the Google tag (directly or with Google Tag Manager), turn on enhanced measurement, mark lead actions like form submissions as key events, exclude your own visits, link Google Ads and Search Console, and test everything before trusting the reports.
+</Callout>
+
+## Step 1: Create your GA4 property
+
+In Google Analytics, create a new property for your business. Choose your reporting time zone and currency carefully, since they affect how data is grouped. Then create a **web data stream** for your website address. Google's guide to [setting up Analytics for a website](https://support.google.com/analytics/answer/9304153) shows each screen.
+
+Use a business Google account that you control, not a personal account belonging to a former employee or agency. Add other people as users with the access level they need.
+
+## Step 2: Install the Google tag
+
+Your data stream gives you a measurement ID that starts with "G-". You can install it in one of three ways:
+
+1. **Through your website platform.** Many platforms have a field for your measurement ID. This is the easiest option.
+2. **With Google Tag Manager.** Tag Manager makes it easier to add and manage tracking later, including conversion tracking for ads.
+3. **Directly in your site's code**, in the head of every page.
+
+Use only one method. Installing the tag twice doubles your data.
+
+## Step 3: Turn on enhanced measurement
+
+Enhanced measurement automatically tracks useful interactions like scrolls, outbound link clicks, file downloads, and site search. It's on by default for new data streams. Check its settings and leave on what's useful to you.
+
+<BlogImage
+  src="https://loremflickr.com/1200/700/settings,computer?lock=8120"
+  alt="A person adjusting settings on a computer screen with toggles and configuration menus"
+  width={1200}
+  height={700}
+  caption="A few settings decide whether GA4 shows traffic or real results."
+/>
+
+## Step 4: Track and mark key events
+
+This is the step that turns GA4 from a traffic counter into a lead tracker. Decide which actions count as leads:
+
+- Contact or quote form submissions
+- Booking confirmations
+- Clicks on your phone number
+- Purchases, if you sell online
+
+The most reliable approach for forms is a dedicated thank-you page after submission. Create an event for views of that page, then mark it as a **key event** in GA4's admin settings. Key events are what GA4 uses to report results by channel.
+
+## Step 5: Exclude internal traffic
+
+Your own visits, and your team's, can distort the data on a small website. Define your office IP address as internal traffic and activate the filter, or ask your team to use a browser setting that excludes them.
+
+## Step 6: Set data retention
+
+GA4 keeps detailed event data for a limited time by default. In the data retention settings, choose the longest option available so you can compare periods in detailed reports.
+
+## Step 7: Link Google Ads and Search Console
+
+Linking Google Ads lets you see ad campaigns alongside other channels and import key events as ad conversions. Linking Search Console adds data about the Google searches that bring people to your site. Both take a few minutes in GA4's admin settings.
+
+## Step 8: Test everything
+
+Before relying on reports:
+
+1. Open GA4's **Realtime** report while visiting your site and confirm your visit appears.
+2. Submit your own form and check that the key event fires.
+3. Click your phone number on mobile and confirm the event records.
+4. Wait a day and check the standard reports for the same events.
+
+## Reports to check first
+
+Once data is flowing, start with:
+
+- **Traffic acquisition:** which channels bring visitors and key events
+- **Pages and screens:** which pages get the most views
+- **Key events:** how many leads you received and from where
+
+## Keep it healthy
+
+Recheck your key events after any website change, especially redesigns or new forms. Broken tracking is common and easy to miss.
+
+GA4 is the foundation of the system described in our [guide to marketing analytics for small business](/blog/marketing-analytics-for-small-business). If you'd like GA4 configured, tested, and connected to a dashboard you can actually use, our [marketing analytics dashboard services](/marketing-analytics-and-dashboards) handle it for you.

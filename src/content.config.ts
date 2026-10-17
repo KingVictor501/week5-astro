@@ -65,13 +65,16 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z
     .object({
-      title: z.string().max(70),
-      description: z.string().min(70).max(160),
+      /** SEO title: under 60 characters (used as the post's <title> with no brand suffix). */
+      title: z.string().max(59),
+      /** Meta description: under 155 characters. */
+      description: z.string().min(70).max(154),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       category: z.enum(BLOG_CATEGORIES.map((c) => c.slug) as [string, ...string[]]),
       tags: z.array(z.string()).default([]),
-      type: z.enum(['article', 'case-study']).default('article'),
+      /** "news" posts cover dated events and emit NewsArticle structured data. */
+      type: z.enum(['article', 'case-study', 'news']).default('article'),
       featuredImage: loremflickr(1200, 675),
       /** Pin as the featured post on the blog index (otherwise the newest post is featured). */
       featured: z.boolean().default(false),

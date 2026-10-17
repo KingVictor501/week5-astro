@@ -12,7 +12,7 @@ export interface PostSummary {
   image: { src: string; alt: string; width: number; height: number };
   category?: { slug: string; name: string };
   readingTime?: number;
-  type?: 'article' | 'case-study';
+  type?: 'article' | 'case-study' | 'news';
   tags?: string[];
 }
 

@@ -1,0 +1,97 @@
+---
+title: 'UTM Parameters: How to Track Every Campaign'
+description: 'Learn how UTM parameters work, how to build tagged links, and a simple naming system so small businesses can see which campaigns bring visitors and leads.'
+pubDate: 2026-08-12
+category: marketing-analytics-and-dashboards
+tags: ['UTM parameters', 'campaign tracking', 'Google Analytics 4']
+featuredImage:
+  src: 'https://loremflickr.com/1200/675/links,network?lock=8023'
+  alt: 'A web of connected lines and nodes on a screen representing tracked marketing links'
+  width: 1200
+  height: 675
+---
+
+You send a newsletter, post on social media, and run a partner promotion in the same week. Website traffic goes up. But which effort worked? Without UTM parameters, Google Analytics often can't tell you. With them, every campaign becomes measurable.
+
+<Callout title="TL;DR">
+  UTM parameters are tags added to links that tell Google Analytics where a visitor came from. Use utm_source, utm_medium, and utm_campaign on every link you share outside your website, follow a consistent lowercase naming system, keep a shared log, and never tag internal links.
+</Callout>
+
+## What UTM parameters are
+
+A UTM parameter is a short label added to the end of a URL. When someone clicks the link, Google Analytics reads the labels and records where the visit came from. Google explains this in its guide to [collecting campaign data with custom URLs](https://support.google.com/analytics/answer/10917952).
+
+A tagged link looks like this:
+
+```txt
+https://www.example.com/spring-offer?utm_source=newsletter&utm_medium=email&utm_campaign=spring-offer
+```
+
+The page is the same for visitors. Only your analytics sees the difference.
+
+## The parameters you need
+
+- **utm_source:** where the traffic comes from, such as `newsletter`, `facebook`, or `partner-site`
+- **utm_medium:** the type of channel, such as `email`, `social`, `paid-social`, or `referral`
+- **utm_campaign:** the specific campaign, such as `spring-offer` or `webinar-june`
+
+Two optional parameters can add detail:
+
+- **utm_content:** distinguishes versions, like two buttons in the same email
+- **utm_term:** identifies keywords, mainly for paid search outside Google Ads
+
+## When to use UTM parameters
+
+Tag links you share **outside** your website, including:
+
+- Email newsletters and automated emails
+- Organic social media posts and profile links
+- Paid social ads
+- Partner websites, sponsorships, and directories
+- QR codes on printed materials
+
+Google Ads can track its own campaigns automatically with auto-tagging, so you don't usually need UTMs there.
+
+<BlogImage
+  src="https://loremflickr.com/1200/700/email,laptop?lock=8123"
+  alt="A person writing an email newsletter on a laptop with links highlighted in the draft"
+  width={1200}
+  height={700}
+  caption="Tag every link in your newsletters so each email's results show up clearly."
+/>
+
+## When not to use them
+
+Never add UTM parameters to links between pages on your own website. Doing so overwrites the visitor's original source, so a visitor from search suddenly looks like they came from your homepage banner.
+
+## Build a simple naming system
+
+Inconsistent tags split your data. "Facebook," "facebook," and "fb" show up as three different sources. Agree on rules and stick to them:
+
+- Use **lowercase** for everything.
+- Use **hyphens** instead of spaces.
+- Use a **fixed list of mediums**: `email`, `social`, `paid-social`, `referral`, `display`, `print`.
+- Name campaigns clearly with a date or season when helpful: `spring-offer-2026`.
+
+## Keep a UTM log
+
+A shared spreadsheet with columns for the date, destination URL, source, medium, campaign, and the final tagged link helps everyone stay consistent. It also makes it easy to reuse links and look up what a campaign name meant months later.
+
+## Building tagged links
+
+You can build links by hand, use a spreadsheet formula, or use a URL builder tool. Whatever you use, test each link before sharing it to make sure the page loads correctly.
+
+Long tagged links can look messy in print or social posts. A link shortener or QR code keeps them tidy while preserving the tags.
+
+## Reading the results
+
+In Google Analytics 4, open the **Traffic acquisition** report and switch the dimension to session source, medium, or campaign. You'll see visits and key events for each tagged campaign, so you can compare which efforts produced leads.
+
+## Common mistakes
+
+- Mixing capitalization or spellings for the same source
+- Tagging internal links
+- Forgetting to tag links in automated emails
+- Using vague campaign names like "promo1"
+
+UTM tagging is a small habit that makes everything in our [guide to marketing analytics for small business](/blog/marketing-analytics-for-small-business) more accurate. It's also how we attribute social traffic in our guide to [measuring social media ROI](/blog/measure-social-media-roi). If you'd like campaign tracking set up and reported automatically, our [marketing analytics dashboard services](/marketing-analytics-and-dashboards) can help.

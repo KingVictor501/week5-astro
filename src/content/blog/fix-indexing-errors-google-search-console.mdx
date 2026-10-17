@@ -1,0 +1,81 @@
+---
+title: 'How to Fix Indexing Errors in Google Search Console'
+description: 'A practical guide to the Page indexing report: what common Search Console indexing errors mean and how small businesses can fix them step by step.'
+pubDate: 2026-08-31
+category: technical-seo
+tags: ['Google Search Console', 'indexing', 'technical SEO']
+featuredImage:
+  src: 'https://loremflickr.com/1200/675/magnifying,glass?lock=8006'
+  alt: 'A magnifying glass resting on a laptop keyboard next to a printed report'
+  width: 1200
+  height: 675
+---
+
+You've published a new service page, but it isn't showing up on Google. Before you rewrite it, check whether Google has indexed it at all. Google Search Console tells you exactly which pages are in Google's index and why others aren't. This guide explains how to fix indexing errors in Google Search Console without guesswork.
+
+<Callout title="TL;DR">
+  Open the Page indexing report, focus on pages you actually want in Google, read the reason listed for each, fix the cause (noindex tags, redirects, errors, duplicates, or thin content), then use URL Inspection to request indexing. Not every "not indexed" page is a problem.
+</Callout>
+
+## Start with the Page indexing report
+
+In Search Console, open **Indexing → Pages**. You'll see two numbers: indexed pages and pages that aren't indexed, with a list of reasons below. Google's [Page indexing report guide](https://support.google.com/webmasters/answer/7440203) explains each status.
+
+The most important mindset: **not every unindexed page is an error.** Old redirects, tracking-parameter URLs, and pages you deliberately excluded will appear here. Focus on pages you want people to find.
+
+## Common reasons and how to fix them
+
+### Excluded by "noindex" tag
+
+The page tells Google not to index it. If that's intentional, ignore it. If it's a page you want in search, remove the `noindex` tag. It often comes from a theme setting, an SEO plugin option, or a leftover from development.
+
+### Page with redirect
+
+The URL redirects somewhere else, so Google indexes the destination instead. This is normal for old URLs. Just make sure your internal links and sitemap point to the final URL, not the redirect.
+
+### Not found (404)
+
+The page doesn't exist. If it was deleted on purpose and has no replacement, that's fine. If it moved, add a redirect to the new location. If it should exist, restore it.
+
+### Server error (5xx)
+
+Google tried to load the page and your server failed. A few occasional errors aren't a crisis, but repeated ones point to hosting problems worth raising with your provider.
+
+<BlogImage
+  src="https://loremflickr.com/1200/700/office,computer?lock=8106"
+  alt="A person at an office desk reviewing a list of website URLs on a large monitor"
+  width={1200}
+  height={700}
+  caption="Work through pages you care about first, starting with service and contact pages."
+/>
+
+### Duplicate without user-selected canonical
+
+Google found several URLs with the same content and picked one. Choose your preferred version by adding a canonical tag, and make your internal links consistent.
+
+### Crawled – currently not indexed
+
+Google visited the page and decided not to index it, at least for now. This often means Google didn't see enough unique value. Improve the page with genuinely helpful content, link to it from relevant pages, and give it time.
+
+### Discovered – currently not indexed
+
+Google knows the URL exists but hasn't crawled it yet. On small sites, this usually resolves on its own. Stronger internal links help.
+
+### Blocked by robots.txt
+
+Your robots.txt file prevents crawling. Remove the rule if the page should be in search. Our guide to [XML sitemaps and robots.txt](/blog/xml-sitemap-robots-txt-small-business) explains what that file should contain.
+
+## Request indexing after you fix something
+
+Use the [URL Inspection tool](https://support.google.com/webmasters/answer/9012289) at the top of Search Console. Paste the page URL, then select **Test live URL** to confirm the fix worked. If it looks good, select **Request indexing**. This doesn't guarantee indexing, but it asks Google to recrawl the page.
+
+For fixes affecting many pages, use **Validate fix** in the Page indexing report so Google rechecks them as a group.
+
+## Prevent errors from coming back
+
+- Keep your sitemap limited to pages you want indexed.
+- Update internal links when you move or delete pages.
+- Check the Page indexing report every month or two.
+- Review indexing after any redesign, plugin change, or platform migration.
+
+Indexing is one link in the chain described in our [technical SEO guide for small businesses](/blog/technical-seo-guide-for-small-businesses). If the report shows more problems than you have time to untangle, our [SEO services for small businesses](/search-engine-optimization) include an indexing audit with a prioritized fix list.
