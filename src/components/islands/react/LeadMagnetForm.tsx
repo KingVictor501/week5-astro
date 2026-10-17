@@ -251,7 +251,15 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary btn-lg lead-submit" aria-disabled={submitting}>
+        {/* preventDefault on mousedown keeps focus in the current field, so its blur validation can't
+            add or remove an error message and shift this button out from under the pointer mid-click.
+            The submit handler validates every field anyway. */}
+        <button
+          type="submit"
+          className="btn btn-primary btn-lg lead-submit"
+          aria-disabled={submitting}
+          onMouseDown={(event) => event.preventDefault()}
+        >
           {submitting ? (
             <>
               <span className="lead-spinner" aria-hidden="true" />

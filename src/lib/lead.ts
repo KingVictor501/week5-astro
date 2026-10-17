@@ -49,12 +49,49 @@ export const EMPTY_LEAD: LeadValues = {
   _gotcha: '',
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Local part: letters, digits and . _ % + - (no leading, trailing or double dots).
+// Domain: one or more labels, then a letters-only ending such as .com or .co.uk.
+const EMAIL_RE = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
+const HOST_RE = /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/i;
+// Names: letters (any language), spaces, and . ' ’ - only.
+const NAME_RE = /^[\p{L}\p{M}][\p{L}\p{M} .'’-]*$/u;
+// Company names can also have digits and & , ( ) ! +
+const COMPANY_RE = /^[\p{L}\p{M}\p{N}][\p{L}\p{M}\p{N} .,'’&()!+-]*$/u;
+const PHONE_RE = /^\+?[\d\s().-]+$/;
+const LINK_RE = /https?:\/\/|www\./gi;
+const TAG_RE = /<[^>]+>/;
 export const MESSAGE_MAX = 2000;
+const MESSAGE_MIN = 10;
+const MESSAGE_MAX_LINKS = 2;
+
+/** True for filler like "aaaa" or "....": one character repeated. */
+const allSameChar = (text: string) => /^(.)\1*$/su.test(text.replace(/\s/g, ''));
 
 function emailError(email: string): string | undefined {
   if (!email) return 'Enter your email address.';
-  if (!EMAIL_RE.test(email)) return 'Enter an email address like name@example.com.';
+  if (email.length > 254 || !EMAIL_RE.test(email)) return 'Enter an email address like name@example.com.';
+  return undefined;
+}
+
+/** Shared by the name field here and the first-name field on the lead magnet form. */
+function nameError(name: string, max: number, label: string): string | undefined {
+  if (name.length > max) return `Keep your ${label} under ${max} characters.`;
+  if (name.length < 2 || !NAME_RE.test(name) || allSameChar(name)) {
+    return `Enter your ${label} using letters only (spaces, hyphens and apostrophes are fine).`;
+  }
+  return undefined;
+}
+
+function websiteError(website: string): string | undefined {
+  if (website.length > 200 || /\s/.test(website)) return 'Enter a website address like example.com.';
+  try {
+    const url = new URL(website.includes('://') ? website : `https://${website}`);
+    if (!/^https?:$/.test(url.protocol) || !HOST_RE.test(url.hostname) || url.username || url.password) {
+      throw new Error('bad url');
+    }
+  } catch {
+    return 'Enter a website address like example.com.';
+  }
   return undefined;
 }
 
@@ -62,21 +99,29 @@ export function validateLead(values: LeadValues, allowedServices: string[]): Lea
   const errors: LeadErrors = {};
   const name = values.name.trim();
   const email = values.email.trim();
+  const company = values.company.trim();
   const website = values.website.trim();
+  const message = values.message.trim();
 
   if (!name) errors.name = 'Enter your name.';
-  else if (name.length > 100) errors.name = 'Keep your name under 100 characters.';
+  else {
+    const badName = nameError(name, 100, 'name');
+    if (badName) errors.name = badName;
+  }
 
   const badEmail = emailError(email);
   if (badEmail) errors.email = badEmail;
 
-  if (website) {
-    try {
-      const url = new URL(website.includes('://') ? website : `https://${website}`);
-      if (!/^https?:$/.test(url.protocol) || !url.hostname.includes('.')) throw new Error('bad url');
-    } catch {
-      errors.website = 'Enter a website address like example.com.';
+  if (company) {
+    if (company.length > 100) errors.company = 'Keep your company name under 100 characters.';
+    else if (company.length < 2 || !COMPANY_RE.test(company) || allSameChar(company) || /www\./i.test(company)) {
+      errors.company = 'Enter your company name using letters and numbers.';
     }
+  }
+
+  if (website) {
+    const badWebsite = websiteError(website);
+    if (badWebsite) errors.website = badWebsite;
   }
 
   if (values.service && !allowedServices.includes(values.service)) errors.service = 'Choose a service from the list.';
@@ -86,12 +131,22 @@ export function validateLead(values: LeadValues, allowedServices: string[]): Lea
     errors.contactMethod = 'Choose how you would like me to contact you.';
   }
   if (values.contactMethod === 'phone') {
-    const digits = values.phone.replace(/\D/g, '');
+    const phone = values.phone.trim();
+    const digits = phone.replace(/\D/g, '');
     if (!digits) errors.phone = 'Enter a phone number so I can call you.';
-    else if (digits.length < 7 || digits.length > 15) errors.phone = 'Enter a valid phone number, including area code.';
+    else if (!PHONE_RE.test(phone) || digits.length < 10 || digits.length > 15 || allSameChar(digits)) {
+      errors.phone = 'Enter a valid phone number, including area code.';
+    }
   }
 
-  if (values.message.length > MESSAGE_MAX) errors.message = `Keep your message under ${MESSAGE_MAX} characters.`;
+  if (message) {
+    const links = message.match(LINK_RE)?.length ?? 0;
+    if (message.length > MESSAGE_MAX) errors.message = `Keep your message under ${MESSAGE_MAX} characters.`;
+    else if (message.length < MESSAGE_MIN || allSameChar(message) || !/\p{L}{2,}/u.test(message)) {
+      errors.message = `Write at least a short sentence (${MESSAGE_MIN} or more characters), or leave this blank.`;
+    } else if (TAG_RE.test(message)) errors.message = 'Remove any HTML or code from your message.';
+    else if (links > MESSAGE_MAX_LINKS) errors.message = `Include no more than ${MESSAGE_MAX_LINKS} links.`;
+  }
   return errors;
 }
 
@@ -217,12 +272,17 @@ export interface MagnetValues {
 
 export type MagnetField = Exclude<keyof MagnetValues, '_gotcha'>;
 export type MagnetErrors = Partial<Record<MagnetField, string>>;
-export const MAGNET_FIELDS: MagnetField[] = ['firstName', 'email'];
+/** Visual order of the lead magnet form (email first), used to focus the first invalid field. */
+export const MAGNET_FIELDS: MagnetField[] = ['email', 'firstName'];
 export const EMPTY_MAGNET: MagnetValues = { firstName: '', email: '', _gotcha: '' };
 
 export function validateMagnet(values: MagnetValues): MagnetErrors {
   const errors: MagnetErrors = {};
-  if (values.firstName.trim().length > 50) errors.firstName = 'Keep your first name under 50 characters.';
+  const firstName = values.firstName.trim();
+  if (firstName) {
+    const badName = nameError(firstName, 50, 'first name');
+    if (badName) errors.firstName = badName;
+  }
   const badEmail = emailError(values.email.trim());
   if (badEmail) errors.email = badEmail;
   return errors;

@@ -259,17 +259,18 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
               name="company"
               type="text"
               autoComplete="organization"
+              aria-invalid={errors.company ? true : undefined}
+              aria-describedby={describedBy('company')}
               value={values.company}
               onChange={update('company')}
+              onBlur={validateOnBlur('company')}
               ref={register('company')}
             />
+            {errorText('company')}
           </div>
 
           <div className="lead-field">
             <label htmlFor="lead-website">Website</label>
-            <p id="lead-website-hint" className="lead-hint">
-              For example, example.com
-            </p>
             <input
               id="lead-website"
               name="website"
@@ -277,7 +278,7 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
               inputMode="url"
               autoComplete="url"
               aria-invalid={errors.website ? true : undefined}
-              aria-describedby={describedBy('website', true)}
+              aria-describedby={describedBy('website')}
               value={values.website}
               onChange={update('website')}
               onBlur={validateOnBlur('website')}
@@ -404,7 +405,15 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary btn-lg lead-submit" aria-disabled={submitting}>
+        {/* preventDefault on mousedown keeps focus in the current field, so its blur validation can't
+            add or remove an error message and shift this button out from under the pointer mid-click.
+            The submit handler validates every field anyway. */}
+        <button
+          type="submit"
+          className="btn btn-primary btn-lg lead-submit"
+          aria-disabled={submitting}
+          onMouseDown={(event) => event.preventDefault()}
+        >
           {submitting ? (
             <>
               <span className="lead-spinner" aria-hidden="true" />
