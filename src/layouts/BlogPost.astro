@@ -81,7 +81,7 @@ const popup = leadMagnet
 
 <BaseLayout title={title} description={description} image={{ ...featuredImage }} type="article" bareTitle>
   <Fragment slot="head">
-    <!-- picsum.photos redirects each image to its fastly.picsum.photos CDN. -->
+    {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
     <link rel="preconnect" href="https://picsum.photos" />
     <link rel="preconnect" href="https://fastly.picsum.photos" />
     <meta property="article:published_time" content={pubDate.toISOString()} />
@@ -114,7 +114,7 @@ const popup = leadMagnet
         <span aria-hidden="true">·</span>
         <span>{readingTime} min read</span>
       </p>
-      <!-- "Listen to this post" player (React island). Hides itself if speechSynthesis is unsupported. -->
+      {/* "Listen to this post" player (React island). Hides itself if speechSynthesis is unsupported. */}
       <div class="listen-mount" data-listen-mount>
         <ListenPlayer client:idle words={wordCount} />
       </div>
@@ -127,7 +127,7 @@ const popup = leadMagnet
 
       <div class="post-body">
         <div class="prose">
-          <!-- Featured image: floats right so the opening text wraps around it (full width on phones). -->
+          {/* Featured image: floats right so the opening text wraps around it (full width on phones). */}
           <figure class="post-featured">
             <img
               src={featuredImage.src}
@@ -140,7 +140,7 @@ const popup = leadMagnet
             />
           </figure>
           <slot />
-          <!-- Halfway marker for the CTA pop-up (positioned at 50% of the article body). -->
+          {/* Halfway marker for the CTA pop-up (positioned at 50% of the article body). */}
           <div id="read-halfway" class="halfway" aria-hidden="true"></div>
         </div>
 
@@ -168,7 +168,7 @@ const popup = leadMagnet
     </div>
   </article>
 
-  <!-- Same column width as the article, so every section shares one left edge. -->
+  {/* Same column width as the article, so every section shares one left edge. */}
   <div class="post-after">
   <LatestPosts
     posts={related}

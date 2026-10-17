@@ -40,7 +40,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="lp-form">
-        <!-- client:load: the form is the page's only job, so it should work the moment the page opens. -->
+        {/* client:load: the form is the page's only job, so it should work the moment the page opens. */}
         <LeadMagnetForm
           client:load
           magnet={{ slug: magnet.slug, title: magnet.title, typeLabel, file: magnet.file }}

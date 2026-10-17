@@ -22,6 +22,8 @@ export const getStaticPaths = (async () =>
   )) satisfies GetStaticPaths;
 
 const { category, service, posts } = Astro.props;
+const longTitle = `${category.name} Articles for Small Businesses`;
+const title = longTitle.length <= 60 ? longTitle : `${category.name} Articles`;
 const path = `/blog/category/${category.slug}`;
 const crumbs: Crumb[] = [
   { name: 'Home', path: '/' },
@@ -30,7 +32,7 @@ const crumbs: Crumb[] = [
 ];
 ---
 
-<BaseLayout title={`${category.name} Articles for Small Businesses`} description={category.intro}>
+<BaseLayout title={title} description={category.intro}>
   <JsonLd slot="head" data={breadcrumbSchema(crumbs, Astro.site!)} />
 
   <section class="section category-hero" aria-labelledby="category-title">

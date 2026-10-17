@@ -14,7 +14,11 @@ export interface Props {
 
 const { title, description, image = DEFAULT_OG_IMAGE, type = 'website', noindex = false, bareTitle = false } = Astro.props;
 
-const fullTitle = bareTitle || title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
+// Add the brand suffix only when the whole title still fits in Google's ~60-character display;
+// otherwise the keyword title stands alone.
+const TITLE_MAX = 60;
+const branded = `${title} | ${SITE_TITLE}`;
+const fullTitle = bareTitle || title === SITE_TITLE || branded.length > TITLE_MAX ? title : branded;
 
 // No ".html" and no trailing slash (except the homepage), so canonical URLs
 // match the sitemap entries and the URLs Vercel serves.

@@ -23,11 +23,11 @@ const webSite = {
 ---
 
 <BaseLayout
-  title="Lead Generation for Small Businesses"
+  title="Small Business Lead Generation"
   description="Lead generation for small businesses through SEO, Google Ads, social media, analytics dashboards, AI, and website development. Book a free call."
 >
   <Fragment slot="head">
-    <!-- picsum.photos redirects each image to its fastly.picsum.photos CDN. -->
+    {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
     <link rel="preconnect" href="https://picsum.photos" />
     <link rel="preconnect" href="https://fastly.picsum.photos" />
     <JsonLd data={webSite} />
@@ -36,7 +36,7 @@ const webSite = {
   <Hero />
   <ServiceCards services={SERVICES} />
 
-  <!-- ROI calculator: Preact island, hydrated only when scrolled into view. -->
+  {/* ROI calculator: Preact island, hydrated only when scrolled into view. */}
   <section id="roi-calculator" class="section roi" aria-labelledby="roi-title">
     <div class="container">
       <RoiCalculator

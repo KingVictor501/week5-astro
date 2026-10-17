@@ -38,7 +38,7 @@ const structuredData = [
 
 <BaseLayout title={content.title} description={content.description} image={content.ogImage}>
   <Fragment slot="head">
-    <!-- picsum.photos redirects each image to its fastly.picsum.photos CDN. -->
+    {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
     <link rel="preconnect" href="https://picsum.photos" />
     <link rel="preconnect" href="https://fastly.picsum.photos" />
     <JsonLd data={structuredData} />

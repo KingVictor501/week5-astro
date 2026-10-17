@@ -116,7 +116,7 @@ const reasons = [
 
 <BaseLayout title={`About ${OWNER_NAME}`} description={description}>
   <Fragment slot="head">
-    <!-- picsum.photos redirects each image to its fastly.picsum.photos CDN. -->
+    {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
     <link rel="preconnect" href="https://picsum.photos" />
     <link rel="preconnect" href="https://fastly.picsum.photos" />
     <JsonLd data={structuredData} />
