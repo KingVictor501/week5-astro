@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist or has moved. Head back to the Doc's Digital Consulting homepage."
+  noindex
+>
+  <section class="container section not-found">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>Page not found</h1>
+    <p class="lede">The page you're looking for doesn't exist or has moved. Check the address, or head back to the homepage.</p>
+    <a class="btn btn-primary btn-lg" href="/">Return to Homepage</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+    padding-block: var(--space-9);
+  }
+
+  .code {
+    margin: 0;
+    font-size: clamp(4rem, 3rem + 6vw, 7rem);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+    color: var(--color-primary);
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  .lede {
+    max-width: 36rem;
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+</style>
