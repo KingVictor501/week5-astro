@@ -1,17 +1,133 @@
 ---
-import BlogIndex from '../../components/blog/BlogIndex.astro';
-import { getPublishedPosts, paginate, pickFeatured, toSummary } from '../../lib/blog';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import JsonLd from '../../components/JsonLd.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import BlogBrowser from '../../components/islands/react/BlogBrowser';
+import { BLOG_CATEGORIES } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, pickFeatured, toSummary, type PostSummary } from '../../lib/blog';
+import { breadcrumbSchema, type Crumb } from '../../lib/schema';
+import '../../styles/post-cards.css';
 
+// Every published post is rendered here as a static card, newest first (the featured
+// post leads). The BlogBrowser island filters them in place by toggling `hidden`.
 const posts = await getPublishedPosts();
-const featured = pickFeatured(posts);
-// The featured post leads page 1, so it isn't repeated in the paginated list.
-const pages = paginate(posts.filter((p) => p !== featured));
+const featuredPost = pickFeatured(posts);
+const featured = featuredPost ? toSummary(featuredPost) : null;
+const rest = posts.filter((p) => p !== featuredPost).map(toSummary);
+
+/** Lowercase text the island searches: title, description, category, and tags. */
+const searchText = (post: PostSummary) =>
+  [post.title, post.description, post.category?.name ?? '', ...(post.tags ?? [])].join(' ').toLowerCase();
+
+const crumbs: Crumb[] = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+];
 ---
 
-<BlogIndex
-  allPosts={posts.map(toSummary)}
-  pagePosts={pages[0].map(toSummary)}
-  featured={featured ? toSummary(featured) : null}
-  current={1}
-  last={pages.length}
-/>
+<BaseLayout
+  title="Digital Marketing Blog for Small Businesses"
+  description="Practical articles on SEO, Google Ads, social media, analytics dashboards, AI automation, and web development for small businesses."
+>
+  <JsonLd slot="head" data={breadcrumbSchema(crumbs, Astro.site!)} />
+
+  <section class="section blog-index" aria-labelledby="blog-title">
+    <div class="container">
+      <Breadcrumbs crumbs={crumbs} />
+      <h1 id="blog-title">Digital marketing blog for small businesses</h1>
+      <p class="blog-lead">
+        Practical, no-hype guides to getting more leads from search, ads, social media, data, AI, and your website.
+      </p>
+
+      <div class="bb">
+        <BlogBrowser
+          client:idle
+          targetId="blog-posts"
+          categories={BLOG_CATEGORIES.map(({ slug, name }) => ({ slug, name }))}
+        />
+
+        <div id="blog-posts" class="bb-posts">
+          {
+            featured && (
+              <div data-post data-category={featured.category?.slug} data-search={searchText(featured)}>
+                <PostCard post={featured} featured />
+              </div>
+            )
+          }
+          <h2 class="bb-list-title" data-filter-heading>Latest articles</h2>
+          <ul class="bb-grid" role="list">
+            {
+              rest.map((post) => (
+                <li data-post data-category={post.category?.slug} data-search={searchText(post)}>
+                  <PostCard post={post} />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <nav class="blog-topics" aria-labelledby="topics-title">
+        <h2 id="topics-title">Browse by topic</h2>
+        <ul role="list">
+          {
+            BLOG_CATEGORIES.map((c) => (
+              <li>
+                <a href={`/blog/category/${c.slug}`}>{c.name}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-index h1 {
+    margin-top: var(--space-5);
+  }
+
+  .blog-lead {
+    max-width: 60ch;
+    margin-bottom: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .bb {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .bb-posts {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .blog-topics {
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .blog-topics h2 {
+    font-size: var(--text-xl);
+  }
+
+  .blog-topics ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .blog-topics a {
+    display: inline-block;
+    padding-block: var(--space-2);
+    font-weight: var(--weight-semibold);
+  }
+</style>

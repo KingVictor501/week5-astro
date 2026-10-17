@@ -3,7 +3,7 @@ import { BLOG_CATEGORIES, type BlogCategory } from '../consts';
 
 export type BlogPost = CollectionEntry<'blog'>;
 
-/** Serializable post card data, shared by Astro components and the React blog island. */
+/** Post card data shared by the blog index, category pages, and related-post lists. */
 export interface PostSummary {
   title: string;
   description: string;
@@ -15,9 +15,6 @@ export interface PostSummary {
   type?: 'article' | 'case-study' | 'news';
   tags?: string[];
 }
-
-/** Posts per blog index page. Override at build time with BLOG_PAGE_SIZE=1 to preview pagination. */
-export const BLOG_PAGE_SIZE = Number(import.meta.env.BLOG_PAGE_SIZE) || 6;
 
 const WORDS_PER_MINUTE = 225;
 
@@ -72,12 +69,4 @@ export async function getPostsByCategory(category: string, limit = 3, excludeId?
 /** The pinned featured post, or the newest post when none is pinned. */
 export function pickFeatured(posts: BlogPost[]): BlogPost | undefined {
   return posts.find((p) => p.data.featured) ?? posts[0];
-}
-
-export const blogPageHref = (page: number) => (page <= 1 ? '/blog' : `/blog/page/${page}`);
-
-export function paginate<T>(items: T[], size = BLOG_PAGE_SIZE): T[][] {
-  const pages: T[][] = [];
-  for (let i = 0; i < items.length; i += size) pages.push(items.slice(i, i + size));
-  return pages.length > 0 ? pages : [[]];
 }

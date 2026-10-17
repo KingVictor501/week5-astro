@@ -1,0 +1,43 @@
+---
+// Static blog card for the /blog index. Rendered at build time; the BlogBrowser island
+// only shows or hides these cards (via `hidden`), it never re-renders them.
+import type { PostSummary } from '../../lib/blog';
+
+export interface Props {
+  post: PostSummary;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const Heading = featured ? 'h2' : 'h3';
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+---
+
+<article class:list={['bb-card', { 'bb-card-featured': featured }]}>
+  <img
+    src={post.image.src}
+    alt={post.image.alt}
+    width={post.image.width}
+    height={post.image.height}
+    loading={featured ? 'eager' : 'lazy'}
+    fetchpriority={featured ? 'high' : undefined}
+    decoding="async"
+  />
+  <div class="bb-card-body">
+    {featured && <p class="bb-featured-label">Featured</p>}
+    <p class="bb-card-kicker">
+      {post.category?.name}
+      {post.type === 'case-study' && <span class="bb-type">Case study</span>}
+      {post.type === 'news' && <span class="bb-type">News</span>}
+    </p>
+    <Heading class="bb-card-title">
+      <a href={post.href}>{post.title}</a>
+    </Heading>
+    <p class="bb-card-desc">{post.description}</p>
+    <p class="bb-card-meta">
+      <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+      {post.readingTime && ` · ${post.readingTime} min read`}
+    </p>
+  </div>
+</article>
