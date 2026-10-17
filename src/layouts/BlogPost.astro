@@ -81,7 +81,9 @@ const popup = leadMagnet
 
 <BaseLayout title={title} description={description} image={{ ...featuredImage }} type="article" bareTitle>
   <Fragment slot="head">
-    <link rel="preconnect" href="https://loremflickr.com" />
+    <!-- picsum.photos redirects each image to its fastly.picsum.photos CDN. -->
+    <link rel="preconnect" href="https://picsum.photos" />
+    <link rel="preconnect" href="https://fastly.picsum.photos" />
     <meta property="article:published_time" content={pubDate.toISOString()} />
     {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
     <meta property="article:section" content={category.name} />

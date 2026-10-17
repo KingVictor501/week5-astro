@@ -7,12 +7,12 @@ subhead: >-
 intro: >-
   If answering "which marketing is working?" means logging into five platforms and guessing, you're not alone. My marketing analytics dashboard services pull your website, ad, social, and lead data into one place, so every marketing decision starts with numbers you trust.
 hero:
-  src: https://loremflickr.com/1200/900/dashboard,chart?lock=3004
+  src: https://picsum.photos/id/53/1200/900
   alt: A business dashboard on a laptop screen with bar charts and trend lines for marketing performance
   width: 1200
   height: 900
 ogImage:
-  src: https://loremflickr.com/1200/630/dashboard,chart?lock=3104
+  src: https://picsum.photos/id/120/1200/630
   alt: Colorful data charts displayed on a computer screen
   width: 1200
   height: 630

@@ -6,7 +6,7 @@ export const SITE_DESCRIPTION =
 
 // Default social share image (1200x630 is the recommended Open Graph size).
 export const DEFAULT_OG_IMAGE = {
-  src: 'https://loremflickr.com/1200/630/marketing,office?lock=1001',
+  src: 'https://picsum.photos/id/0/1200/630',
   alt: 'A bright, modern office workspace with a laptop open on a desk',
   width: 1200,
   height: 630,

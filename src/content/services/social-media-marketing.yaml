@@ -7,12 +7,12 @@ subhead: >-
 intro: >-
   Posting whenever you have a spare minute rarely builds a following, and boosting random posts rarely brings in customers. My social media marketing services for small businesses give you a plan, a steady stream of content, and targeted ads that turn followers into website visits and leads.
 hero:
-  src: https://loremflickr.com/1200/900/social-media,smartphone?lock=3003
+  src: https://picsum.photos/id/42/1200/900
   alt: A small business owner scheduling social media posts on a smartphone at a cafe table
   width: 1200
   height: 900
 ogImage:
-  src: https://loremflickr.com/1200/630/social-media,smartphone?lock=3103
+  src: https://picsum.photos/id/109/1200/630
   alt: Hands holding a smartphone with a social media feed on screen
   width: 1200
   height: 630

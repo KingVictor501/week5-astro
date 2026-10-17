@@ -3,12 +3,14 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { BLOG_CATEGORIES } from './consts';
 
-const loremflickr = (width: number, height: number) =>
+// Placeholder photos from picsum.photos. A fixed /id/ keeps each image the same on every
+// build; give every image on the site its own id.
+const picsum = (width: number, height: number) =>
   z.object({
     src: z
       .url()
-      .refine((url) => url.startsWith(`https://loremflickr.com/${width}/${height}/`) && /[?&]lock=\d+/.test(url), {
-        message: `Must be https://loremflickr.com/${width}/${height}/{keywords}?lock={unique number}`,
+      .refine((url) => new RegExp(`^https://picsum\\.photos/id/\\d+/${width}/${height}$`).test(url), {
+        message: `Must be https://picsum.photos/id/{unique id}/${width}/${height}`,
       }),
     alt: z.string().min(15, 'Write descriptive alt text.'),
     width: z.literal(width),
@@ -28,8 +30,8 @@ const services = defineCollection({
     subhead: z.string(),
     /** First paragraph: must include the primary keyword (checked at build). */
     intro: z.string(),
-    hero: loremflickr(1200, 900),
-    ogImage: loremflickr(1200, 630),
+    hero: picsum(1200, 900),
+    ogImage: picsum(1200, 630),
     problem: z.object({ heading: z.string(), intro: z.string(), points: z.array(titledText).min(3).max(6) }),
     included: z.object({ heading: z.string(), items: z.array(titledText).min(4).max(8) }),
     process: z.object({ heading: z.string(), steps: z.array(titledText).min(3).max(5) }),
@@ -75,7 +77,7 @@ const blog = defineCollection({
       tags: z.array(z.string()).default([]),
       /** "news" posts cover dated events and emit NewsArticle structured data. */
       type: z.enum(['article', 'case-study', 'news']).default('article'),
-      featuredImage: loremflickr(1200, 675),
+      featuredImage: picsum(1200, 675),
       /** Pin as the featured post on the blog index (otherwise the newest post is featured). */
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),

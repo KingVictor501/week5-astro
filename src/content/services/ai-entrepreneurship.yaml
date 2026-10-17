@@ -7,12 +7,12 @@ subhead: >-
 intro: >-
   AI tools promise to save you hours, but figuring out which ones are worth it, and wiring them into how you actually work, is a job in itself. My AI consulting for small business entrepreneurs focuses on practical wins: automating the repetitive marketing tasks that eat your week while keeping you in control of anything customer-facing.
 hero:
-  src: https://loremflickr.com/1200/900/technology,computer?lock=3005
+  src: https://picsum.photos/id/64/1200/900
   alt: An entrepreneur at a desk using an AI assistant on a laptop to draft marketing content
   width: 1200
   height: 900
 ogImage:
-  src: https://loremflickr.com/1200/630/technology,computer?lock=3105
+  src: https://picsum.photos/id/131/1200/630
   alt: A modern laptop on a desk with glowing technology graphics
   width: 1200
   height: 630

@@ -7,12 +7,12 @@ subhead: >-
 intro: >-
   Your website is often a customer's first impression, and a slow or confusing site sends them straight to a competitor. My small business website development services cover everything from planning and design to launch and ongoing management, drawing on hands-on webmaster experience at a Big Tech company.
 hero:
-  src: https://loremflickr.com/1200/900/website,design?lock=3006
+  src: https://picsum.photos/id/74/1200/900
   alt: A web designer working on a responsive website layout shown on a laptop and a phone
   width: 1200
   height: 900
 ogImage:
-  src: https://loremflickr.com/1200/630/website,design?lock=3106
+  src: https://picsum.photos/id/142/1200/630
   alt: A website design mockup open on a desktop monitor
   width: 1200
   height: 630

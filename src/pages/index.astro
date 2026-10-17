@@ -27,7 +27,9 @@ const webSite = {
   description="Lead generation for small businesses through SEO, Google Ads, social media, analytics dashboards, AI, and website development. Book a free call."
 >
   <Fragment slot="head">
-    <link rel="preconnect" href="https://loremflickr.com" />
+    <!-- picsum.photos redirects each image to its fastly.picsum.photos CDN. -->
+    <link rel="preconnect" href="https://picsum.photos" />
+    <link rel="preconnect" href="https://fastly.picsum.photos" />
     <JsonLd data={webSite} />
   </Fragment>
 

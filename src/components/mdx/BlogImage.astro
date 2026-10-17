@@ -12,8 +12,8 @@ export interface Props {
 }
 
 const { src, alt, width, height, caption, align = 'right' } = Astro.props;
-if (!src.startsWith('https://loremflickr.com/') || !/[?&]lock=\d+/.test(src)) {
-  throw new Error(`BlogImage: use https://loremflickr.com/{w}/{h}/{keywords}?lock={n} (got ${src})`);
+if (!/^https:\/\/picsum\.photos\/id\/\d+\/\d+\/\d+$/.test(src)) {
+  throw new Error(`BlogImage: use https://picsum.photos/id/{unique id}/{w}/{h} (got ${src})`);
 }
 ---
 

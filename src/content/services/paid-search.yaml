@@ -7,12 +7,12 @@ subhead: >-
 intro: >-
   Google Ads can put you in front of customers the moment they're ready to buy, or burn through your budget on the wrong clicks. My Google Ads management services for small businesses are built to do the first: focused targeting, ads that match what people search for, and tracking that shows which dollars turn into leads.
 hero:
-  src: https://loremflickr.com/1200/900/advertising,computer?lock=3002
+  src: https://picsum.photos/id/32/1200/900
   alt: A marketer reviewing ad campaign performance charts on a large computer monitor
   width: 1200
   height: 900
 ogImage:
-  src: https://loremflickr.com/1200/630/advertising,computer?lock=3102
+  src: https://picsum.photos/id/98/1200/630
   alt: A computer screen showing an online advertising dashboard
   width: 1200
   height: 630
