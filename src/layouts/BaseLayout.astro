@@ -7,9 +7,12 @@ import JsonLd from '../components/JsonLd.astro';
 import SEO, { type Props as SEOProps } from '../components/SEO.astro';
 import { SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 
-export type Props = SEOProps;
+export type Props = SEOProps & {
+  /** Landing pages: no site header or footer; the page fills the "top" and "bottom" slots instead. */
+  minimal?: boolean;
+};
 
-const props = Astro.props;
+const { minimal = false, ...props } = Astro.props;
 const siteURL = new URL('/', Astro.site).href;
 
 // Site-wide business entity. Only facts we actually know; no invented address,
@@ -67,10 +70,10 @@ const organization = {
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <Header />
+    {minimal ? <slot name="top" /> : <Header />}
     <main id="main" tabindex="-1">
       <slot />
     </main>
-    <Footer />
+    {minimal ? <slot name="bottom" /> : <Footer />}
   </body>
 </html>

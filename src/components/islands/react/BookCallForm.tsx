@@ -3,6 +3,7 @@ import { PUBLIC_FORMSPREE_ENDPOINT } from 'astro:env/client';
 import {
   BUDGET_OPTIONS,
   EMPTY_LEAD,
+  FAILURE_COPY,
   FIELD_ORDER,
   LeadSubmitError,
   SIMULATIONS,
@@ -14,7 +15,7 @@ import {
   type LeadValues,
   type Simulation,
 } from '../../../lib/lead';
-import './BookCallForm.css';
+import './LeadForm.css';
 
 interface Props {
   services: { value: string; label: string }[];
@@ -24,21 +25,6 @@ interface Props {
 }
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
-
-const FAILURE_COPY: Record<Exclude<FailureKind, 'validation'>, { title: string; text: string }> = {
-  network: {
-    title: "We couldn't reach the server",
-    text: 'Check your internet connection, then try again. Everything you typed is still here.',
-  },
-  server: {
-    title: 'Something went wrong on our end',
-    text: "That's not your fault. Your details are still here, so you can try again in a moment.",
-  },
-  'rate-limit': {
-    title: 'Too many requests in a short time',
-    text: 'Please wait a minute, then try again. Your details are still here.',
-  },
-};
 
 export default function BookCallForm({ services, callLength, replyTime, contactEmail }: Props) {
   const allowed = services.map((s) => s.value);
@@ -108,7 +94,7 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
       simulate.current = undefined;
       const kind = error instanceof LeadSubmitError ? error.kind : 'server';
       if (kind === 'validation' && error instanceof LeadSubmitError) {
-        setErrors(error.fieldErrors);
+        setErrors(error.fieldErrors as LeadErrors);
         setAttempted(true);
         setStatus('idle');
         setAnnouncement('Some fields need attention.');

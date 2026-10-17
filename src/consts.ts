@@ -136,6 +136,21 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
 
 export const BOOK_A_CALL_PATH = '/book-a-call';
 
+/** Lead magnet formats, and how each reads in a sentence ("Get the free checklist"). */
+export const MAGNET_TYPES = ['checklist', 'scorecard', 'template', 'swipe-file', 'calculator', 'playbook'] as const;
+export type MagnetType = (typeof MAGNET_TYPES)[number];
+export const MAGNET_TYPE_LABELS: Record<MagnetType, string> = {
+  checklist: 'checklist',
+  scorecard: 'scorecard',
+  template: 'template',
+  'swipe-file': 'swipe file',
+  calculator: 'calculator',
+  playbook: 'playbook',
+};
+
+/** Landing page URL for a lead magnet. */
+export const magnetPath = (service: string, magnet: string) => `/lp/${service}/${magnet}`;
+
 // Book a Call details. [CONFIRM] these match how you actually work.
 export const CALL_LENGTH = '30 minutes';
 export const REPLY_TIME = 'one business day';

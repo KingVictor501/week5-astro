@@ -91,11 +91,41 @@ relatedServices:
 blogCategory: web-development
 leadMagnets:
   - slug: website-launch-checklist
-    title: Small Business Website Launch Checklist
-    description: Everything to check before and after launch so nothing breaks and search engines find you.
+    title: "Small Business Website Launch Checklist"
+    type: checklist
+    description: "Everything to check before and after launch so nothing breaks and search engines find you."
+    headline: "Launch your new website without losing traffic or leads"
+    subhead: "Everything to check before and after launch so nothing breaks and search engines find you."
+    bullets:
+      - "Pre-launch checks for forms, links, speed, and mobile"
+      - "Redirects and SEO settings to confirm before you switch"
+      - "Launch-day steps, including your sitemap and analytics"
+      - "What to watch in the first few weeks after going live"
+    image:
+      src: https://picsum.photos/id/976/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Small Business Website Launch Checklist"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Small Business Website Launch Checklist file URL]"
+    published: true
   - slug: website-conversion-audit
-    title: Website Conversion Audit Worksheet
-    description: Score your current site on the details that turn visitors into calls and form fills.
+    title: "Website Conversion Audit Scorecard"
+    type: scorecard
+    description: "Score your current site on the details that turn visitors into calls and form fills."
+    headline: "Turn more of your website visitors into calls and form fills"
+    subhead: "Score your pages on the details that help visitors decide to get in touch."
+    bullets:
+      - "Checks for headlines, calls to action, and contact options"
+      - "Trust signals visitors look for before they reach out"
+      - "Form and mobile checks that remove friction"
+      - "A score for each page so you know where to start"
+    image:
+      src: https://picsum.photos/id/1069/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Website Conversion Audit Scorecard"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Website Conversion Audit Scorecard file URL]"
+    published: true
 cta:
   heading: Ready for a website that works as hard as you do?
   text: Book a free call and tell me what you want your website to do for your business.

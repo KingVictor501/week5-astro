@@ -250,6 +250,12 @@
   width: 100%;
 }
 
+.roi-resource {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
 .roi-details summary {
   cursor: pointer;
   font-weight: var(--weight-semibold);

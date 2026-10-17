@@ -89,11 +89,41 @@ relatedServices:
 blogCategory: social-media-marketing
 leadMagnets:
   - slug: social-media-content-calendar
-    title: 30-Day Social Media Content Calendar
-    description: A month of post ideas and a simple planning template you can fill in for your business.
+    title: "30-Day Social Media Content Calendar"
+    type: template
+    description: "A month of post ideas and a simple planning template you can fill in for your business."
+    headline: "Never stare at a blank screen wondering what to post"
+    subhead: "A month of post ideas and a simple planning template you can fill in for your business in one sitting."
+    bullets:
+      - "30 days of post ideas for a small business"
+      - "A fill-in template for planning posts by week and platform"
+      - "A mix of helpful, behind-the-scenes, and promotional posts"
+      - "Tips for reusing one idea across several platforms"
+    image:
+      src: https://picsum.photos/id/380/1200/900
+      alt: "Placeholder photo standing in for a mockup of the 30-Day Social Media Content Calendar"
+      width: 1200
+      height: 900
+    file: "[REPLACE: 30-Day Social Media Content Calendar file URL]"
+    published: true
   - slug: social-ad-budget-planner
-    title: Social Ad Budget Planner
-    description: Work out a starting ad budget and testing plan based on what a new customer is worth.
+    title: "Social Ad Budget Planner"
+    type: calculator
+    description: "Work out a starting ad budget and testing plan based on what a new customer is worth."
+    headline: "Set a social ad budget based on what a customer is worth"
+    subhead: "Work out a starting budget and testing plan for Facebook and Instagram ads before you spend a dollar."
+    bullets:
+      - "A simple calculator that starts from your lead goal"
+      - "How to estimate what a new customer is worth to you"
+      - "A testing plan for your first month of ads"
+      - "When to raise, hold, or pause your budget"
+    image:
+      src: https://picsum.photos/id/475/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Social Ad Budget Planner"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Social Ad Budget Planner file URL]"
+    published: true
 cta:
   heading: Ready to make social media work for your business?
   text: Book a free call and we'll talk about where your customers spend time online.

@@ -8,7 +8,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import JsonLd from '../components/JsonLd.astro';
 import LatestPosts from '../components/home/LatestPosts.astro';
-import { BOOK_A_CALL_PATH, OWNER_NAME, type BlogCategory, type Service } from '../consts';
+import { BOOK_A_CALL_PATH, magnetPath, OWNER_NAME, type BlogCategory, type Service } from '../consts';
 import type { BlogPost, PostSummary } from '../lib/blog';
 import { blogPostingSchema, breadcrumbSchema, type Crumb } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
@@ -65,7 +65,7 @@ const popup = leadMagnet
       eyebrow: 'Free resource',
       heading: `Get the ${leadMagnet.title}`,
       text: `A practical companion to this article, free for small business owners.`,
-      href: `/lp/${leadMagnet.slug}`,
+      href: magnetPath(service.slug, leadMagnet.slug),
       linkText: 'Get it free',
       secondary: { href: `/${service.slug}`, text: `About ${service.name.toLowerCase()}` },
     }

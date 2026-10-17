@@ -5,7 +5,7 @@ import Hero from '../components/home/Hero.astro';
 import LatestPosts from '../components/home/LatestPosts.astro';
 import ServiceCards from '../components/home/ServiceCards.astro';
 import RoiCalculator from '../components/islands/preact/RoiCalculator';
-import { BOOK_A_CALL_PATH, SERVICES, SITE_TITLE } from '../consts';
+import { BOOK_A_CALL_PATH, magnetPath, SERVICES, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getLatestPosts } from '../lib/blog';
 
@@ -39,7 +39,11 @@ const webSite = {
   <!-- ROI calculator: Preact island, hydrated only when scrolled into view. -->
   <section id="roi-calculator" class="section roi" aria-labelledby="roi-title">
     <div class="container">
-      <RoiCalculator client:visible ctaHref={`${BOOK_A_CALL_PATH}?service=paid-search`} />
+      <RoiCalculator
+        client:visible
+        ctaHref={`${BOOK_A_CALL_PATH}?service=paid-search`}
+        resource={{ href: magnetPath('paid-search', 'google-ads-audit-checklist'), label: 'Get the free Google Ads Audit Checklist' }}
+      />
     </div>
   </section>
 

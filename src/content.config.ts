@@ -1,7 +1,7 @@
 import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { BLOG_CATEGORIES } from './consts';
+import { BLOG_CATEGORIES, MAGNET_TYPES } from './consts';
 
 // Placeholder photos from picsum.photos. A fixed /id/ keeps each image the same on every
 // build; give every image on the site its own id.
@@ -46,13 +46,25 @@ const services = defineCollection({
     }),
     relatedServices: z.array(reference('services')).length(2),
     blogCategory: z.enum(BLOG_CATEGORIES.map((c) => c.slug) as [string, ...string[]]),
+    /** Two lead magnets per service, each with its own landing page at /lp/{service}/{slug}. */
     leadMagnets: z
       .array(
         z.object({
           slug: z.string().regex(/^[a-z0-9-]+$/),
           title: z.string(),
+          type: z.enum(MAGNET_TYPES),
+          /** Short pitch for the service page card. */
           description: z.string(),
-          /** Flip to true once the /lp/{slug} page exists (Section 10), so links never 404. */
+          /** Landing page H1: the benefit, not the format. */
+          headline: z.string().max(80),
+          subhead: z.string(),
+          /** What they get: 3–5 bullets. */
+          bullets: z.array(z.string()).min(3).max(5),
+          /** Stand-in for a mockup of the magnet. */
+          image: picsum(1200, 900),
+          /** Download link shown on success: a real URL, or a [REPLACE: …] placeholder until the file exists. */
+          file: z.union([z.url(), z.string().startsWith('[REPLACE:')]),
+          /** false = no landing page is built and nothing links to it. */
           published: z.boolean().default(false),
         }),
       )

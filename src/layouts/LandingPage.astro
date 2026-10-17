@@ -1,0 +1,197 @@
+---
+// Lead magnet landing page: one job (get the email), so no site navigation and no exit links
+// except the small footer. Everything on the page comes from the service's leadMagnets data.
+import LeadMagnetForm from '../components/islands/react/LeadMagnetForm';
+import { CONTACT_EMAIL, MAGNET_TYPE_LABELS, SITE_TITLE, type MagnetType } from '../consts';
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  service: { slug: string; name: string };
+  magnet: {
+    slug: string;
+    title: string;
+    type: MagnetType;
+    headline: string;
+    subhead: string;
+    bullets: string[];
+    image: { src: string; alt: string; width: number; height: number };
+    file: string;
+  };
+}
+
+const { service, magnet } = Astro.props;
+const typeLabel = MAGNET_TYPE_LABELS[magnet.type];
+const year = new Date().getFullYear();
+---
+
+<BaseLayout title={`Free ${magnet.title}`} description={magnet.subhead} image={magnet.image} noindex minimal>
+  <header slot="top" class="lp-top">
+    <div class="container">
+      <p class="lp-logo">{SITE_TITLE}</p>
+    </div>
+  </header>
+
+  <section class="section lp" aria-labelledby="lp-title">
+    <div class="container lp-grid">
+      <div class="lp-pitch">
+        <p class="lp-eyebrow">Free {typeLabel} · {service.name}</p>
+        <h1 id="lp-title">{magnet.headline}</h1>
+        <p class="lp-subhead">{magnet.subhead}</p>
+      </div>
+
+      <div class="lp-form">
+        <!-- client:load: the form is the page's only job, so it should work the moment the page opens. -->
+        <LeadMagnetForm
+          client:load
+          magnet={{ slug: magnet.slug, title: magnet.title, typeLabel, file: magnet.file }}
+          service={service}
+          contactEmail={CONTACT_EMAIL}
+        />
+      </div>
+
+      <div class="lp-details">
+        <h2>What's inside the {magnet.title}</h2>
+        <ul class="lp-bullets" role="list">
+          {magnet.bullets.map((bullet) => <li>{bullet}</li>)}
+        </ul>
+        <img
+          class="lp-mockup"
+          src={magnet.image.src}
+          alt={magnet.image.alt}
+          width={magnet.image.width}
+          height={magnet.image.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <footer slot="bottom" class="lp-footer">
+    <div class="container">
+      <p>© {year} {SITE_TITLE} · <a href="/">Visit the main site</a></p>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .lp-top {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .lp-logo {
+    margin: 0;
+    padding-block: var(--space-4);
+    color: var(--color-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+  }
+
+  .lp {
+    background: var(--color-surface);
+  }
+
+  /* Phones: pitch, then the form, then the details. Desktop: form in its own column. */
+  .lp-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-areas: 'pitch' 'form' 'details';
+  }
+
+  @media (min-width: 56rem) {
+    .lp-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      grid-template-areas: 'pitch form' 'details form';
+      align-items: start;
+      gap: var(--space-6) var(--space-7);
+    }
+
+    .lp-form {
+      position: sticky;
+      top: var(--space-5);
+    }
+  }
+
+  .lp-pitch {
+    grid-area: pitch;
+  }
+
+  .lp-form {
+    grid-area: form;
+  }
+
+  .lp-details {
+    grid-area: details;
+  }
+
+  .lp-eyebrow {
+    margin: 0 0 var(--space-3);
+    color: var(--color-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .lp-pitch h1 {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-3xl);
+    text-wrap: balance;
+  }
+
+  .lp-subhead {
+    margin: 0;
+    max-width: 55ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .lp-details h2 {
+    font-size: var(--text-xl);
+  }
+
+  .lp-bullets {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .lp-bullets li {
+    position: relative;
+    padding-left: var(--space-6);
+  }
+
+  .lp-bullets li::before {
+    content: '';
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E")
+      center / 70% no-repeat;
+  }
+
+  .lp-mockup {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .lp-footer {
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .lp-footer p {
+    margin: 0;
+    padding-block: var(--space-5);
+  }
+</style>

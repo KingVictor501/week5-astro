@@ -89,11 +89,41 @@ relatedServices:
 blogCategory: paid-search
 leadMagnets:
   - slug: google-ads-audit-checklist
-    title: Google Ads Audit Checklist
-    description: Find the settings and keywords quietly draining your budget, one checkbox at a time.
+    title: "Google Ads Audit Checklist"
+    type: checklist
+    description: "Find the settings and keywords quietly draining your budget, one checkbox at a time."
+    headline: "Find the wasted spend hiding in your Google Ads account"
+    subhead: "Work through your account one setting at a time and catch the leaks that quietly drain your budget."
+    bullets:
+      - "Campaign settings that often show ads to the wrong people"
+      - "How to review search terms and spot clicks that waste money"
+      - "Conversion tracking checks so you know which ads bring leads"
+      - "Budget and bidding checks for small accounts"
+    image:
+      src: https://picsum.photos/id/189/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Google Ads Audit Checklist"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Google Ads Audit Checklist file URL]"
+    published: true
   - slug: negative-keyword-starter-list
-    title: Negative Keyword Starter List
-    description: Common search terms to block so your ads stop showing to people who will never buy.
+    title: "Negative Keyword Starter List"
+    type: swipe-file
+    description: "Common search terms to block so your ads stop showing to people who will never buy."
+    headline: "Stop paying for clicks from people who will never buy"
+    subhead: "Common search terms to block, grouped by theme, so you can add them to your account in minutes."
+    bullets:
+      - "Negative keywords grouped by theme, like job, free, and DIY searches"
+      - "Notes on when each group is safe to block for your business"
+      - "How to add them as one shared list across campaigns"
+      - "A monthly routine for finding new ones in your search terms report"
+    image:
+      src: https://picsum.photos/id/284/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Negative Keyword Starter List"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Negative Keyword Starter List file URL]"
+    published: true
 cta:
   heading: Stop paying for clicks that never call
   text: Book a free call and I'll walk through where your ad budget is going.

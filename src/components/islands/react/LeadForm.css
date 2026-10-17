@@ -1,5 +1,5 @@
-/* Book a Call form island. Classes are prefixed `lead-` because framework-component
-   CSS is global, not scoped. */
+/* Lead form styles shared by the BookCallForm and LeadMagnetForm islands. Classes are
+   prefixed `lead-` because framework-component CSS is global, not scoped. */
 
 .lead {
   display: grid;
@@ -217,4 +217,32 @@
 
 .lead-success li + li {
   margin-top: var(--space-2);
+}
+
+/* Lead magnet form (LeadMagnetForm): one column, short. */
+.lm-form-title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-xl);
+}
+
+.lm-form .lead-demo {
+  margin-bottom: var(--space-4);
+}
+
+.lm-fields {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.lm-optional {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-regular);
+}
+
+.lm-success > * + * {
+  margin-top: var(--space-4);
+}
+
+.lm-download {
+  width: 100%;
 }

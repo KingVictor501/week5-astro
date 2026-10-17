@@ -91,11 +91,41 @@ relatedServices:
 blogCategory: ai-entrepreneurship
 leadMagnets:
   - slug: ai-prompt-pack-for-marketing
-    title: AI Prompt Pack for Small Business Marketing
-    description: Tested prompts for drafting posts, emails, and ad copy in your own brand voice.
+    title: "AI Prompt Pack for Small Business Marketing"
+    type: swipe-file
+    description: "Tested prompts for drafting posts, emails, and ad copy in your own brand voice."
+    headline: "Write posts, emails, and ads faster with AI"
+    subhead: "Copy-and-paste prompts for everyday marketing tasks, written to keep your brand voice."
+    bullets:
+      - "Prompts for social posts, emails, and ad copy"
+      - "How to give AI your brand voice so drafts sound like you"
+      - "Prompts for turning one blog post into a week of content"
+      - "A quick checklist for reviewing AI drafts before you publish"
+    image:
+      src: https://picsum.photos/id/784/1200/900
+      alt: "Placeholder photo standing in for a mockup of the AI Prompt Pack for Small Business Marketing"
+      width: 1200
+      height: 900
+    file: "[REPLACE: AI Prompt Pack for Small Business Marketing file URL]"
+    published: true
   - slug: lead-follow-up-automation-playbook
-    title: Lead Follow-Up Automation Playbook
-    description: A simple plan for automating CRM and email follow-up so no lead slips through the cracks.
+    title: "Lead Follow-Up Automation Playbook"
+    type: playbook
+    description: "A simple plan for automating CRM and email follow-up so no lead slips through the cracks."
+    headline: "Follow up with every lead, even on your busiest days"
+    subhead: "A simple plan for automating email follow-up so no lead slips through the cracks."
+    bullets:
+      - "A step-by-step follow-up sequence for new leads"
+      - "Email templates you can adapt for each step"
+      - "How to set it up in the email or CRM tool you already use"
+      - "What to keep personal and what to automate"
+    image:
+      src: https://picsum.photos/id/879/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Lead Follow-Up Automation Playbook"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Lead Follow-Up Automation Playbook file URL]"
+    published: true
 cta:
   heading: Ready to put AI to work in your business?
   text: Book a free call and we'll find the first tasks worth automating.

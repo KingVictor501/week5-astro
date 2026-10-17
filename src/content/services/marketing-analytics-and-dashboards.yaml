@@ -91,11 +91,41 @@ relatedServices:
 blogCategory: marketing-analytics-and-dashboards
 leadMagnets:
   - slug: marketing-kpi-dashboard-template
-    title: Marketing KPI Dashboard Template
-    description: A ready-to-copy template for tracking leads, cost per lead, and revenue by channel.
+    title: "Marketing KPI Dashboard Template"
+    type: template
+    description: "A ready-to-copy template for tracking leads, cost per lead, and revenue by channel."
+    headline: "See which marketing brings in leads, all on one page"
+    subhead: "A ready-to-copy dashboard template for tracking leads, cost per lead, and revenue by channel."
+    bullets:
+      - "A one-page layout for the numbers that matter most"
+      - "Leads, cost per lead, and revenue tracked by channel"
+      - "Plain-English definitions for each metric"
+      - "A simple weekly review routine"
+    image:
+      src: https://picsum.photos/id/567/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Marketing KPI Dashboard Template"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Marketing KPI Dashboard Template file URL]"
+    published: true
   - slug: ga4-setup-checklist
-    title: GA4 Setup Checklist
-    description: Make sure Google Analytics 4 is counting the calls, forms, and bookings that matter.
+    title: "GA4 Setup Checklist"
+    type: checklist
+    description: "Make sure Google Analytics 4 is counting the calls, forms, and bookings that matter."
+    headline: "Make sure Google Analytics counts the leads that matter"
+    subhead: "Check that GA4 is tracking the calls, forms, and bookings that tell you what's working."
+    bullets:
+      - "Account and property settings to confirm first"
+      - "How to mark form submissions, calls, and bookings as key events"
+      - "Settings that keep your own visits out of the data"
+      - "Reports to check each month"
+    image:
+      src: https://picsum.photos/id/667/1200/900
+      alt: "Placeholder photo standing in for a mockup of the GA4 Setup Checklist"
+      width: 1200
+      height: 900
+    file: "[REPLACE: GA4 Setup Checklist file URL]"
+    published: true
 cta:
   heading: Ready to see what your marketing is really doing?
   text: Book a free call and tell me the questions your current reports can't answer.

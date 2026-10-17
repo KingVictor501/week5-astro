@@ -92,11 +92,41 @@ relatedServices:
 blogCategory: technical-seo
 leadMagnets:
   - slug: local-seo-checklist
-    title: Local SEO Checklist
-    description: A step-by-step checklist for your Google Business Profile, listings, and location pages.
-  - slug: diy-seo-audit-template
-    title: DIY SEO Audit Template
-    description: Spot the most common technical and on-page issues on your own site in an afternoon.
+    title: "Local SEO Checklist"
+    type: checklist
+    description: "A step-by-step checklist for your Google Business Profile, listings, and location pages."
+    headline: "Show up when nearby customers search for what you do"
+    subhead: "A step-by-step checklist for the local SEO basics that help your business appear in Google Maps and local results."
+    bullets:
+      - "Google Business Profile settings to complete and keep up to date"
+      - "How to make your name, address, and phone number match across listings"
+      - "What to put on your location and service area pages"
+      - "A simple routine for asking for and replying to reviews"
+    image:
+      src: https://picsum.photos/id/6/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Local SEO Checklist"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Local SEO Checklist file URL]"
+    published: true
+  - slug: seo-audit-scorecard
+    title: "SEO Audit Scorecard"
+    type: scorecard
+    description: "Score your own site on the technical and on-page basics, then see which fixes to tackle first."
+    headline: "Find out what's holding your website back in Google"
+    subhead: "Score your site on the SEO basics in an afternoon, with no special tools or technical background."
+    bullets:
+      - "Plain-English checks for indexing, speed, and mobile usability"
+      - "On-page checks for titles, headings, and meta descriptions"
+      - "A simple scoring system that shows where you stand"
+      - "A priority guide so you fix the biggest problems first"
+    image:
+      src: https://picsum.photos/id/95/1200/900
+      alt: "Placeholder photo standing in for a mockup of the SEO Audit Scorecard"
+      width: 1200
+      height: 900
+    file: "[REPLACE: SEO Audit Scorecard file URL]"
+    published: true
 cta:
   heading: Ready to get found by more local customers?
   text: Book a free call and I'll share the biggest search opportunities I see for your site.

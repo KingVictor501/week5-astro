@@ -6,6 +6,8 @@ import './RoiCalculator.css';
 
 interface Props {
   ctaHref: string;
+  /** Lead magnet offered under the main call to action. */
+  resource?: { href: string; label: string };
 }
 
 const DEFAULTS: Record<RoiField, string> = {
@@ -27,7 +29,7 @@ const FIELDS = Object.keys(DEFAULTS) as RoiField[];
 const money = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 const decimal = (n: number) => n.toLocaleString('en-US', { maximumFractionDigits: 1 });
 
-export default function RoiCalculator({ ctaHref }: Props) {
+export default function RoiCalculator({ ctaHref, resource }: Props) {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState(DEFAULTS);
   const [touched, setTouched] = useState<Partial<Record<RoiField, boolean>>>({});
@@ -204,6 +206,11 @@ export default function RoiCalculator({ ctaHref }: Props) {
             <a class="btn btn-primary btn-lg roi-cta" href={ctaHref}>
               Get a free ad account audit
             </a>
+            {resource && (
+              <p class="roi-resource">
+                Prefer to check it yourself? <a href={resource.href}>{resource.label}</a>
+              </p>
+            )}
           </div>
 
           <details class="roi-details">

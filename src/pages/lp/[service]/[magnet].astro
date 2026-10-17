@@ -1,0 +1,26 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import { SERVICES } from '../../../consts';
+import LandingPage from '../../../layouts/LandingPage.astro';
+
+// One landing page per published lead magnet: /lp/{service}/{magnet}.
+// noindex and left out of the sitemap (astro.config.mjs); linked only from service pages,
+// blog post pop-ups, and the ROI calculator.
+export const getStaticPaths = (async () => {
+  const services = await getCollection('services');
+  return services.flatMap((entry) => {
+    const service = SERVICES.find((s) => s.slug === entry.id)!;
+    return entry.data.leadMagnets
+      .filter((magnet) => magnet.published)
+      .map((magnet) => ({
+        params: { service: entry.id, magnet: magnet.slug },
+        props: { service: { slug: service.slug, name: service.name }, magnet },
+      }));
+  });
+}) satisfies GetStaticPaths;
+
+const { service, magnet } = Astro.props;
+---
+
+<LandingPage service={service} magnet={magnet} />
