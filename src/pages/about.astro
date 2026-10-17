@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -116,9 +117,6 @@ const reasons = [
 
 <BaseLayout title={`About ${OWNER_NAME}`} description={description}>
   <Fragment slot="head">
-    {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
-    <link rel="preconnect" href="https://picsum.photos" />
-    <link rel="preconnect" href="https://fastly.picsum.photos" />
     <JsonLd data={structuredData} />
   </Fragment>
 
@@ -127,14 +125,15 @@ const reasons = [
       <Breadcrumbs crumbs={crumbs} />
       <div class="about-hero-grid">
         <figure class="headshot">
-          <img
+          <Image
             src={headshot.src}
             alt={headshot.alt}
+            quality={60}
             width={headshot.width}
             height={headshot.height}
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
+            widths={[320, 480, 640, 800]}
+            sizes="(min-width: 24rem) 22rem, calc(100vw - 2rem)"
+            priority
           />
           <figcaption class="placeholder-note">[REPLACE: headshot]</figcaption>
         </figure>

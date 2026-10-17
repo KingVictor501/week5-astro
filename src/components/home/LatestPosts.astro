@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { PostSummary } from '../../lib/blog';
 export type { PostSummary };
 
@@ -34,13 +35,14 @@ const formatDate = (date: Date) =>
         <ul class="post-grid" role="list">
           {posts.map((post) => (
             <li class="post-card">
-              <img
+              <Image
                 src={post.image.src}
                 alt={post.image.alt}
+                quality={60}
                 width={post.image.width}
                 height={post.image.height}
-                loading="lazy"
-                decoding="async"
+                widths={[360, 540, 720, 960]}
+                sizes="(min-width: 48rem) 22rem, calc(100vw - 2rem)"
               />
               <div class="post-body">
                 <p class="meta">

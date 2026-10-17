@@ -2,6 +2,8 @@
 // In-article image for MDX posts: explicit size (no layout shift), lazy-loaded, optional caption.
 // `align` floats the image so text wraps around it ("right" by default); "full" spans the column.
 // On narrow screens every image is full width, since wrapped text would be too cramped to read.
+import { Image } from 'astro:assets';
+
 export interface Props {
   src: string;
   alt: string;
@@ -18,7 +20,15 @@ if (!/^https:\/\/picsum\.photos\/id\/\d+\/\d+\/\d+$/.test(src)) {
 ---
 
 <figure class={`blog-figure blog-figure-${align}`}>
-  <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  <Image
+    src={src}
+    alt={alt}
+    quality={60}
+    width={width}
+    height={height}
+    widths={align === 'full' ? [480, 720, 960, 1200] : [320, 480, 640, 860]}
+    sizes={align === 'full' ? '(min-width: 64rem) 46rem, calc(100vw - 2rem)' : '(min-width: 40rem) 18rem, calc(100vw - 2rem)'}
+  />
   {caption && <figcaption>{caption}</figcaption>}
 </figure>
 

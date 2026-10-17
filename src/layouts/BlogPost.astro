@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { MarkdownHeading } from 'astro';
 import AuthorBox from '../components/blog/AuthorBox.astro';
 import CtaPopup from '../components/blog/CtaPopup.astro';
@@ -88,9 +89,6 @@ const popup = leadMagnet
   commandContext={{ heading: 'Related articles', items: related.map((r) => ({ title: r.title, href: r.href, hint: 'Article' })) }}
 >
   <Fragment slot="head">
-    {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
-    <link rel="preconnect" href="https://picsum.photos" />
-    <link rel="preconnect" href="https://fastly.picsum.photos" />
     <meta property="article:published_time" content={pubDate.toISOString()} />
     {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
     <meta property="article:section" content={category.name} />
@@ -136,14 +134,15 @@ const popup = leadMagnet
         <div class="prose" data-pagefind-body data-pagefind-meta="type:Blog post">
           {/* Featured image: floats right so the opening text wraps around it (full width on phones). */}
           <figure class="post-featured">
-            <img
+            <Image
               src={featuredImage.src}
               alt={featuredImage.alt}
+              quality={60}
               width={featuredImage.width}
               height={featuredImage.height}
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
+              widths={[320, 480, 640, 800, 960]}
+              sizes="(min-width: 40rem) 20rem, calc(100vw - 2rem)"
+              priority
             />
           </figure>
           <slot />

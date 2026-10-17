@@ -1,6 +1,7 @@
 ---
 // Static blog card for the /blog index. Rendered at build time; the BlogBrowser island
 // only shows or hides these cards (via `hidden`), it never re-renders them.
+import { Image } from 'astro:assets';
 import type { PostSummary } from '../../lib/blog';
 
 export interface Props {
@@ -15,14 +16,15 @@ const formatDate = (date: Date) =>
 ---
 
 <article class:list={['bb-card', { 'bb-card-featured': featured }]}>
-  <img
+  <Image
     src={post.image.src}
     alt={post.image.alt}
+    quality={60}
     width={post.image.width}
     height={post.image.height}
-    loading={featured ? 'eager' : 'lazy'}
-    fetchpriority={featured ? 'high' : undefined}
-    decoding="async"
+    widths={[360, 540, 720, 960, 1200]}
+    sizes={featured ? '(min-width: 48rem) 38rem, calc(100vw - 2rem)' : '(min-width: 64rem) 22rem, (min-width: 40rem) calc(50vw - 2rem), calc(100vw - 2rem)'}
+    priority={featured}
   />
   <div class="bb-card-body">
     {featured && <p class="bb-featured-label">Featured</p>}

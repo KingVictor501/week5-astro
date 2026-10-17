@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { OWNER_NAME } from '../../consts';
 
 // Built only from the About-page facts. [REPLACE: headshot] matches the About page placeholder.
@@ -9,7 +10,7 @@ const headshot = {
 ---
 
 <aside class="author" aria-labelledby="author-title">
-  <img src={headshot.src} alt={headshot.alt} width="80" height="80" loading="lazy" decoding="async" />
+  <Image src={headshot.src} alt={headshot.alt} quality={60} width={80} height={80} densities={[1, 2]} />
   <div>
     <h2 id="author-title">Written by {OWNER_NAME}</h2>
     <p>

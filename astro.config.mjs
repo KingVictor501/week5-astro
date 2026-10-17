@@ -38,6 +38,15 @@ export default defineConfig({
   // and redirects /about/ there.
   trailingSlash: 'never',
   build: { format: 'file' },
+  // Placeholder photos come from picsum.photos (which redirects to its fastly CDN). Allowing
+  // both lets <Image> download them at build time and serve small, resized WebP files from
+  // this site, instead of making phones fetch full-size JPEGs through a redirect.
+  image: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'picsum.photos' },
+      { protocol: 'https', hostname: 'fastly.picsum.photos' },
+    ],
+  },
   integrations: [
     // Two JSX frameworks, so each gets its own folder via `include`.
     // tsconfig defaults JSX types to React; Preact files add a jsxImportSource pragma.
