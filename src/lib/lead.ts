@@ -155,6 +155,26 @@ export function validateLead(values: LeadValues, allowedServices: string[]): Lea
   return errors;
 }
 
+/**
+ * Live re-validation after a submit attempt, without flagging blank fields while someone types.
+ * The field being edited shows no error once it's cleared, and other blank fields keep whatever
+ * they showed before (so a "required" message from Submit stays, but none newly appears).
+ */
+export function liveErrors<E extends Partial<Record<string, string>>>(
+  prev: E,
+  fresh: E,
+  values: Record<string, string>,
+  editing: string,
+): E {
+  const next: Partial<Record<string, string>> = { ...fresh };
+  for (const key of Object.keys(fresh)) {
+    if (values[key]?.trim()) continue;
+    if (key === editing || !prev[key]) delete next[key];
+    else next[key] = prev[key];
+  }
+  return next as E;
+}
+
 export type FailureKind = 'network' | 'server' | 'rate-limit' | 'validation';
 
 /** Shown when a submission fails for a reason other than invalid fields. */

@@ -14,6 +14,7 @@ import {
   type LeadField,
   type LeadValues,
   type Simulation,
+  liveErrors,
 } from '../../../lib/lead';
 import './LeadForm.css';
 
@@ -71,12 +72,16 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
     (field: keyof LeadValues) => (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       const next = { ...values, [field]: event.target.value };
       setValues(next);
-      if (attempted) setErrors(validateLead(next, allowed));
+      // A field cleared while typing shows no error; "required" messages only come from Submit.
+      const blank = !event.target.value.trim();
+      if (attempted) setErrors((prev) => liveErrors(prev, validateLead(next, allowed), next, field));
+      else if (blank) setErrors((prev) => ({ ...prev, [field]: undefined }));
     };
 
   // Before the first submit, only validate a field once the person has typed in it and moved on.
+  // Blank fields are left as they are: typing already cleared them, and Submit handles required fields.
   const validateOnBlur = (field: LeadField) => () => {
-    if (!attempted && !values[field]) return;
+    if (!values[field].trim()) return;
     const fieldError = validateLead(values, allowed)[field];
     setErrors((prev) => ({ ...prev, [field]: fieldError }));
   };

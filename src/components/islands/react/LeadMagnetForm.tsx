@@ -13,6 +13,7 @@ import {
   type MagnetField,
   type MagnetValues,
   type Simulation,
+  liveErrors,
 } from '../../../lib/lead';
 import './LeadForm.css';
 
@@ -64,12 +65,16 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
   const update = (field: keyof MagnetValues) => (event: ChangeEvent<HTMLInputElement>) => {
     const next = { ...values, [field]: event.target.value };
     setValues(next);
-    if (attempted) setErrors(validateMagnet(next));
+    // A field cleared while typing shows no error; "required" messages only come from Submit.
+    const blank = !event.target.value.trim();
+    if (attempted) setErrors((prev) => liveErrors(prev, validateMagnet(next), next, field));
+    else if (blank) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
   // Before the first submit, only validate a field once the person has typed in it and moved on.
+  // Blank fields are left as they are: typing already cleared them, and Submit handles required fields.
   const validateOnBlur = (field: MagnetField) => () => {
-    if (!attempted && !values[field]) return;
+    if (!values[field].trim()) return;
     setErrors((prev) => ({ ...prev, [field]: validateMagnet(values)[field] }));
   };
 
