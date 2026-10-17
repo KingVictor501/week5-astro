@@ -37,7 +37,12 @@ export default defineConfig({
   // Astro pairs 'never' with file output (about.html); vercel.json serves it at /about
   // and redirects /about/ there.
   trailingSlash: 'never',
-  build: { format: 'file' },
+  build: {
+    format: 'file',
+    // Inline all CSS into each page (about 7 KB gzipped) so the first paint never waits on
+    // separate stylesheet requests. PageSpeed flagged them as render-blocking on mobile.
+    inlineStylesheets: 'always',
+  },
   // Placeholder photos come from picsum.photos (which redirects to its fastly CDN). Allowing
   // both lets <Image> download them at build time and serve small, resized WebP files from
   // this site, instead of making phones fetch full-size JPEGs through a redirect.
