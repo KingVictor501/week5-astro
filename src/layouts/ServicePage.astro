@@ -5,7 +5,7 @@ import CtaBand from '../components/CtaBand.astro';
 import JsonLd from '../components/JsonLd.astro';
 import LatestPosts, { type PostSummary } from '../components/home/LatestPosts.astro';
 import ServiceIcon from '../components/home/ServiceIcon.astro';
-import { BOOK_A_CALL_PATH, magnetPath, type BlogCategory, type Service } from '../consts';
+import { BOOK_A_CALL_PATH, MAGNET_TYPE_LABELS, magnetPath, type BlogCategory, type Service } from '../consts';
 import { breadcrumbSchema, serviceSchema, type Crumb } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
 
@@ -36,7 +36,17 @@ const structuredData = [
 ];
 ---
 
-<BaseLayout title={content.title} description={content.description} image={content.ogImage}>
+<BaseLayout
+  title={content.title}
+  description={content.description}
+  image={content.ogImage}
+  commandContext={{
+    heading: `Free ${service.name.toLowerCase()} resources`,
+    items: content.leadMagnets
+      .filter((m) => m.published)
+      .map((m) => ({ title: m.title, href: magnetPath(service.slug, m.slug), hint: `Free ${MAGNET_TYPE_LABELS[m.type]}` })),
+  }}
+>
   <Fragment slot="head">
     {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
     <link rel="preconnect" href="https://picsum.photos" />
@@ -44,12 +54,12 @@ const structuredData = [
     <JsonLd data={structuredData} />
   </Fragment>
 
-  <section class="svc-hero" aria-labelledby="svc-title">
+  <section class="svc-hero" aria-labelledby="svc-title" data-pagefind-body data-pagefind-meta="type:Service">
     <div class="container">
       <Breadcrumbs crumbs={crumbs} />
       <div class="svc-hero-grid">
         <div>
-          <h1 id="svc-title">{content.heading}</h1>
+          <h1 id="svc-title" data-pagefind-meta={`title:${service.name}`}>{content.heading}</h1>
           <p class="svc-subhead">{content.subhead}</p>
           <p class="svc-intro">{content.intro}</p>
           <div class="svc-ctas">
@@ -70,7 +80,7 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="problem-title">
+  <section class="section" aria-labelledby="problem-title" data-pagefind-body>
     <div class="container">
       <h2 id="problem-title">{content.problem.heading}</h2>
       <p class="svc-lead">{content.problem.intro}</p>
@@ -87,7 +97,7 @@ const structuredData = [
     </div>
   </section>
 
-  <section id="included" class="section svc-alt" aria-labelledby="included-title">
+  <section id="included" class="section svc-alt" aria-labelledby="included-title" data-pagefind-body>
     <div class="container">
       <h2 id="included-title">{content.included.heading}</h2>
       <ul class="svc-grid svc-grid-3" role="list">
@@ -103,7 +113,7 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="process-title">
+  <section class="section" aria-labelledby="process-title" data-pagefind-body>
     <div class="container">
       <h2 id="process-title">{content.process.heading}</h2>
       <ol class="svc-steps" role="list">
@@ -129,7 +139,7 @@ const structuredData = [
 
   <slot name="extra" />
 
-  <section class="section svc-alt" aria-labelledby="audience-title">
+  <section class="section svc-alt" aria-labelledby="audience-title" data-pagefind-body>
     <div class="container svc-split">
       <div>
         <h2 id="audience-title">{content.audience.heading}</h2>
@@ -145,7 +155,7 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="faq-title">
+  <section class="section" aria-labelledby="faq-title" data-pagefind-body>
     <div class="container svc-narrow">
       <h2 id="faq-title">{content.faq.heading}</h2>
       <div class="svc-faq">

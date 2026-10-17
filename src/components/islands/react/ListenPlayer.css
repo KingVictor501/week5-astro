@@ -26,11 +26,11 @@
   flex-wrap: nowrap;
 }
 
-/* Playing or paused: becomes a mini player pinned under the site header. */
+/* Playing or paused: becomes a mini player pinned under the site header (and the command bar dock). */
 .listen-active {
   position: fixed;
   z-index: 45;
-  top: calc(var(--header-height) + var(--space-2));
+  top: calc(var(--header-height) + var(--cmdk-dock-height, 0px) + var(--space-2));
   left: 50%;
   transform: translateX(-50%);
   width: min(42rem, calc(100% - 2 * var(--space-3)));

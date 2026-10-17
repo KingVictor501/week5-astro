@@ -4,15 +4,19 @@ import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import JsonLd from '../components/JsonLd.astro';
+import CommandBar from '../components/islands/react/CommandBar';
 import SEO, { type Props as SEOProps } from '../components/SEO.astro';
-import { SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { BOOK_A_CALL_PATH, SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 
 export type Props = SEOProps & {
   /** Landing pages: no site header or footer; the page fills the "top" and "bottom" slots instead. */
   minimal?: boolean;
+  /** Suggestions the command bar shows for this page, e.g. related posts on a blog post. */
+  commandContext?: { heading: string; items: { title: string; href: string; hint?: string }[] };
 };
 
-const { minimal = false, ...props } = Astro.props;
+const { minimal = false, commandContext, ...props } = Astro.props;
+const commandServices = SERVICES.map((s) => ({ name: s.name, href: `/${s.slug}` }));
 const siteURL = new URL('/', Astro.site).href;
 
 // Site-wide business entity. Only facts we actually know; no invented address,
@@ -71,6 +75,17 @@ const organization = {
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     {minimal ? <slot name="top" /> : <Header />}
+    {
+      /* Command bar on every page with site navigation (landing pages have none by design).
+         client:idle: not needed for first paint. transition:persist keeps it, and any open
+         search, across page navigation. */
+      !minimal && (
+        <div class="cmdk-dock">
+          <CommandBar client:idle transition:persist="command-bar" services={commandServices} bookHref={BOOK_A_CALL_PATH} />
+        </div>
+      )
+    }
+    {!minimal && commandContext && <script type="application/json" data-cmdk-context set:html={JSON.stringify(commandContext)} />}
     <main id="main" tabindex="-1">
       <slot />
     </main>

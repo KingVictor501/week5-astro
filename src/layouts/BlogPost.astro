@@ -79,7 +79,14 @@ const popup = leadMagnet
     };
 ---
 
-<BaseLayout title={title} description={description} image={{ ...featuredImage }} type="article" bareTitle>
+<BaseLayout
+  title={title}
+  description={description}
+  image={{ ...featuredImage }}
+  type="article"
+  bareTitle
+  commandContext={{ heading: 'Related articles', items: related.map((r) => ({ title: r.title, href: r.href, hint: 'Article' })) }}
+>
   <Fragment slot="head">
     {/* picsum.photos redirects each image to its fastly.picsum.photos CDN. */}
     <link rel="preconnect" href="https://picsum.photos" />
@@ -98,7 +105,7 @@ const popup = leadMagnet
         {type === 'case-study' && <span class="post-type">Case study</span>}
         {type === 'news' && <span class="post-type">News</span>}
       </p>
-      <h1 id="post-title">{title}</h1>
+      <h1 id="post-title" data-pagefind-meta="title">{title}</h1>
       <p class="post-meta">
         <span>By <a href="/about">{OWNER_NAME}</a></span>
         <span aria-hidden="true">·</span>
@@ -126,7 +133,7 @@ const popup = leadMagnet
       </div>
 
       <div class="post-body">
-        <div class="prose">
+        <div class="prose" data-pagefind-body data-pagefind-meta="type:Blog post">
           {/* Featured image: floats right so the opening text wraps around it (full width on phones). */}
           <figure class="post-featured">
             <img

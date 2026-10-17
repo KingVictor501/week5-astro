@@ -4,6 +4,30 @@ import mdx from '@astrojs/mdx';
 import preact from '@astrojs/preact';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import { fileURLToPath } from 'node:url';
+import * as pagefind from 'pagefind';
+
+/**
+ * Builds the Pagefind search index for the command bar after every `astro build`, whatever
+ * build command runs it (locally or on Vercel). Only pages marked `data-pagefind-body`
+ * (blog posts and service pages) are indexed. Output: dist/pagefind/.
+ */
+/** @type {import('astro').AstroIntegration} */
+const pagefindIndex = {
+  name: 'pagefind-index',
+  hooks: {
+    'astro:build:done': async ({ dir, logger }) => {
+      const { index, errors } = await pagefind.createIndex();
+      if (!index) throw new Error(`Pagefind: ${errors.join(', ')}`);
+      const added = await index.addDirectory({ path: fileURLToPath(dir) });
+      const written = await index.writeFiles({ outputPath: fileURLToPath(new URL('pagefind/', dir)) });
+      const problems = [...added.errors, ...written.errors];
+      if (problems.length > 0) throw new Error(`Pagefind: ${problems.join(', ')}`);
+      logger.info(`Search index written (scanned ${added.page_count} pages; only data-pagefind-body pages are indexed)`);
+      await pagefind.close();
+    },
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,6 +45,7 @@ export default defineConfig({
     react({ include: ['**/react/**/*.{jsx,tsx}'] }),
     // Blog posts are MDX so they can hold images and components.
     mdx(),
+    pagefindIndex,
     sitemap({
       // Lead-magnet landing pages are noindex and stay out of the sitemap.
       filter: (page) => !new URL(page).pathname.startsWith('/lp/'),
