@@ -1,8 +1,9 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 import { BOOK_A_CALL_PATH, SERVICES, SITE_TITLE } from '../consts';
+import { pagePath } from '../lib/path';
 
-const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const current = pagePath(Astro.url);
 const isCurrent = (href: string) => current === href;
 const isSection = (href: string) => current === href || current.startsWith(`${href}/`);
 const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));

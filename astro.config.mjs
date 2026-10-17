@@ -7,11 +7,13 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: replace with the production domain once the Vercel deploy is live.
   // Canonical URLs, Open Graph URLs, robots.txt, and the sitemap all derive from this.
-  site: 'https://docs-digital-consulting.example.com',
+  site: 'https://week5-astro.vercel.app',
   // One URL form per page, so canonical tags and sitemap entries always match.
+  // Astro pairs 'never' with file output (about.html); vercel.json serves it at /about
+  // and redirects /about/ there.
   trailingSlash: 'never',
+  build: { format: 'file' },
   integrations: [
     // Two JSX frameworks, so each gets its own folder via `include`.
     // tsconfig defaults JSX types to React; Preact files add a jsxImportSource pragma.

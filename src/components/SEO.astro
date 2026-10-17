@@ -1,5 +1,6 @@
 ---
 import { DEFAULT_OG_IMAGE, SITE_TITLE } from '../consts';
+import { pagePath } from '../lib/path';
 
 export interface Props {
   title: string;
@@ -15,10 +16,9 @@ const { title, description, image = DEFAULT_OG_IMAGE, type = 'website', noindex 
 
 const fullTitle = bareTitle || title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
 
-// trailingSlash is 'never', so strip any trailing slash (except on the homepage)
-// to keep canonical URLs identical to the sitemap entries.
-const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const canonical = new URL(pathname, Astro.site);
+// No ".html" and no trailing slash (except the homepage), so canonical URLs
+// match the sitemap entries and the URLs Vercel serves.
+const canonical = new URL(pagePath(Astro.url), Astro.site);
 const imageURL = new URL(image.src, Astro.site);
 ---
 
