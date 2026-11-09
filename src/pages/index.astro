@@ -4,8 +4,10 @@ import Faq from '../components/Faq.astro';
 import Hero from '../components/home/Hero.astro';
 import LatestPosts from '../components/home/LatestPosts.astro';
 import ServiceCards from '../components/home/ServiceCards.astro';
+import WhoIHelp from '../components/home/WhoIHelp.astro';
+import ServiceArea from '../components/ServiceArea.astro';
 import RoiCalculator from '../components/islands/preact/RoiCalculator';
-import { BOOK_A_CALL_PATH, CALL_LENGTH, magnetPath, SERVICES, SITE_TITLE } from '../consts';
+import { BOOK_A_CALL_PATH, CALL_LENGTH, listJoin, magnetPath, SERVICE_AREA, SERVICES, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getLatestPosts } from '../lib/blog';
 import type { FaqItem } from '../lib/schema';
@@ -18,7 +20,21 @@ const faq: FaqItem[] = [
   {
     question: 'What does an AI and automation consultant do for a small business?',
     answer:
-      'An AI and automation consultant finds the repetitive work in your business that AI can handle, then builds, deploys, and measures the automations and AI agents that do it. Typical wins include faster lead follow-up, automatic scheduling and reporting, and first drafts of emails and content, all with a person approving anything customer-facing.',
+      'An AI and automation consultant finds the repetitive work in your business that AI can handle, then sets up the tools that do it and shows you the time and money saved. For a local business, that often means texting back missed calls, booking appointments, sending invoice reminders, and drafting emails, with you approving anything that goes to a customer.',
+  },
+  {
+    question: 'What areas do you serve?',
+    answer: `I serve businesses along ${SERVICE_AREA.region}, from ${SERVICE_AREA.span}, in ${listJoin(SERVICE_AREA.counties)} counties. That includes ${listJoin(SERVICE_AREA.towns)}. I also work remotely with clients anywhere.`,
+  },
+  {
+    question: 'Do you work with large companies?',
+    answer:
+      "No. I work with owner-run businesses and small offices, like trades and home services, Main Street shops and restaurants, and marine and outdoor businesses. We're a veteran-owned small team ourselves, so you work directly with me from start to finish.",
+  },
+  {
+    question: 'Do you work with plumbers, HVAC companies, roofers, or law firms?',
+    answer:
+      "Yes, usually starting with AI search. Those fields are crowded with companies competing for the same Google Ads and rankings, so I focus first on generative and answer engine optimization (GEO and AEO): getting your business named when customers ask ChatGPT, Gemini, or Google's AI Overviews who to call. Many businesses in those fields haven't started on that yet.",
   },
   {
     question: 'What is AI search optimization?',
@@ -38,7 +54,7 @@ const faq: FaqItem[] = [
   {
     question: `How is ${SITE_TITLE} different from a marketing agency?`,
     answer:
-      `${SITE_TITLE} is one consultant who analyzes your business, builds the solution, deploys it, and measures the results, so nothing gets lost between account managers and specialists. You work directly with the person doing the work, and you own every account, automation, and line of code.`,
+      `${SITE_TITLE} is a veteran-owned small team where the person you talk to is the person who analyzes your business, builds the solution, launches it, and measures the results, so nothing gets lost between account managers and specialists. You work directly with the person doing the work, and you own every account, automation, and line of code.`,
   },
   {
     question: 'What happens on the free call?',
@@ -49,11 +65,12 @@ const faq: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="AI & Automation Consulting for Small Businesses"
-  description="AI and automation consulting, full-stack web development, and GEO, AEO, and SEO for small businesses, from an Air Force veteran. Book a free call."
+  title="AI & Automation Consulting on Florida's Gulf Coast"
+  description="Veteran-owned AI and automation consulting and web development for local businesses from Crystal River to Sarasota. Book a free call."
   faq={faq}
 >
   <Hero />
+  <WhoIHelp />
   <ServiceCards services={SERVICES} />
 
   {/* ROI calculator: Preact island, hydrated only when scrolled into view. */}
@@ -68,7 +85,8 @@ const faq: FaqItem[] = [
   </section>
 
   <LatestPosts posts={latestPosts} />
-  <Faq heading="Questions small business owners ask" items={faq} alt />
+  <ServiceArea alt />
+  <Faq heading="Questions small business owners ask" items={faq} />
   <CtaBand />
 </BaseLayout>
 

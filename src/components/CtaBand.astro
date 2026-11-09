@@ -25,17 +25,19 @@ const {
 </section>
 
 <style>
+  /* Sea-glass gradient band with a gentle wave along the top edge. The wave is a CSS mask,
+     so it blends into whatever section sits above it, in light or dark mode. */
   .cta-band {
-    padding-block: var(--space-7);
-    background: var(--color-heading);
-    color: var(--color-bg);
-  }
-
-  /* In dark mode --color-heading is near-white, so swap to a dark band. */
-  :global(:root[data-theme='dark']) .cta-band {
-    background: var(--color-surface-raised);
-    color: var(--color-text);
-    border-block: 1px solid var(--color-border);
+    --wave: 1.75rem;
+    padding-block: calc(var(--space-7) + var(--wave)) var(--space-7);
+    background: var(--gradient-band);
+    color: var(--color-on-band);
+    -webkit-mask:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 22C240 2 480 42 720 22S1200 2 1440 22V40H0Z'/%3E%3C/svg%3E") top / 100% var(--wave) no-repeat,
+      linear-gradient(#000 0 0) 0 calc(var(--wave) - 1px) / 100% calc(100% - var(--wave) + 1px) no-repeat;
+    mask:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 22C240 2 480 42 720 22S1200 2 1440 22V40H0Z'/%3E%3C/svg%3E") top / 100% var(--wave) no-repeat,
+      linear-gradient(#000 0 0) 0 calc(var(--wave) - 1px) / 100% calc(100% - var(--wave) + 1px) no-repeat;
   }
 
   .cta-inner {
@@ -63,21 +65,17 @@ const {
   }
 
   .cta-btn {
-    background: var(--color-bg);
-    color: var(--color-heading);
+    background: #ffffff;
+    color: #0e6b66;
   }
 
   .cta-btn:hover {
-    background: var(--color-surface);
-    color: var(--color-heading);
+    background: #e6f4f2;
+    color: #0a524e;
   }
 
-  :global(:root[data-theme='dark']) .cta-btn {
-    background: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-
-  :global(:root[data-theme='dark']) .cta-btn:hover {
-    background: var(--color-primary-hover);
+  /* Focus ring that shows up on the teal band. */
+  .cta-btn:focus-visible {
+    outline-color: #ffffff;
   }
 </style>

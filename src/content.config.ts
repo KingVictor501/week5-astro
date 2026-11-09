@@ -36,10 +36,6 @@ const services = defineCollection({
     included: z.object({ heading: z.string(), items: z.array(titledText).min(4).max(8) }),
     process: z.object({ heading: z.string(), steps: z.array(titledText).min(3).max(5) }),
     audience: z.object({ heading: z.string(), intro: z.string(), items: z.array(z.string()).min(3).max(6) }),
-    proof: z.object({
-      heading: z.string(),
-      placeholder: z.string().startsWith('[REPLACE:', 'Proof must be a [REPLACE] placeholder, never invented results.'),
-    }),
     faq: z.object({
       heading: z.string(),
       items: z.array(z.object({ question: z.string().endsWith("?"), answer: z.string().min(120) })).min(4).max(10),

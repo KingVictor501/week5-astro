@@ -2,6 +2,7 @@
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
+import ServiceArea from '../components/ServiceArea.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { OWNER_NAME, OWNER_ROLE, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -13,7 +14,7 @@ import { personId, personSchema, type Crumb, type FaqItem, type PersonCredential
 // CDMP, Google Analytics and Meta certified; Big Tech Digital Marketing Manager and
 // Webmaster experience; builds AI and automation solutions as a freelancer;
 // Applied AI Mastery certificate, Millersville University, Lombardo College of Business
-// (19-week, 475-hour program: automation and AI agents, AI-assisted software development,
+// (19-week, 475-hour program: automation and AI agents, software development,
 // security, deployment, business systems analysis and ROI, real-business capstone).
 // Written as completed, per the course instructor: the site launches on graduation day.
 // Do not add employers, dates, places, clients, or achievements beyond these.
@@ -84,8 +85,8 @@ const principles = [
     text: "You'll always know what I'm working on, why it matters, and what changed, without jargon.",
   },
   {
-    title: 'Practical AI, with a human in the loop',
-    text: 'I use AI and automation where they save real time, build them securely, and make sure anything customer-facing gets a human review.',
+    title: 'Practical AI for your business, with you in control',
+    text: 'I set up AI and automation for your business only where they save real time, build them securely, and make sure you approve anything that reaches a customer.',
   },
   {
     title: 'You own everything',
@@ -136,7 +137,7 @@ const faq: FaqItem[] = [
   },
   {
     question: `What AI training does ${OWNER_NAME} have?`,
-    answer: `${OWNER_NAME} holds the Applied AI Mastery certificate from Millersville University's Lombardo College of Business, a 19-week, 475-hour program. It covers automations and AI agents, AI-assisted software development, security, deployment, business systems analysis, and ROI, and it ends with a capstone project for a real business.`,
+    answer: `${OWNER_NAME} holds the Applied AI Mastery certificate from Millersville University's Lombardo College of Business, a 19-week, 475-hour program. It covers automations and AI agents, software development, security, deployment, business systems analysis, and ROI, and it ends with a capstone project for a real business.`,
   },
   {
     question: `Is ${OWNER_NAME} a web developer or a marketer?`,
@@ -172,7 +173,7 @@ const faq: FaqItem[] = [
           <p>
             I hold the Applied AI Mastery certificate from Millersville University's Lombardo College of Business. That
             program trained me to analyze how a business runs, build automations and AI agents that take over
-            repetitive work, develop and securely deploy software with AI, and prove the return with real numbers.
+            repetitive work, develop and securely deploy software, and prove the return with real numbers.
           </p>
           <p>
             Before that, I worked as a Digital Marketing Manager and Webmaster in Big Tech. I hold a Master of Science in
@@ -180,8 +181,10 @@ const faq: FaqItem[] = [
             Digital Marketing Professional (CDMP), certified in Google Analytics and Meta.
           </p>
           <p>
-            {SITE_TITLE} is how I bring that experience to small businesses: AI and automation that saves time, custom
-            websites and web apps, and the visibility to get found on Google and recommended in AI answers.
+            {SITE_TITLE} is a veteran-owned small team, and that's on purpose. I work with owner-run
+            businesses and small offices along Florida's Gulf Coast, from Crystal River to Sarasota: AI and automation
+            that saves time, websites that bring in customers, and the visibility to get found on Google and recommended
+            in AI answers. You work directly with me from start to finish.
           </p>
         </div>
       </div>
@@ -253,7 +256,9 @@ const faq: FaqItem[] = [
     </div>
   </section>
 
-  <Faq heading={`Questions about ${OWNER_NAME} and ${SITE_TITLE}`} items={faq} alt />
+  <ServiceArea alt />
+
+  <Faq heading={`Questions about ${OWNER_NAME} and ${SITE_TITLE}`} items={faq} />
 
   <CtaBand
     heading="Let's talk about your business"
@@ -264,7 +269,7 @@ const faq: FaqItem[] = [
 <style>
   .about-hero {
     padding-block: var(--space-5) var(--space-7);
-    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+    background: var(--gradient-hero);
   }
 
   .about-hero-body {

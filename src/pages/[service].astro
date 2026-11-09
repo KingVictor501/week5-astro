@@ -2,6 +2,12 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection, getEntries } from 'astro:content';
 import CrmAutomationSection from '../components/services/CrmAutomationSection.astro';
+import AiAnswerDemo from '../components/islands/preact/AiAnswerDemo';
+import AutomationDemo from '../components/islands/preact/AutomationDemo';
+import DashboardDemo from '../components/islands/preact/DashboardDemo';
+import PlatformPicker from '../components/islands/preact/PlatformPicker';
+import PostWeekDemo from '../components/islands/preact/PostWeekDemo';
+import SearchTermSorter from '../components/islands/preact/SearchTermSorter';
 import { BLOG_CATEGORIES, SERVICES } from '../consts';
 import ServicePage from '../layouts/ServicePage.astro';
 import { getPostsByCategory } from '../lib/blog';
@@ -36,8 +42,17 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const props = Astro.props;
+const slug = props.service.slug;
 ---
 
 <ServicePage {...props}>
-  {props.service.slug === 'ai-and-automation-consulting' && <CrmAutomationSection slot="extra" />}
+  {/* One interactive demo per service, in the hero. Preact islands, hydrated when visible;
+      each renders complete HTML on the server first, so nothing shifts and it works without JS. */}
+  {slug === 'ai-and-automation-consulting' && <AutomationDemo slot="demo" client:visible />}
+  {slug === 'website-development-and-management' && <PlatformPicker slot="demo" client:visible />}
+  {slug === 'ai-search-optimization' && <AiAnswerDemo slot="demo" client:visible />}
+  {slug === 'paid-search' && <SearchTermSorter slot="demo" client:visible />}
+  {slug === 'social-media-marketing' && <PostWeekDemo slot="demo" client:visible />}
+  {slug === 'marketing-analytics-and-dashboards' && <DashboardDemo slot="demo" client:visible />}
+  {slug === 'ai-and-automation-consulting' && <CrmAutomationSection slot="extra" />}
 </ServicePage>

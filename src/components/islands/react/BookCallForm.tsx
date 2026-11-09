@@ -127,11 +127,8 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
     void send();
   }
 
-  const fallback: ReactNode = contactEmail ? (
-    <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-  ) : (
-    <span>[REPLACE: contact email]</span>
-  );
+  // Shown only once a contact email is set in consts.ts.
+  const fallback: ReactNode = contactEmail ? <a href={`mailto:${contactEmail}`}>{contactEmail}</a> : null;
 
   if (status === 'success') {
     const firstName = values.name.trim().split(/\s+/)[0];
@@ -183,7 +180,7 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
             <button type="button" className="btn btn-primary" onClick={() => void send()}>
               Try again
             </button>
-            <p>Prefer email? Reach me at {fallback}.</p>
+            {contactEmail && <p>Prefer email? Reach me at {fallback}.</p>}
           </div>
         </div>
       )}

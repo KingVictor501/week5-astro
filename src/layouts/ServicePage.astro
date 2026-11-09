@@ -67,16 +67,25 @@ const serviceData = serviceSchema(
             <a class="btn btn-secondary btn-lg" href="#included">What's included</a>
           </div>
         </div>
-        <Image
-          src={content.hero.src}
-          alt={content.hero.alt}
-          quality={60}
-          width={content.hero.width}
-          height={content.hero.height}
-          widths={[400, 600, 800, 1000, 1200]}
-          sizes="(min-width: 56rem) 34rem, calc(100vw - 2rem)"
-          priority
-        />
+        {
+          /* Interactive demo for this service when one exists; otherwise the hero photo. */
+          Astro.slots.has('demo') ? (
+            <div class="svc-demo">
+              <slot name="demo" />
+            </div>
+          ) : (
+            <Image
+              src={content.hero.src}
+              alt={content.hero.alt}
+              quality={60}
+              width={content.hero.width}
+              height={content.hero.height}
+              widths={[400, 600, 800, 1000, 1200]}
+              sizes="(min-width: 56rem) 34rem, calc(100vw - 2rem)"
+              priority
+            />
+          )
+        }
       </div>
     </div>
   </section>
@@ -141,18 +150,12 @@ const serviceData = serviceSchema(
   <slot name="extra" />
 
   <section class="section svc-alt" aria-labelledby="audience-title" data-pagefind-body>
-    <div class="container svc-split">
-      <div>
-        <h2 id="audience-title">{content.audience.heading}</h2>
-        <p>{content.audience.intro}</p>
-        <ul class="svc-checks" role="list">
-          {content.audience.items.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
-      <aside class="svc-proof" aria-labelledby="proof-title">
-        <h2 id="proof-title">{content.proof.heading}</h2>
-        <p class="placeholder-note">{content.proof.placeholder}</p>
-      </aside>
+    <div class="container">
+      <h2 id="audience-title">{content.audience.heading}</h2>
+      <p>{content.audience.intro}</p>
+      <ul class="svc-checks" role="list">
+        {content.audience.items.map((item) => <li>{item}</li>)}
+      </ul>
     </div>
   </section>
 
@@ -214,13 +217,13 @@ const serviceData = serviceSchema(
 <style>
   .svc-hero {
     padding-block: var(--space-5) var(--space-7);
-    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+    background: var(--gradient-hero);
   }
 
   .svc-hero-grid {
     display: grid;
     gap: var(--space-6);
-    align-items: center;
+    align-items: start;
     margin-top: var(--space-5);
   }
 
@@ -229,6 +232,10 @@ const serviceData = serviceSchema(
       grid-template-columns: 1.15fr 1fr;
       gap: var(--space-7);
     }
+  }
+
+  .svc-demo {
+    min-width: 0;
   }
 
   .svc-subhead {
@@ -305,7 +312,7 @@ const serviceData = serviceSchema(
   }
 
   .svc-card-problem {
-    border-left: 4px solid var(--color-primary);
+    border-left: 4px solid var(--color-secondary);
   }
 
   .svc-steps {
@@ -330,8 +337,8 @@ const serviceData = serviceSchema(
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--radius-pill);
-    background: var(--color-primary);
-    color: var(--color-on-primary);
+    background: var(--color-secondary);
+    color: var(--color-on-secondary);
     font-weight: var(--weight-bold);
   }
 
@@ -344,24 +351,18 @@ const serviceData = serviceSchema(
     margin: 0;
   }
 
-  .svc-split {
-    display: grid;
-    gap: var(--space-6);
-  }
-
-  @media (min-width: 56rem) {
-    .svc-split {
-      grid-template-columns: 1.4fr 1fr;
-      align-items: start;
-    }
-  }
-
   .svc-checks {
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-2) var(--space-6);
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  @media (min-width: 48rem) {
+    .svc-checks {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .svc-checks li {
@@ -375,14 +376,6 @@ const serviceData = serviceSchema(
     left: 0;
     color: var(--color-primary);
     font-weight: var(--weight-bold);
-  }
-
-  .svc-proof h2 {
-    font-size: var(--text-xl);
-  }
-
-  .svc-proof .placeholder-note {
-    background: var(--color-bg);
   }
 
   .svc-resource {

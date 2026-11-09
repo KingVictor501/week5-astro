@@ -1,0 +1,167 @@
+---
+// The three kinds of businesses the site is built for. Plain-English examples of what I'd build
+// first, so an owner can see themselves here. Owner-run businesses, not large companies.
+
+const groups = [
+  {
+    id: 'trades',
+    title: 'Trades and home services',
+    who: 'Locksmiths, electricians, appliance repair, pressure washing, pool cage and screen repair, handymen, irrigation',
+    first: [
+      'A text-back for every missed call, so no job goes to the next name on Google',
+      'Online booking with automatic reminders',
+      'Quote and invoice follow-ups that send themselves',
+      'Review requests after every finished job',
+    ],
+    link: { href: '/ai-and-automation-consulting', text: 'See AI and automation for trades' },
+    icon: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z',
+  },
+  {
+    id: 'shops',
+    title: 'Main Street shops and restaurants',
+    who: 'Coffee shops, bakeries, boutiques, salons and barbers, restaurants, family-run stores',
+    first: [
+      'A fast, easy website, or help with the Wix, Squarespace, or Shopify site you have',
+      'Show up when people ask Google or ChatGPT what is good nearby',
+      'A posting plan and simple ads that keep regulars coming back',
+      'Simple text or email updates for specials and events',
+    ],
+    link: { href: '/website-development-and-management', text: 'See websites for local shops' },
+    icon: 'M3 9l1.5-5h15L21 9M3 9v11h18V9M3 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3M9 20v-5h6v5',
+  },
+  {
+    id: 'marine',
+    title: 'Marine and outdoor businesses',
+    who: 'Charter captains, marine mechanics, boat detailing, dock and seawall builders, kayak and boat rentals, bait and tackle',
+    first: [
+      'Online booking for trips and rentals, with automatic weather reschedules',
+      'Show up when visitors ask Google or ChatGPT for things to do nearby',
+      'Review requests after every trip or repair',
+      'A fast website that works on a phone at the marina',
+    ],
+    link: { href: '/ai-search-optimization', text: 'See AI search for marine and outdoor businesses' },
+    icon: 'M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0M5 14l1-5h12l1 5M9 9V5h6v4',
+  },
+];
+---
+
+<section class="section who" aria-labelledby="who-title">
+  <div class="container">
+    <h2 id="who-title">Who I help</h2>
+    <p class="who-lead">
+      Owner-run businesses and small offices, not big corporations. We're a veteran-owned small team, and you work
+      directly with me from the first call to the finished work.
+    </p>
+    <ul class="who-grid" role="list">
+      {
+        groups.map((group) => (
+          <li class="who-card">
+            <span class="who-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d={group.icon} />
+              </svg>
+            </span>
+            <h3>{group.title}</h3>
+            <p class="who-examples">{group.who}</p>
+            <p class="who-first-title">What I'd build first:</p>
+            <ul class="who-first" role="list">
+              {group.first.map((item) => <li>{item}</li>)}
+            </ul>
+            <a href={group.link.href}>{group.link.text}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .who {
+    background: var(--color-surface);
+  }
+
+  .who-lead {
+    max-width: 62ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-6);
+  }
+
+  .who-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 60rem) {
+    .who-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  .who-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-raised);
+  }
+
+  .who-icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-secondary-soft);
+    color: var(--color-secondary);
+  }
+
+  .who-card h3 {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-lg);
+  }
+
+  .who-examples {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .who-first-title {
+    margin: var(--space-3) 0 0;
+    font-weight: var(--weight-bold);
+    color: var(--color-heading);
+  }
+
+  .who-first {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .who-first li {
+    position: relative;
+    padding-left: var(--space-5);
+  }
+
+  .who-first li::before {
+    content: '✓' / '';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: var(--weight-bold);
+  }
+
+  .who-card a {
+    margin-top: auto;
+    font-weight: var(--weight-semibold);
+  }
+</style>

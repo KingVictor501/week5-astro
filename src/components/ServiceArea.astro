@@ -1,0 +1,84 @@
+---
+import { listJoin, SERVICE_AREA } from '../consts';
+
+export interface Props {
+  /** Heading level text; the section is reused on the homepage and About page. */
+  heading?: string;
+  alt?: boolean;
+}
+
+const { heading = 'Where I work', alt = false } = Astro.props;
+const { region, span, counties, towns, remote } = SERVICE_AREA;
+---
+
+<section class:list={['section', 'area', { 'area-alt': alt }]} aria-labelledby="area-title">
+  <div class="container area-inner">
+    <div>
+      <h2 id="area-title">{heading}</h2>
+      <p class="area-lead">
+        I work with businesses along {region}, from {span}: {listJoin(counties)} counties. I'm happy to meet in person
+        or work over phone and video.
+      </p>
+      {remote && <p class="area-remote">Not on the Gulf Coast? I work with clients anywhere, remotely.</p>}
+    </div>
+    <div>
+      <h3 class="area-towns-title">Towns I serve, north to south</h3>
+      <ul class="area-towns" role="list">
+        {towns.map((town) => <li>{town}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .area-alt {
+    background: var(--color-surface);
+  }
+
+  .area-inner {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 56rem) {
+    .area-inner {
+      grid-template-columns: 1fr 1.1fr;
+      gap: var(--space-7);
+      align-items: start;
+    }
+  }
+
+  .area-lead {
+    max-width: 56ch;
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .area-remote {
+    font-weight: var(--weight-semibold);
+    color: var(--color-heading);
+  }
+
+  .area-towns-title {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-3);
+  }
+
+  .area-towns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .area-towns li {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-pill);
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+</style>

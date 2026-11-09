@@ -65,9 +65,6 @@ audience:
     - Ranks on Google but rarely gets mentioned in AI answers
     - Depends on local customers finding you on Google and Maps
     - Wants to rely less on paid ads over time
-proof:
-  heading: AI search results
-  placeholder: '[REPLACE: AI search client result, e.g. new AI citations or organic leads before and after, shared with permission]'
 faq:
   heading: 'Generative engine optimization services: questions and answers'
   items:
@@ -86,6 +83,9 @@ faq:
     - question: How do I get my business mentioned by ChatGPT or Google's AI Overviews?
       answer: >-
         Publish pages that answer your customers' questions directly and accurately, and add structured data so machines can read your business details. Keep your name, services, and contact details consistent across your website, Google Business Profile, and listings. Let AI crawlers access your site, and earn mentions on other reputable sites in your industry.
+    - question: Can GEO and AEO help plumbers, HVAC companies, roofers, and law firms compete?
+      answer: >-
+        Yes, and crowded fields are often where they help most. In plumbing, HVAC, roofing, and law, the top Google Ads spots and rankings are expensive and hard to win. AI assistants build answers differently: they cite businesses whose websites answer the question clearly and whose details match everywhere online. A focused GEO and AEO plan can get a smaller contractor or firm named in those answers without outspending the biggest competitors.
     - question: How long does generative engine optimization take to work?
       answer: >-
         Technical fixes and structured data can be picked up within weeks, but most small businesses see meaningful changes in AI citations and search traffic over several months. AI answers change often, so I re-test the questions we target every month and give you an honest timeline after the audit.

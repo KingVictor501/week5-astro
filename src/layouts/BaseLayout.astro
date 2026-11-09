@@ -6,7 +6,7 @@ import Header from '../components/Header.astro';
 import JsonLd from '../components/JsonLd.astro';
 import CommandBar from '../components/islands/react/CommandBar';
 import SEO, { type Props as SEOProps } from '../components/SEO.astro';
-import { BOOK_A_CALL_PATH, DEFAULT_OG_IMAGE, OWNER_NAME, SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { BOOK_A_CALL_PATH, DEFAULT_OG_IMAGE, OWNER_NAME, SERVICE_AREA, SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 import { pagePath } from '../lib/path';
 import {
   breadcrumbSchema,
@@ -52,6 +52,18 @@ const organization = {
   logo: new URL('/favicon.svg', site).href,
   founder: { '@type': 'Person', '@id': personId(site), name: OWNER_NAME },
   knowsAbout: SERVICES.flatMap((s) => s.keywords),
+  // Same counties and towns the homepage, About page, and footer list.
+  areaServed: [
+    ...SERVICE_AREA.counties.map((county) => ({
+      '@type': 'AdministrativeArea',
+      name: `${county} County, Florida`,
+    })),
+    ...SERVICE_AREA.towns.map((town) => ({
+      '@type': 'City',
+      name: town,
+      containedInPlace: { '@type': 'State', name: 'Florida' },
+    })),
+  ],
   ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS.map((l) => l.href) }),
 };
 

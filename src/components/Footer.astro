@@ -1,5 +1,5 @@
 ---
-import { BOOK_A_CALL_PATH, SERVICES, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { BOOK_A_CALL_PATH, SERVICE_AREA, SERVICES, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 
 const year = new Date().getFullYear();
 ---
@@ -8,7 +8,8 @@ const year = new Date().getFullYear();
   <div class="container footer-grid">
     <div class="footer-brand">
       <a class="footer-title" href="/">{SITE_TITLE}</a>
-      <p>AI and automation consulting, full-stack web development, and AI search optimization for small businesses.</p>
+      <p>Veteran-owned AI and automation consulting and web development for local businesses.</p>
+      <p class="footer-area">Serving {SERVICE_AREA.region}, {SERVICE_AREA.span}, and remote clients anywhere.</p>
       <a class="btn btn-primary" href={BOOK_A_CALL_PATH}>Book a Call</a>
     </div>
 
@@ -34,10 +35,11 @@ const year = new Date().getFullYear();
       </ul>
     </nav>
 
-    <div>
-      <h2 class="footer-heading">Follow</h2>
-      {
-        SOCIAL_LINKS.length > 0 ? (
+    {
+      /* Follow column appears once SOCIAL_LINKS (consts.ts) has profiles. */
+      SOCIAL_LINKS.length > 0 && (
+        <nav aria-labelledby="footer-follow">
+          <h2 id="footer-follow" class="footer-heading">Follow</h2>
           <ul role="list">
             {SOCIAL_LINKS.map((link) => (
               <li>
@@ -47,11 +49,9 @@ const year = new Date().getFullYear();
               </li>
             ))}
           </ul>
-        ) : (
-          <p class="footer-muted">[REPLACE: social profile links]</p>
-        )
-      }
-    </div>
+        </nav>
+      )
+    }
   </div>
 
   <div class="container footer-bottom">
@@ -81,6 +81,11 @@ const year = new Date().getFullYear();
 
   @media (min-width: 64rem) {
     .footer-grid {
+      grid-template-columns: 2fr 1.5fr 1fr;
+    }
+
+    /* Fourth column only when social links exist. */
+    .footer-grid:has(> :nth-child(4)) {
       grid-template-columns: 2fr 1.5fr 1fr 1fr;
     }
   }

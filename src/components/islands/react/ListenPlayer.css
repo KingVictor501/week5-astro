@@ -173,7 +173,7 @@
   border-radius: var(--radius-sm);
   background: #fff1c2;
   box-shadow: 0 0 0 0.3em #fff1c2;
-  color: #0f1c2e;
+  color: #1c2826;
 }
 
 :root[data-theme='dark'] .prose [data-listen-current] {

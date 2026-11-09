@@ -42,7 +42,7 @@ Every page uses `src/layouts/BaseLayout.astro`, which holds the shared `<head>` 
 
 ## Islands and how they load
 
-Most of the site is plain HTML with no JavaScript. Only six interactive parts ship JavaScript, and each one loads when it's needed.
+Most of the site is plain HTML with no JavaScript. Only the interactive parts below ship JavaScript, and each one loads when it's needed.
 
 | Island                     | Where                 | Framework | Directive      | What it does                                         |
 | :------------------------- | :-------------------- | :-------- | :------------- | :--------------------------------------------------- |
@@ -52,6 +52,14 @@ Most of the site is plain HTML with no JavaScript. Only six interactive parts sh
 | `BlogBrowser`              | `/blog`               | React     | `client:idle`    | Category filter and search over the post cards       |
 | `ListenPlayer`             | Every blog post       | React     | `client:idle`    | "Listen to this post" text-to-speech player          |
 | `RoiCalculator`            | Homepage              | Preact    | `client:visible` | Estimates return on ad spend                         |
+| `AutomationDemo`           | `/ai-and-automation-consulting` | Preact | `client:visible` | "Watch an AI helper work": plumber, bakery, law firm |
+| `DashboardDemo`            | `/marketing-analytics-and-dashboards` | Preact | `client:visible` | Sample dashboard (law firm or shop, 30/90 days) with a table view |
+| `AiAnswerDemo`             | `/ai-search-optimization` | Preact | `client:visible` | What an AI assistant says before and after GEO/AEO |
+| `PlatformPicker`           | `/website-development-and-management` | Preact | `client:visible` | Four questions that suggest a website platform |
+| `SearchTermSorter`         | `/paid-search`        | Preact    | `client:visible` | "Block or keep" game for Google Ads search terms     |
+| `PostWeekDemo`             | `/social-media-marketing` | Preact | `client:visible` | A week of sample posts in a phone frame              |
+
+The six service demos sit in each service page's hero in place of a stock photo. Each renders complete HTML on the server, so nothing shifts when it hydrates and it still reads correctly without JavaScript. All sample data is labeled "Illustrative example." Animations respect `prefers-reduced-motion`. The homepage hero's text-message animation is pure CSS (no island), with a pause button to meet WCAG 2.2.2.
 
 Island source files are in `src/components/islands/react/` and `src/components/islands/preact/`.
 
@@ -59,7 +67,7 @@ Island source files are in `src/components/islands/react/` and `src/components/i
 
 - **`client:load` (right away): the two forms.** On `/book-a-call` and the landing pages, the form is the reason the page exists. People often start typing within a second or two, so the validation, error messages and success state have to work as soon as the page opens. Both forms also use `method="post"`, so a submit that happens before JavaScript loads can never put an email address in the URL.
 - **`client:idle` (once the browser is free): command bar, blog filter, listen player.** None of these are needed to read the page, and the page is already fully readable without them. The blog index renders all 38 post cards as static HTML, and the filter only hides and shows them. Waiting for idle keeps their JavaScript out of the way of the first paint. The command bar also uses `transition:persist`, so it stays loaded, and keeps any open search, as you move between pages.
-- **`client:visible` (when scrolled into view): ROI calculator.** It sits below the fold on the homepage, and many visitors never scroll that far. Its code only downloads when it comes into view. It's written in Preact instead of React because Preact is much smaller, which suits a widget that might never load.
+- **`client:visible` (when scrolled into view): ROI calculator and the service demos.** The ROI calculator sits below the fold on the homepage, and many visitors never scroll that far. Its code only downloads when it comes into view. The service demos are in view right away on desktop, so they hydrate almost immediately there, but on phones they sit below the intro and wait until scrolled to. All of these are Preact instead of React because Preact is much smaller.
 
 To see the difference: open DevTools → Network and load `/book-a-call`. The form's script loads right away. On the homepage, `RoiCalculator` doesn't load until you scroll down to it.
 
@@ -111,10 +119,11 @@ How to check this yourself: run `npm run build`, then search `dist/` for `<scrip
 
 Lighthouse (mobile) on the live site scores 100 for Performance on the homepage, `/about` and `/blog`.
 
-## Before launch: placeholders to replace
+## Before launch: details to fill in
 
-The site never invents clients, testimonials or results. Anything not yet known is marked `[REPLACE: …]` in the code or on the page:
+The site never invents clients, testimonials or results, and no placeholder text appears on any page. These are hidden until they're filled in:
 
-- `CONTACT_EMAIL`, `OWNER_NAME` and `SOCIAL_LINKS` in `src/consts.ts`
-- The lead magnet download files (`file` in each `src/content/services/*.yaml`)
-- The placeholder photos, including the `og:image` share images
+- `CONTACT_EMAIL` and `SOCIAL_LINKS` in `src/consts.ts` (the "Prefer email?" line and the footer's Follow column appear once set), and `OWNER_NAME` (currently "Doc")
+- The lead magnet download files (`file` in each `src/content/services/*.yaml`). Until a real URL is set, the success message says the file will be emailed.
+- A real headshot for the blog author box (a monogram badge stands in)
+- The blog post photos and `og:image` share images, which are still placeholder photos from picsum.photos

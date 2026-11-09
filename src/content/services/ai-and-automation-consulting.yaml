@@ -69,9 +69,6 @@ audience:
     - Want to use AI but need someone to build it, not just recommend tools
     - Need to see the return before you commit budget
     - Care about keeping a human touch with your customers
-proof:
-  heading: AI and automation results
-  placeholder: '[REPLACE: AI automation case study, e.g. hours saved per week and ROI, shared with permission]'
 faq:
   heading: 'AI agent and workflow automation services: questions and answers'
   items:

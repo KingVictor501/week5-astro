@@ -124,11 +124,8 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
     void send();
   }
 
-  const fallback: ReactNode = contactEmail ? (
-    <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-  ) : (
-    <span>[REPLACE: contact email]</span>
-  );
+  // Shown only once a contact email is set in consts.ts.
+  const fallback: ReactNode = contactEmail ? <a href={`mailto:${contactEmail}`}>{contactEmail}</a> : null;
 
   if (status === 'success') {
     const firstName = values.firstName.trim().split(/\s+/)[0];
@@ -143,9 +140,7 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
             Download the {magnet.title}
           </a>
         ) : (
-          <p className="lead-demo">
-            <strong>Download link:</strong> {magnet.file}
-          </p>
+          <p>I'll email your copy of the {magnet.title} to you shortly.</p>
         )}
         <p>
           Want help putting it to work?{' '}
@@ -175,7 +170,7 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
             <button type="button" className="btn btn-primary" onClick={() => void send()}>
               Try again
             </button>
-            <p>Prefer email? Reach me at {fallback}.</p>
+            {contactEmail && <p>Prefer email? Reach me at {fallback}.</p>}
           </div>
         </div>
       )}

@@ -2,7 +2,7 @@
 
 export const SITE_TITLE = "Doc's Digital Consulting";
 export const SITE_DESCRIPTION =
-  'AI and automation consulting, full-stack web development, and AI search optimization (GEO, AEO, and SEO) for small businesses, plus Google Ads, social media, and analytics.';
+  "Veteran-owned AI and automation consulting and web development for local businesses on Florida's Gulf Coast, from Crystal River to Sarasota.";
 
 /** How the owner describes their role (About page, Person JSON-LD, author box). */
 export const OWNER_ROLE = 'AI & Automation Consultant and Full-Stack Web Developer';
@@ -35,8 +35,8 @@ export const SERVICES: Service[] = [
       'AI and automation consulting for small businesses',
       'AI agent and workflow automation services',
     ],
-    hook: 'Hand the repetitive work to AI agents and automations.',
-    summary: 'I map how your business runs, find the tasks AI can take over, then build and deploy the automations and AI agents, with the ROI measured.',
+    hook: 'AI helpers that answer missed calls, book jobs, and chase invoices.',
+    summary: 'I learn how your business runs, find the busywork AI can take over, then set it up and show you the hours and dollars it saves.',
   },
   {
     slug: 'website-development-and-management',
@@ -46,8 +46,8 @@ export const SERVICES: Service[] = [
       'full-stack web development services',
       'WordPress, Shopify, Squarespace, and Wix website help',
     ],
-    hook: 'Custom-built sites and web apps, plus help with the platform you already use.',
-    summary: 'Fast, secure, accessible websites and web apps built and deployed from the ground up, with fixes and improvements for WordPress, Shopify, Squarespace, and Wix sites.',
+    hook: 'A website that brings in customers, built from scratch or fixed up.',
+    summary: 'Fast, easy-to-use websites built from the ground up, or help with the WordPress, Shopify, Squarespace, or Wix site you already have.',
   },
   {
     slug: 'ai-search-optimization',
@@ -57,8 +57,8 @@ export const SERVICES: Service[] = [
       'answer engine optimization services',
       'SEO services for small businesses',
     ],
-    hook: 'Get found on Google and cited in AI answers.',
-    summary: 'Generative engine optimization (GEO), answer engine optimization (AEO), and SEO, so ChatGPT, Gemini, Perplexity, and Google recommend your business.',
+    hook: 'Show up when locals ask Google or ChatGPT who to call.',
+    summary: 'GEO, AEO, and SEO in plain English: making sure Google, ChatGPT, Gemini, and Perplexity know your business and recommend it.',
   },
   {
     slug: 'paid-search',
@@ -67,8 +67,8 @@ export const SERVICES: Service[] = [
       'Google Ads management services for small businesses',
       'PPC management services for lead generation',
     ],
-    hook: 'Ads that bring in leads, not just clicks.',
-    summary: "Google Ads campaigns built for lead generation. Google's AI bidding gets the right signals, keyword targeting stays focused, and conversion tracking is set up so you can trust it.",
+    hook: 'Google Ads that bring in calls, not just clicks.',
+    summary: 'Google Ads set up and managed so your budget goes to the searches that turn into calls and booked jobs, with tracking that shows what each dollar brings in.',
   },
   {
     slug: 'social-media-marketing',
@@ -77,15 +77,15 @@ export const SERVICES: Service[] = [
       'social media marketing services for small businesses',
       'social media management and advertising services',
     ],
-    hook: 'Show up consistently where your customers scroll.',
-    summary: 'Social media management and advertising, with AI-assisted content workflows, that keeps your brand active and sends interested people back to your site.',
+    hook: 'Stay in front of your neighbors on Facebook and Instagram.',
+    summary: 'Regular posts and simple ads, written in your voice, that keep your business top of mind and bring people through the door.',
   },
   {
     slug: 'marketing-analytics-and-dashboards',
     name: 'Marketing Analytics & Dashboards',
     keywords: ['marketing analytics dashboard services', 'custom marketing performance dashboards'],
-    hook: 'See which marketing is actually working.',
-    summary: 'Automated dashboards that bring your channels, including AI search traffic, into one view, so decisions come from data instead of guesswork.',
+    hook: 'See where your customers and clients actually come from.',
+    summary: 'One simple dashboard that shows which ads, searches, referrals, and AI tools bring in calls and signed clients, updated automatically.',
   },
 ];
 
@@ -175,3 +175,37 @@ export const SOCIAL_LINKS: { label: string; href: string }[] = [];
 
 /** A service or category name for mid-sentence use: "AI Search Optimization" → "AI search optimization". Keeps acronyms. */
 export const lowerName = (name: string) => name.replace(/\b[A-Z][a-z]+/g, (word) => word.toLowerCase());
+
+/**
+ * Service area: coastal towns on Florida's Gulf Coast, from Crystal River down to Sarasota,
+ * plus remote clients anywhere. Shown on the page (homepage, About, footer) and in the
+ * Organization JSON-LD `areaServed`, so the markup always matches the visible text.
+ */
+export const SERVICE_AREA = {
+  region: "Florida's Gulf Coast",
+  span: 'Crystal River to Sarasota',
+  counties: ['Citrus', 'Hernando', 'Pasco', 'Pinellas', 'Manatee', 'Sarasota'],
+  towns: [
+    'Crystal River',
+    'Homosassa',
+    'Weeki Wachee',
+    'Hernando Beach',
+    'Hudson',
+    'Port Richey',
+    'New Port Richey',
+    'Holiday',
+    'Tarpon Springs',
+    'Palm Harbor',
+    'Dunedin',
+    'Clearwater',
+    'St. Petersburg',
+    'Bradenton',
+    'Anna Maria Island',
+    'Sarasota',
+  ],
+  remote: true,
+} as const;
+
+/** "Citrus, Hernando, …, and Sarasota" style list for sentences. */
+export const listJoin = (items: readonly string[]) =>
+  items.length < 3 ? items.join(' and ') : `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
