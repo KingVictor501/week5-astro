@@ -53,7 +53,7 @@ export default function PostWeekDemo() {
         </div>
         <p class="week-caption">{post.caption}</p>
       </div>
-      <p class="demo-note">A simple weekly rhythm with themes, planned a month ahead and written in your voice.</p>
+      <p class="demo-note">A simple weekly rhythm with themes, planned and curated a month ahead.</p>
     </div>
   );
 }

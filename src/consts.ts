@@ -75,10 +75,10 @@ export const SERVICES: Service[] = [
     name: 'Social Media Marketing',
     keywords: [
       'social media marketing services for small businesses',
-      'social media management and advertising services',
+      'social media consulting and advertising services',
     ],
     hook: 'Stay in front of your neighbors on Facebook and Instagram.',
-    summary: 'Regular posts and simple ads, written in your voice, that keep your business top of mind and bring people through the door.',
+    summary: 'A curated posting plan and simple ads that keep your business top of mind and bring people through the door.',
   },
   {
     slug: 'marketing-analytics-and-dashboards',
@@ -132,7 +132,7 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
     name: 'Social Media Marketing',
     service: 'social-media-marketing',
     intro:
-      'Ideas and how-tos for social media that brings in customers, from content planning and community management to social ads that reach the right people.',
+      'Ideas and how-tos for social media that brings in customers, from platform choice and content planning to social ads that reach the right people.',
   },
   {
     slug: 'marketing-analytics-and-dashboards',

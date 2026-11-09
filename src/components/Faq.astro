@@ -18,7 +18,7 @@ export interface Props {
 const { heading, items, intro, id = 'faq', alt = false } = Astro.props;
 ---
 
-<section class:list={['section', { 'faq-alt': alt }]} aria-labelledby={`${id}-title`} data-pagefind-body>
+<section class:list={['section', { 'faq-alt': alt }]} aria-labelledby={`${id}-title`}>
   <div class="container faq-narrow">
     <h2 id={`${id}-title`}>{heading}</h2>
     {intro && <p class="faq-intro">{intro}</p>}

@@ -7,7 +7,7 @@ import Faq from '../components/Faq.astro';
 import JsonLd from '../components/JsonLd.astro';
 import LatestPosts, { type PostSummary } from '../components/home/LatestPosts.astro';
 import ServiceIcon from '../components/home/ServiceIcon.astro';
-import { BOOK_A_CALL_PATH, lowerName, MAGNET_TYPE_LABELS, magnetPath, type BlogCategory, type Service } from '../consts';
+import { BOOK_A_CALL_PATH, lowerName, magnetPath, type BlogCategory, type Service } from '../consts';
 import { serviceSchema, type Crumb } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
 
@@ -43,23 +43,17 @@ const serviceData = serviceSchema(
   crumbs={crumbs}
   faq={content.faq.items}
   mainEntityId={serviceData['@id']}
-  commandContext={{
-    heading: `Free ${lowerName(service.name)} resources`,
-    items: content.leadMagnets
-      .filter((m) => m.published)
-      .map((m) => ({ title: m.title, href: magnetPath(service.slug, m.slug), hint: `Free ${MAGNET_TYPE_LABELS[m.type]}` })),
-  }}
 >
   <Fragment slot="head">
     <JsonLd data={serviceData} />
   </Fragment>
 
-  <section class="svc-hero" aria-labelledby="svc-title" data-pagefind-body data-pagefind-meta="type:Service">
+  <section class="svc-hero" aria-labelledby="svc-title">
     <div class="container">
       <Breadcrumbs crumbs={crumbs} />
       <div class="svc-hero-grid">
         <div>
-          <h1 id="svc-title" data-pagefind-meta={`title:${service.name}`}>{content.heading}</h1>
+          <h1 id="svc-title">{content.heading}</h1>
           <p class="svc-subhead">{content.subhead}</p>
           <p class="svc-intro">{content.intro}</p>
           <div class="svc-ctas">
@@ -90,7 +84,7 @@ const serviceData = serviceSchema(
     </div>
   </section>
 
-  <section class="section" aria-labelledby="problem-title" data-pagefind-body>
+  <section class="section" aria-labelledby="problem-title">
     <div class="container">
       <h2 id="problem-title">{content.problem.heading}</h2>
       <p class="svc-lead">{content.problem.intro}</p>
@@ -107,7 +101,7 @@ const serviceData = serviceSchema(
     </div>
   </section>
 
-  <section id="included" class="section svc-alt" aria-labelledby="included-title" data-pagefind-body>
+  <section id="included" class="section svc-alt" aria-labelledby="included-title">
     <div class="container">
       <h2 id="included-title">{content.included.heading}</h2>
       <ul class="svc-grid svc-grid-3" role="list">
@@ -123,7 +117,7 @@ const serviceData = serviceSchema(
     </div>
   </section>
 
-  <section class="section" aria-labelledby="process-title" data-pagefind-body>
+  <section class="section" aria-labelledby="process-title">
     <div class="container">
       <h2 id="process-title">{content.process.heading}</h2>
       <ol class="svc-steps" role="list">
@@ -149,7 +143,7 @@ const serviceData = serviceSchema(
 
   <slot name="extra" />
 
-  <section class="section svc-alt" aria-labelledby="audience-title" data-pagefind-body>
+  <section class="section svc-alt" aria-labelledby="audience-title">
     <div class="container">
       <h2 id="audience-title">{content.audience.heading}</h2>
       <p>{content.audience.intro}</p>
