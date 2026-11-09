@@ -1,32 +1,33 @@
 ---
-import { Image } from 'astro:assets';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
 import JsonLd from '../components/JsonLd.astro';
-import { OWNER_NAME, SOCIAL_LINKS } from '../consts';
+import { OWNER_NAME, OWNER_ROLE, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { breadcrumbSchema, personSchema, type Crumb, type PersonCredential } from '../lib/schema';
+import { personId, personSchema, type Crumb, type FaqItem, type PersonCredential } from '../lib/schema';
 
-// Every statement on this page comes from the owner's five provided facts:
+// Every statement on this page comes from the owner's provided facts:
 // Air Force veteran with 12+ years of experience incl. digital marketing leadership;
 // MS in Digital Audiences Strategy, Arizona State University (Walter Cronkite School);
 // CDMP, Google Analytics and Meta certified; Big Tech Digital Marketing Manager and
-// Webmaster experience; now building AI and automation solutions for marketing as a freelancer.
-// Do not add employers, dates, places, or achievements beyond these.
+// Webmaster experience; builds AI and automation solutions as a freelancer;
+// Applied AI Mastery certificate, Millersville University, Lombardo College of Business
+// (19-week, 475-hour program: automation and AI agents, AI-assisted software development,
+// security, deployment, business systems analysis and ROI, real-business capstone).
+// Written as completed, per the course instructor: the site launches on graduation day.
+// Do not add employers, dates, places, clients, or achievements beyond these.
 
 const site = Astro.site!;
 const description =
-  "Air Force veteran with 12+ years of experience, Big Tech digital marketing and webmaster experience, and an ASU master's in Digital Audiences Strategy.";
-
-// [REPLACE: headshot] Swap for a real photo (keep width/height and update the alt text).
-const headshot = {
-  src: 'https://picsum.photos/id/155/800/800',
-  alt: `Placeholder portrait standing in for ${OWNER_NAME}'s headshot`,
-  width: 800,
-  height: 800,
-};
+  "Air Force veteran, AI and automation consultant, and full-stack web developer with 12+ years of experience, Big Tech webmaster experience, and an ASU master's.";
 
 const credentials: PersonCredential[] = [
+  {
+    name: 'Applied AI Mastery Certificate',
+    category: 'certificate',
+    recognizedBy: { type: 'CollegeOrUniversity', name: 'Millersville University' },
+  },
   {
     name: 'Master of Science in Digital Audiences Strategy',
     category: 'degree',
@@ -42,31 +43,41 @@ const crumbs: Crumb[] = [
   { name: 'About', path: '/about' },
 ];
 
-const structuredData = [
-  personSchema(
-    {
-      name: OWNER_NAME,
-      jobTitle: 'Digital Marketing Consultant',
-      description,
-      image: headshot.src,
-      alumniOf: { name: 'Arizona State University', department: 'Walter Cronkite School' },
-      credentials,
-      knowsAbout: ['Digital marketing', 'Google Analytics', 'Meta advertising', 'Website management', 'Marketing automation', 'AI for marketing'],
-      sameAs: SOCIAL_LINKS.map((l) => l.href),
-    },
-    site,
-  ),
-  breadcrumbSchema(crumbs, site),
-];
+const person = personSchema(
+  {
+    name: OWNER_NAME,
+    jobTitle: OWNER_ROLE,
+    description,
+    alumniOf: [
+      { name: 'Millersville University', department: 'Lombardo College of Business' },
+      { name: 'Arizona State University', department: 'Walter Cronkite School' },
+    ],
+    credentials,
+    knowsAbout: [
+      'AI automation',
+      'AI agents and agentic workflows',
+      'Business systems analysis',
+      'Full-stack web development',
+      'Generative engine optimization (GEO)',
+      'Answer engine optimization (AEO)',
+      'Search engine optimization (SEO)',
+      'Google Analytics',
+      'Meta advertising',
+      'Digital marketing',
+    ],
+    sameAs: SOCIAL_LINKS.map((l) => l.href),
+  },
+  site,
+);
 
 const principles = [
   {
     title: 'Your goals come first',
-    text: 'Every engagement starts with what a good lead or sale looks like for your business. Tactics come after the goal is clear.',
+    text: 'Every engagement starts with what a good lead, sale, or saved hour looks like for your business. Tools and tactics come after the goal is clear.',
   },
   {
-    title: 'Measure before we spend',
-    text: 'Tracking gets set up early, so we can see what each channel actually brings in and move budget toward what works.',
+    title: 'Prove the ROI',
+    text: "I measure the baseline before building anything, then report the time saved, costs, and revenue impact afterward, so you know what each project is worth.",
   },
   {
     title: 'Plain-English updates',
@@ -74,83 +85,103 @@ const principles = [
   },
   {
     title: 'Practical AI, with a human in the loop',
-    text: 'I use AI and automation where they save real time, and anything customer-facing gets a human review.',
+    text: 'I use AI and automation where they save real time, build them securely, and make sure anything customer-facing gets a human review.',
   },
   {
     title: 'You own everything',
-    text: 'Your accounts, data, dashboards, and website stay yours, with access you control.',
+    text: 'Your accounts, data, code, automations, dashboards, and website stay yours, with access you control.',
   },
 ];
 
 const reasons = [
   {
-    fact: 'Air Force veteran',
+    fact: 'Trained in applied AI',
     benefit:
-      'I bring the accountability of military service to your project: clear plans, honest updates, and follow-through on what I commit to.',
+      "Millersville University's Applied AI Mastery program trained me to analyze business workflows, build automations and AI agents, and develop, secure, and deploy software, and to prove the ROI with real-business case studies.",
+    link: { href: '/ai-and-automation-consulting', text: 'See AI and automation consulting' },
   },
   {
-    fact: 'Big Tech marketing and webmaster experience',
+    fact: 'Full-stack developer and former Big Tech webmaster',
     benefit:
-      'I’ve worked as a Digital Marketing Manager and Webmaster in Big Tech, and I bring those standards for process and quality to small business budgets.',
-    link: { href: '/website-development-and-management', text: 'See website development services' },
+      'I’ve worked as a Digital Marketing Manager and Webmaster in Big Tech, and I build custom websites and web apps from front end to back end. I also help with WordPress, Shopify, Squarespace, and Wix.',
+    link: { href: '/website-development-and-management', text: 'See full-stack web development' },
   },
   {
     fact: 'Graduate training in audience strategy',
     benefit:
-      'My master’s in Digital Audiences Strategy means your marketing starts with understanding who your customers are and what they need.',
-    link: { href: '/search-engine-optimization', text: 'See SEO services' },
+      'My master’s in Digital Audiences Strategy means your content starts with who your customers are and the questions they ask, which is exactly what Google and AI answer engines reward.',
+    link: { href: '/ai-search-optimization', text: 'See AI search optimization (GEO, AEO, and SEO)' },
   },
   {
     fact: 'Google Analytics, Meta, and CDMP certified',
     benefit:
-      'Your tracking, reporting, and social ads are handled by someone formally trained on the platforms you rely on.',
+      'Your tracking, reporting, and ads are handled by someone formally trained on the platforms you rely on.',
     link: { href: '/marketing-analytics-and-dashboards', text: 'See marketing analytics dashboard services' },
   },
   {
-    fact: 'Building AI and automation for marketing now',
+    fact: 'Air Force veteran',
     benefit:
-      'Because AI and automation solutions for marketing are what I build as a freelancer today, you get approaches that are current and practical.',
-    link: { href: '/ai-entrepreneurship', text: 'See AI consulting services' },
+      'I bring the accountability of military service to your project: clear plans, honest updates, and follow-through on what I commit to.',
+  },
+];
+
+const faq: FaqItem[] = [
+  {
+    question: `Who runs ${SITE_TITLE}?`,
+    answer: `${SITE_TITLE} is run by ${OWNER_NAME}, an Air Force veteran, AI and automation consultant, and full-stack web developer with more than 12 years of experience, including digital marketing leadership and work as a Big Tech Digital Marketing Manager and Webmaster.`,
+  },
+  {
+    question: `What does ${SITE_TITLE} do?`,
+    answer: `${SITE_TITLE} helps small businesses grow with AI and automation consulting, custom full-stack web development, and AI search optimization (GEO, AEO, and SEO), plus Google Ads management, social media marketing, and marketing analytics dashboards.`,
+  },
+  {
+    question: `What AI training does ${OWNER_NAME} have?`,
+    answer: `${OWNER_NAME} holds the Applied AI Mastery certificate from Millersville University's Lombardo College of Business, a 19-week, 475-hour program. It covers automations and AI agents, AI-assisted software development, security, deployment, business systems analysis, and ROI, and it ends with a capstone project for a real business.`,
+  },
+  {
+    question: `Is ${OWNER_NAME} a web developer or a marketer?`,
+    answer: `Both. ${OWNER_NAME} is a full-stack web developer who builds and deploys custom websites and web apps, and a certified digital marketer (CDMP, Google Analytics, and Meta) with a master's in Digital Audiences Strategy from Arizona State University. That combination means your site is built to bring in leads, not just to look good.`,
+  },
+  {
+    question: `Does ${OWNER_NAME} work with WordPress, Shopify, Squarespace, and Wix sites?`,
+    answer: `Yes. Along with custom builds, ${OWNER_NAME} fixes, speeds up, redesigns, and migrates WordPress, Shopify, Squarespace, and Wix websites, and connects them to automation, analytics, and AI tools.`,
   },
 ];
 ---
 
-<BaseLayout title={`About ${OWNER_NAME}`} description={description}>
-  <Fragment slot="head">
-    <JsonLd data={structuredData} />
-  </Fragment>
+<BaseLayout
+  title={`About ${OWNER_NAME}, AI & Automation Consultant`}
+  description={description}
+  pageType="AboutPage"
+  crumbs={crumbs}
+  faq={faq}
+  mainEntityId={personId(site)}
+>
+  <JsonLd slot="head" data={person} />
 
   <section class="about-hero" aria-labelledby="about-title">
     <div class="container">
       <Breadcrumbs crumbs={crumbs} />
-      <div class="about-hero-grid">
-        <figure class="headshot">
-          <Image
-            src={headshot.src}
-            alt={headshot.alt}
-            quality={60}
-            width={headshot.width}
-            height={headshot.height}
-            widths={[320, 480, 640, 800]}
-            sizes="(min-width: 24rem) 22rem, calc(100vw - 2rem)"
-            priority
-          />
-          <figcaption class="placeholder-note">[REPLACE: headshot]</figcaption>
-        </figure>
+      <div class="about-hero-body">
         <div>
           <h1 id="about-title">About {OWNER_NAME}</h1>
           <p class="about-lead">
-            I'm {OWNER_NAME}, an Air Force veteran with more than 12 years of experience, including digital marketing
-            leadership.
+            I'm {OWNER_NAME}, an AI and automation consultant and full-stack web developer, and an Air Force veteran
+            with more than 12 years of experience, including digital marketing leadership.
           </p>
           <p>
-            I've worked as a Digital Marketing Manager and Webmaster in Big Tech, and I hold a Master of Science in
-            Digital Audiences Strategy from Arizona State University's Walter Cronkite School. I'm a Certified Digital
-            Marketing Professional (CDMP) and certified in Google Analytics and Meta.
+            I hold the Applied AI Mastery certificate from Millersville University's Lombardo College of Business. That
+            program trained me to analyze how a business runs, build automations and AI agents that take over
+            repetitive work, develop and securely deploy software with AI, and prove the return with real numbers.
           </p>
           <p>
-            Today I build AI and automation solutions for marketing as a freelancer. Doc's Digital Consulting is how I
-            bring that experience to small businesses that want more leads without the guesswork.
+            Before that, I worked as a Digital Marketing Manager and Webmaster in Big Tech. I hold a Master of Science in
+            Digital Audiences Strategy from Arizona State University's Walter Cronkite School, and I'm a Certified
+            Digital Marketing Professional (CDMP), certified in Google Analytics and Meta.
+          </p>
+          <p>
+            {SITE_TITLE} is how I bring that experience to small businesses: AI and automation that saves time, custom
+            websites and web apps, and the visibility to get found on Google and recommended in AI answers.
           </p>
         </div>
       </div>
@@ -177,6 +208,10 @@ const reasons = [
     <div class="container about-narrow">
       <h2 id="credentials-title">Credentials and certifications</h2>
       <ul class="credentials" role="list">
+        <li>
+          <strong>Applied AI Mastery Certificate</strong>
+          <span>Millersville University, Lombardo College of Business</span>
+        </li>
         <li>
           <strong>Master of Science, Digital Audiences Strategy</strong>
           <span>Arizona State University, Walter Cronkite School</span>
@@ -218,9 +253,11 @@ const reasons = [
     </div>
   </section>
 
+  <Faq heading={`Questions about ${OWNER_NAME} and ${SITE_TITLE}`} items={faq} alt />
+
   <CtaBand
-    heading="Let's talk about your marketing"
-    text="Book a free call and tell me where you want your business to grow. I'll share honest next steps, whether or not we end up working together."
+    heading="Let's talk about your business"
+    text="Book a free call and tell me where you want your business to grow, or which work you'd like off your plate. I'll share honest next steps, whether or not we end up working together."
   />
 </BaseLayout>
 
@@ -230,39 +267,8 @@ const reasons = [
     background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
   }
 
-  .about-hero-grid {
-    display: grid;
-    gap: var(--space-6);
-    align-items: center;
+  .about-hero-body {
     margin-top: var(--space-5);
-  }
-
-  @media (min-width: 48rem) {
-    .about-hero-grid {
-      grid-template-columns: minmax(14rem, 22rem) 1fr;
-      gap: var(--space-7);
-    }
-  }
-
-  .headshot {
-    margin: 0;
-    max-width: 22rem;
-  }
-
-  .headshot img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    background: var(--color-surface);
-  }
-
-  .headshot figcaption {
-    margin-top: var(--space-2);
-    padding: var(--space-1) var(--space-3);
-    font-size: var(--text-xs);
-    text-align: center;
   }
 
   .about-lead {
@@ -271,7 +277,7 @@ const reasons = [
     color: var(--color-heading);
   }
 
-  .about-hero p:not(.about-lead):not(.placeholder-note) {
+  .about-hero p:not(.about-lead) {
     max-width: 62ch;
     color: var(--color-text-muted);
   }

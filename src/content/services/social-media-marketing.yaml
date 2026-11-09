@@ -66,26 +66,29 @@ proof:
   heading: Social media results
   placeholder: '[REPLACE: social media client result, e.g. growth in leads from social ads, shared with permission]'
 faq:
-  heading: Social media management and advertising services FAQ
+  heading: 'Social media management and advertising services: questions and answers'
   items:
-    - question: What's the difference between social media management and advertising services?
+    - question: What's the difference between social media management and social media advertising?
       answer: >-
-        Management covers your organic presence: planning, creating, and publishing posts and responding to your community. Advertising is paid placement that reaches people beyond your followers with precise targeting. Most small businesses get the best results from both, with ads amplifying the content that's already working.
-    - question: Which social media platforms should my business be on?
+        Social media management covers your organic presence: planning, creating, and publishing posts and responding to your community. Social media advertising is paid placement that reaches people beyond your followers with precise targeting. Most small businesses get the best results from both, with ads amplifying the content that already works.
+    - question: Which social media platforms should my small business be on?
       answer: >-
-        The ones your customers use. For many local service businesses that means Facebook and Instagram, and for business-to-business companies it's often LinkedIn. I'll recommend where to focus based on your audience rather than spreading you thin.
+        Your small business should be on the platforms your customers already use. For many local service businesses that means Facebook and Instagram, and for business-to-business companies it's often LinkedIn. I'll recommend where to focus based on your audience rather than spreading you thin.
+    - question: Do you use AI to create social media content?
+      answer: >-
+        Yes, with a human in charge. I use AI to speed up planning, first drafts, captions, and resizing content for each platform, then edit everything to match your brand voice before it's published. Real photos and clips from your business stay at the center, because they build the most trust.
     - question: Do I need to create the content myself?
       answer: >-
-        No. I handle the planning and creation. The most authentic content often includes photos or short clips from your day-to-day work, so I'll make it easy to send those over whenever you have them.
-    - question: How much should I spend on social media ads?
+        No. I handle planning and creation. The most authentic content often includes photos or short clips from your day-to-day work, so I make it easy to send those over whenever you have them.
+    - question: How much should a small business spend on social media ads?
       answer: >-
-        Start with a test budget large enough to learn which audiences and ads work, then scale what performs. We'll set a budget together based on your goals and what a new customer is worth to you.
-    - question: How do you measure success on social media?
+        A small business should start with a test budget large enough to learn which audiences and ads work, then scale what performs. We'll set a budget together based on your goals and what a new customer is worth to you.
+    - question: How do you measure social media marketing results?
       answer: >-
-        By the actions that matter to your business, like website visits, inquiries, bookings, and sales from social, tracked with proper tagging and analytics alongside reach and engagement.
+        I measure social media marketing by the actions that matter to your business: website visits, inquiries, bookings, and sales from social. They're tracked with proper tagging and analytics alongside reach and engagement, so you can see what each platform actually brings in.
 relatedServices:
   - paid-search
-  - ai-entrepreneurship
+  - ai-and-automation-consulting
 blogCategory: social-media-marketing
 leadMagnets:
   - slug: social-media-content-calendar

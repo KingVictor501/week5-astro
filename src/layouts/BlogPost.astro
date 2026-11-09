@@ -9,9 +9,9 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import JsonLd from '../components/JsonLd.astro';
 import LatestPosts from '../components/home/LatestPosts.astro';
-import { BOOK_A_CALL_PATH, magnetPath, OWNER_NAME, type BlogCategory, type Service } from '../consts';
+import { BOOK_A_CALL_PATH, lowerName, magnetPath, OWNER_NAME, type BlogCategory, type Service } from '../consts';
 import type { BlogPost, PostSummary } from '../lib/blog';
-import { blogPostingSchema, breadcrumbSchema, type Crumb } from '../lib/schema';
+import { blogPostingSchema, type Crumb } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
 
 export interface Props {
@@ -55,7 +55,6 @@ const structuredData = [
     },
     Astro.site!,
   ),
-  breadcrumbSchema(crumbs, Astro.site!),
 ];
 
 const formatDate = (date: Date) =>
@@ -68,15 +67,15 @@ const popup = leadMagnet
       text: `A practical companion to this article, free for small business owners.`,
       href: magnetPath(service.slug, leadMagnet.slug),
       linkText: 'Get it free',
-      secondary: { href: `/${service.slug}`, text: `About ${service.name.toLowerCase()}` },
+      secondary: { href: `/${service.slug}`, text: `About ${lowerName(service.name)}` },
     }
   : {
       eyebrow: `${service.name} help`,
       heading: 'Want a second set of eyes on this?',
-      text: `Book a free call and I'll share the biggest ${service.name.toLowerCase()} opportunities I see for your business.`,
+      text: `Book a free call and I'll share the biggest ${lowerName(service.name)} opportunities I see for your business.`,
       href: bookHref,
       linkText: 'Book a free call',
-      secondary: { href: `/${service.slug}`, text: `See ${service.name.toLowerCase()} services` },
+      secondary: { href: `/${service.slug}`, text: `See ${lowerName(service.name)} services` },
     };
 ---
 
@@ -86,6 +85,8 @@ const popup = leadMagnet
   image={{ ...featuredImage }}
   type="article"
   bareTitle
+  crumbs={crumbs}
+  mainEntityId={`${new URL(path, Astro.site).href}#article`}
   commandContext={{ heading: 'Related articles', items: related.map((r) => ({ title: r.title, href: r.href, hint: 'Article' })) }}
 >
   <Fragment slot="head">
@@ -161,11 +162,11 @@ const popup = leadMagnet
         }
 
         <aside class="post-service" aria-labelledby="post-service-title">
-          <h2 id="post-service-title">Need help with {service.name.toLowerCase()}?</h2>
+          <h2 id="post-service-title">Need help with {lowerName(service.name)}?</h2>
           <p>{service.summary}</p>
           <div class="post-service-actions">
             <a class="btn btn-primary" href={bookHref}>Book a free call</a>
-            <a href={`/${service.slug}`}>Explore {service.name.toLowerCase()} services</a>
+            <a href={`/${service.slug}`}>Explore {lowerName(service.name)} services</a>
           </div>
         </aside>
 
@@ -181,11 +182,11 @@ const popup = leadMagnet
     heading="Related articles"
     viewAllHref={`/blog/category/${category.slug}`}
     viewAllText={`More ${category.name} articles`}
-    emptyText={`More ${category.name.toLowerCase()} articles are on the way.`}
+    emptyText={`More ${lowerName(category.name)} articles are on the way.`}
   />
 
   <CtaBand
-    heading={`Ready to put ${service.name.toLowerCase()} to work?`}
+    heading={`Ready to put ${lowerName(service.name)} to work?`}
     text="Book a free call and tell me what you're trying to achieve. You'll leave with clear next steps."
     href={bookHref}
   />

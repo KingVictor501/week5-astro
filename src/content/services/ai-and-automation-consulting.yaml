@@ -1,0 +1,145 @@
+title: AI and Automation Consulting for Small Businesses
+description: >-
+  AI and automation consulting for small businesses: workflow analysis, AI agents, and automations built, deployed, and measured for real ROI.
+heading: AI and Automation Consulting for Small Businesses
+subhead: >-
+  I find the work AI can take off your plate, build the automations and AI agents that do it, and prove the return in dollars and hours.
+intro: >-
+  Most small businesses don't need more AI tools. They need someone to work out where AI actually pays off and then build it into how the business runs. My AI and automation consulting for small businesses starts with an analysis of your workflows. Then I design, build, secure, and deploy the automations and AI agents, and measure the ROI so you know what each one is worth.
+hero:
+  src: https://picsum.photos/id/64/1200/900
+  alt: A consultant mapping a small business workflow on a laptop next to a diagram of automated steps
+  width: 1200
+  height: 900
+ogImage:
+  src: https://picsum.photos/id/131/1200/630
+  alt: A modern laptop on a desk with glowing technology graphics
+  width: 1200
+  height: 630
+problem:
+  heading: Why AI hasn't paid off for most small businesses yet
+  intro: Most owners I talk to have tried AI. The trouble is that it never became part of how the business runs.
+  points:
+    - title: Tools without a plan
+      text: New AI products launch every week, but without a map of your workflows it's impossible to tell which ones solve a real problem.
+    - title: Experiments that don't stick
+      text: A few chatbot prompts help here and there, but nothing is connected to your forms, inbox, CRM, or spreadsheets.
+    - title: Worries about quality, security, and trust
+      text: AI can get facts wrong or mishandle customer data, and your reputation is on the line if it does.
+    - title: No proof it's worth it
+      text: Without measuring time and money saved, AI stays a cost line instead of an investment you can justify.
+included:
+  heading: What's included in AI and automation consulting for small businesses
+  items:
+    - title: Business systems analysis
+      text: A walk-through of how work actually moves through your business, to find the manual steps, bottlenecks, and handoffs where AI and automation would make a measurable difference.
+    - title: ROI case before you build
+      text: For each opportunity, an estimate of hours saved, cost, and revenue impact, so you invest in the projects with the best return first.
+    - title: Workflow automation
+      text: Automations that connect your forms, email, calendar, CRM, and spreadsheets so routine steps run on their own, reliably.
+    - title: AI agents and agentic workflows
+      text: AI agents that handle multi-step work like triaging inquiries, drafting replies, researching leads, and preparing reports, with a person approving anything customer-facing.
+    - title: Custom AI-powered tools
+      text: Small web apps and integrations built when off-the-shelf tools don't fit, developed and deployed with the same full-stack skills I use for websites.
+    - title: Security and data safeguards
+      text: Access controls, safe handling of customer data, and tool settings reviewed before anything goes live.
+    - title: Training and documentation
+      text: Plain-English guides and hands-on sessions so you and your team can run and adjust the new workflows.
+    - title: Measured results
+      text: A before-and-after report on time saved, costs, and capacity, documented as a case study you can share with partners or investors.
+process:
+  heading: How an AI and automation project works
+  steps:
+    - title: Map your workflows
+      text: We walk through your week and document the repetitive tasks, handoffs, and bottlenecks that drain your time.
+    - title: Prioritize by ROI
+      text: I rank opportunities by time saved, cost, and risk, so we start with the safest, highest-return wins.
+    - title: Build and test
+      text: I build the automations and AI agents, test them with real examples, and harden them until they run reliably.
+    - title: Deploy and train
+      text: The workflows go live with monitoring, documentation, and training for your team.
+    - title: Measure and expand
+      text: We compare results against the baseline, report the ROI, and expand automation step by step.
+audience:
+  heading: Who AI and automation consulting is for
+  intro: 'This is a good fit if you:'
+  items:
+    - Run a small business and wear most of the hats yourself
+    - Spend hours each week on repetitive admin, sales, or marketing tasks
+    - Want to use AI but need someone to build it, not just recommend tools
+    - Need to see the return before you commit budget
+    - Care about keeping a human touch with your customers
+proof:
+  heading: AI and automation results
+  placeholder: '[REPLACE: AI automation case study, e.g. hours saved per week and ROI, shared with permission]'
+faq:
+  heading: 'AI agent and workflow automation services: questions and answers'
+  items:
+    - question: What does an AI and automation consultant do?
+      answer: >-
+        An AI and automation consultant analyzes how your business runs, identifies the repetitive work that AI and automation can handle, and then builds, deploys, and measures those solutions. Unlike a tool reseller, the job ends with working systems and a clear report on the time and money they save.
+    - question: What can AI agents and workflow automation do for a small business?
+      answer: >-
+        AI agents and workflow automation can triage inquiries, route new leads into your CRM, draft follow-up emails, schedule appointments, summarize calls, prepare weekly reports, and keep spreadsheets in sync. The best candidates are tasks you repeat often that follow a predictable pattern.
+    - question: What's the difference between an automation and an AI agent?
+      answer: >-
+        An automation follows fixed rules: when a form is submitted, add the contact to your CRM and send a welcome email. An AI agent can handle steps that need judgment, like reading an inquiry, deciding what the customer needs, and drafting a reply for you to approve. Most projects combine both.
+    - question: How do you measure the ROI of AI automation?
+      answer: >-
+        I measure how long each task takes and what it costs before anything is built, then measure again after launch. The ROI comes from hours saved times the value of that time, plus any revenue gained from faster follow-up, minus the cost of tools and setup. You get the numbers in a written report.
+    - question: Is my business data safe with AI tools?
+      answer: >-
+        It can be, when the tools and settings are chosen carefully. I review each tool's data and privacy controls, limit access to what each automation needs, and keep sensitive customer data out of places it shouldn't go. Security is checked before anything goes live.
+    - question: Will AI replace my staff?
+      answer: >-
+        No. Used well, AI takes over first drafts and repetitive steps so your people can focus on customers, judgment calls, and growth. Anything customer-facing gets a human review before it goes out.
+    - question: Do I need technical skills to use these automations?
+      answer: >-
+        No. Automations and AI agents run in the background. Training covers the few things you'll do day to day, in plain language, and you get written documentation for each workflow.
+    - question: How quickly will I see time savings?
+      answer: >-
+        Simple automations start saving time as soon as they go live, often within the first couple of weeks. Larger AI agent workflows take a few weeks to build, test, and refine. The workflow analysis shows where the biggest wins are before you commit to anything.
+relatedServices:
+  - website-development-and-management
+  - marketing-analytics-and-dashboards
+blogCategory: ai-and-automation
+leadMagnets:
+  - slug: ai-automation-roi-worksheet
+    title: "AI Automation ROI Worksheet"
+    type: calculator
+    description: "List your repetitive tasks, estimate the hours they take, and see which ones are worth automating first."
+    headline: "Find the tasks worth automating, and what they're costing you now"
+    subhead: "A simple worksheet that turns the busywork in your week into an hours-and-dollars case for automation."
+    bullets:
+      - "A task inventory to list the repetitive work in your week"
+      - "A time-and-cost calculator for each task"
+      - "A scoring guide for which tasks suit automation or an AI agent"
+      - "A one-page summary to decide where to start"
+    image:
+      src: https://picsum.photos/id/784/1200/900
+      alt: "Placeholder photo standing in for a mockup of the AI Automation ROI Worksheet"
+      width: 1200
+      height: 900
+    file: "[REPLACE: AI Automation ROI Worksheet file URL]"
+    published: true
+  - slug: lead-follow-up-automation-playbook
+    title: "Lead Follow-Up Automation Playbook"
+    type: playbook
+    description: "A simple plan for automating CRM and email follow-up so no lead slips through the cracks."
+    headline: "Follow up with every lead, even on your busiest days"
+    subhead: "A simple plan for automating email follow-up so no lead slips through the cracks."
+    bullets:
+      - "A step-by-step follow-up sequence for new leads"
+      - "Email templates you can adapt for each step"
+      - "How to set it up in the email or CRM tool you already use"
+      - "What to keep personal and what to automate"
+    image:
+      src: https://picsum.photos/id/879/1200/900
+      alt: "Placeholder photo standing in for a mockup of the Lead Follow-Up Automation Playbook"
+      width: 1200
+      height: 900
+    file: "[REPLACE: Lead Follow-Up Automation Playbook file URL]"
+    published: true
+cta:
+  heading: Ready to put AI to work in your business?
+  text: Book a free call and we'll find the first tasks worth automating, and what they're worth to you.

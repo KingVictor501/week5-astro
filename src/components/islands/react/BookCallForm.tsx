@@ -140,7 +140,6 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
         <h2 ref={successHeading} tabIndex={-1}>
           Thanks, {firstName}! Your request is in.
         </h2>
-        {demo && <p className="lead-demo">Demo mode: this request was not sent anywhere.</p>}
         <h3>What happens next</h3>
         <ol>
           <li>I'll review your details and look at your website if you shared it.</li>
@@ -176,13 +175,6 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
 
   return (
     <div className="lead">
-      {demo && (
-        <p className="lead-demo">
-          Demo mode: this form isn't connected to a backend yet, so requests aren't sent. To reach me now, email{' '}
-          {fallback}.
-        </p>
-      )}
-
       {status === 'error' && failure && (
         <div className="lead-alert" ref={errorPanel} tabIndex={-1} aria-labelledby="lead-alert-title">
           <h2 id="lead-alert-title">{FAILURE_COPY[failure].title}</h2>

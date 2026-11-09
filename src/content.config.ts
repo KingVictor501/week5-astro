@@ -42,7 +42,7 @@ const services = defineCollection({
     }),
     faq: z.object({
       heading: z.string(),
-      items: z.array(z.object({ question: z.string(), answer: z.string() })).min(4).max(6),
+      items: z.array(z.object({ question: z.string().endsWith("?"), answer: z.string().min(120) })).min(4).max(10),
     }),
     relatedServices: z.array(reference('services')).length(2),
     blogCategory: z.enum(BLOG_CATEGORIES.map((c) => c.slug) as [string, ...string[]]),

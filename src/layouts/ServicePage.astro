@@ -3,11 +3,12 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
 import JsonLd from '../components/JsonLd.astro';
 import LatestPosts, { type PostSummary } from '../components/home/LatestPosts.astro';
 import ServiceIcon from '../components/home/ServiceIcon.astro';
-import { BOOK_A_CALL_PATH, MAGNET_TYPE_LABELS, magnetPath, type BlogCategory, type Service } from '../consts';
-import { breadcrumbSchema, serviceSchema, type Crumb } from '../lib/schema';
+import { BOOK_A_CALL_PATH, lowerName, MAGNET_TYPE_LABELS, magnetPath, type BlogCategory, type Service } from '../consts';
+import { serviceSchema, type Crumb } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
 
 export interface Props {
@@ -28,28 +29,29 @@ const crumbs: Crumb[] = [
   { name: service.name, path },
 ];
 
-const structuredData = [
-  serviceSchema(
-    { name: service.name, serviceType: service.keywords[0], description: content.description, path, image: content.hero.src },
-    site,
-  ),
-  breadcrumbSchema(crumbs, site),
-];
+// BaseLayout adds the WebPage (typed FAQPage, from the FAQ below) and BreadcrumbList.
+const serviceData = serviceSchema(
+  { name: service.name, serviceType: service.keywords[0], description: content.description, path, image: content.hero.src },
+  site,
+);
 ---
 
 <BaseLayout
   title={content.title}
   description={content.description}
   image={content.ogImage}
+  crumbs={crumbs}
+  faq={content.faq.items}
+  mainEntityId={serviceData['@id']}
   commandContext={{
-    heading: `Free ${service.name.toLowerCase()} resources`,
+    heading: `Free ${lowerName(service.name)} resources`,
     items: content.leadMagnets
       .filter((m) => m.published)
       .map((m) => ({ title: m.title, href: magnetPath(service.slug, m.slug), hint: `Free ${MAGNET_TYPE_LABELS[m.type]}` })),
   }}
 >
   <Fragment slot="head">
-    <JsonLd data={structuredData} />
+    <JsonLd data={serviceData} />
   </Fragment>
 
   <section class="svc-hero" aria-labelledby="svc-title" data-pagefind-body data-pagefind-meta="type:Service">
@@ -154,28 +156,14 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="faq-title" data-pagefind-body>
-    <div class="container svc-narrow">
-      <h2 id="faq-title">{content.faq.heading}</h2>
-      <div class="svc-faq">
-        {
-          content.faq.items.map((item) => (
-            <details>
-              <summary>{item.question}</summary>
-              <p>{item.answer}</p>
-            </details>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <Faq heading={content.faq.heading} items={content.faq.items} />
 
   <LatestPosts
     posts={posts}
     heading={`${category.name} articles`}
     viewAllHref={`/blog/category/${category.slug}`}
     viewAllText={`All ${category.name} articles`}
-    emptyText={`Articles on ${category.name.toLowerCase()} are on the way.`}
+    emptyText={`Articles on ${lowerName(category.name)} are on the way.`}
   />
 
   <section class="section svc-alt" aria-labelledby="resources-title">
@@ -189,7 +177,7 @@ const structuredData = [
               <p>{magnet.description}</p>
               {magnet.published ? (
                 <a href={magnetPath(service.slug, magnet.slug)}>
-                  Get the free {magnet.title.toLowerCase()}
+                  Get the free {magnet.title}
                 </a>
               ) : (
                 <p class="svc-soon">Coming soon</p>
@@ -395,33 +383,6 @@ const structuredData = [
 
   .svc-proof .placeholder-note {
     background: var(--color-bg);
-  }
-
-  .svc-narrow {
-    max-width: 52rem;
-  }
-
-  .svc-faq {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .svc-faq details {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-  }
-
-  .svc-faq summary {
-    padding: var(--space-4) var(--space-5);
-    font-weight: var(--weight-semibold);
-    color: var(--color-heading);
-    cursor: pointer;
-  }
-
-  .svc-faq details p {
-    margin: 0;
-    padding: 0 var(--space-5) var(--space-5);
   }
 
   .svc-resource {

@@ -2,7 +2,10 @@
 
 export const SITE_TITLE = "Doc's Digital Consulting";
 export const SITE_DESCRIPTION =
-  'Digital marketing consulting for small businesses: SEO, paid search, social media, analytics dashboards, AI automation, and website development.';
+  'AI and automation consulting, full-stack web development, and AI search optimization (GEO, AEO, and SEO) for small businesses, plus Google Ads, social media, and analytics.';
+
+/** How the owner describes their role (About page, Person JSON-LD, author box). */
+export const OWNER_ROLE = 'AI & Automation Consultant and Full-Stack Web Developer';
 
 // Default social share image (1200x630 is the recommended Open Graph size).
 export const DEFAULT_OG_IMAGE = {
@@ -23,13 +26,39 @@ export interface Service {
   summary: string;
 }
 
+// Order = navigation, footer, and homepage card order. Lead with AI, automation, and development.
 export const SERVICES: Service[] = [
   {
-    slug: 'search-engine-optimization',
-    name: 'Search Engine Optimization',
-    keywords: ['SEO services for small businesses'],
-    hook: 'Get found by customers who are already searching for you.',
-    summary: 'Technical fixes, on-page optimization, and content planning so your site ranks for the searches that turn into calls, not just traffic.',
+    slug: 'ai-and-automation-consulting',
+    name: 'AI & Automation Consulting',
+    keywords: [
+      'AI and automation consulting for small businesses',
+      'AI agent and workflow automation services',
+    ],
+    hook: 'Hand the repetitive work to AI agents and automations.',
+    summary: 'I map how your business runs, find the tasks AI can take over, then build and deploy the automations and AI agents, with the ROI measured.',
+  },
+  {
+    slug: 'website-development-and-management',
+    name: 'Full-Stack Web Development',
+    keywords: [
+      'custom website development for small businesses',
+      'full-stack web development services',
+      'WordPress, Shopify, Squarespace, and Wix website help',
+    ],
+    hook: 'Custom-built sites and web apps, plus help with the platform you already use.',
+    summary: 'Fast, secure, accessible websites and web apps built and deployed from the ground up, with fixes and improvements for WordPress, Shopify, Squarespace, and Wix sites.',
+  },
+  {
+    slug: 'ai-search-optimization',
+    name: 'AI Search Optimization',
+    keywords: [
+      'generative engine optimization services',
+      'answer engine optimization services',
+      'SEO services for small businesses',
+    ],
+    hook: 'Get found on Google and cited in AI answers.',
+    summary: 'Generative engine optimization (GEO), answer engine optimization (AEO), and SEO, so ChatGPT, Gemini, Perplexity, and Google recommend your business.',
   },
   {
     slug: 'paid-search',
@@ -39,7 +68,7 @@ export const SERVICES: Service[] = [
       'PPC management services for lead generation',
     ],
     hook: 'Ads that bring in leads, not just clicks.',
-    summary: 'Google Ads and PPC campaigns built for lead generation, with focused keyword targeting, clear landing pages, and conversion tracking you can trust.',
+    summary: "Google Ads campaigns built for lead generation. Google's AI bidding gets the right signals, keyword targeting stays focused, and conversion tracking is set up so you can trust it.",
   },
   {
     slug: 'social-media-marketing',
@@ -49,34 +78,14 @@ export const SERVICES: Service[] = [
       'social media management and advertising services',
     ],
     hook: 'Show up consistently where your customers scroll.',
-    summary: 'Social media management and advertising that keeps your brand active, builds trust, and sends interested people back to your site.',
+    summary: 'Social media management and advertising, with AI-assisted content workflows, that keeps your brand active and sends interested people back to your site.',
   },
   {
     slug: 'marketing-analytics-and-dashboards',
     name: 'Marketing Analytics & Dashboards',
     keywords: ['marketing analytics dashboard services', 'custom marketing performance dashboards'],
     hook: 'See which marketing is actually working.',
-    summary: 'Custom marketing performance dashboards that bring your channels into one view, so decisions come from data instead of guesswork.',
-  },
-  {
-    slug: 'ai-entrepreneurship',
-    name: 'AI for Entrepreneurs',
-    keywords: [
-      'AI consulting for small business entrepreneurs',
-      'AI business automation services for entrepreneurs',
-    ],
-    hook: 'Put AI to work on the busywork.',
-    summary: 'Practical AI consulting and automation for entrepreneurs: content workflows, lead handling, and reporting that free up time for the work only you can do.',
-  },
-  {
-    slug: 'website-development-and-management',
-    name: 'Website Development',
-    keywords: [
-      'small business website development services',
-      'custom website design and development for small businesses',
-    ],
-    hook: 'A website built to turn visitors into leads.',
-    summary: 'Custom website design and development for small businesses: fast, accessible, search-friendly sites, plus ongoing updates and management.',
+    summary: 'Automated dashboards that bring your channels, including AI search traffic, into one view, so decisions come from data instead of guesswork.',
   },
 ];
 
@@ -91,11 +100,25 @@ export interface BlogCategory {
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
   {
-    slug: 'technical-seo',
-    name: 'Technical SEO',
-    service: 'search-engine-optimization',
+    slug: 'ai-and-automation',
+    name: 'AI & Automation',
+    service: 'ai-and-automation-consulting',
     intro:
-      'Practical guides to the technical side of search: site speed, crawling and indexing, structured data, and the fixes that help Google understand your small business website.',
+      'Practical guides to putting AI to work in a small business: automations, AI agents, the latest models and what they cost, and how to measure the return.',
+  },
+  {
+    slug: 'web-development',
+    name: 'Web Development',
+    service: 'website-development-and-management',
+    intro:
+      'Building and running a small business website that turns visitors into leads: speed, accessibility, security, platforms like WordPress and Shopify, and custom builds.',
+  },
+  {
+    slug: 'ai-search-optimization',
+    name: 'AI Search Optimization',
+    service: 'ai-search-optimization',
+    intro:
+      'How to get your business found on Google and cited by AI answer engines: GEO, AEO, technical SEO, structured data, crawling and indexing, and local search.',
   },
   {
     slug: 'paid-search',
@@ -117,20 +140,6 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
     service: 'marketing-analytics-and-dashboards',
     intro:
       'Make sense of your marketing data: Google Analytics 4, conversion tracking, KPIs worth watching, and dashboards that show which channels actually work.',
-  },
-  {
-    slug: 'ai-entrepreneurship',
-    name: 'AI for Entrepreneurs',
-    service: 'ai-entrepreneurship',
-    intro:
-      'Practical ways entrepreneurs can use AI and automation in their marketing, including content workflows, CRM and email follow-up, and keeping a human touch.',
-  },
-  {
-    slug: 'web-development',
-    name: 'Web Development',
-    service: 'website-development-and-management',
-    intro:
-      'Building and running a small business website that turns visitors into leads: speed, accessibility, design, and the details that make people get in touch.',
   },
 ];
 
@@ -163,3 +172,6 @@ export const OWNER_NAME = 'Doc';
 // [REPLACE: social profile links] e.g. { label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }
 // Also add these URLs to `sameAs` in the Organization JSON-LD (BaseLayout).
 export const SOCIAL_LINKS: { label: string; href: string }[] = [];
+
+/** A service or category name for mid-sentence use: "AI Search Optimization" → "AI search optimization". Keeps acronyms. */
+export const lowerName = (name: string) => name.replace(/\b[A-Z][a-z]+/g, (word) => word.toLowerCase());

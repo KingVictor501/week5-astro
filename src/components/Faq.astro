@@ -1,0 +1,106 @@
+---
+import type { FaqItem } from '../lib/schema';
+
+export interface Props {
+  heading: string;
+  items: FaqItem[];
+  /** Optional line under the heading. */
+  intro?: string;
+  /** Section id prefix, so a page could hold more than one FAQ block. */
+  id?: string;
+  /** Background variant to alternate with neighboring sections. */
+  alt?: boolean;
+}
+
+// Answer-engine-friendly FAQ: each question is a real heading (h3) worded the way people ask it,
+// and each answer opens with a direct, self-contained answer. Pass the same items to BaseLayout's
+// `faq` prop so the FAQPage JSON-LD matches the visible text exactly.
+const { heading, items, intro, id = 'faq', alt = false } = Astro.props;
+---
+
+<section class:list={['section', { 'faq-alt': alt }]} aria-labelledby={`${id}-title`} data-pagefind-body>
+  <div class="container faq-narrow">
+    <h2 id={`${id}-title`}>{heading}</h2>
+    {intro && <p class="faq-intro">{intro}</p>}
+    <div class="faq-list">
+      {
+        items.map((item, index) => (
+          <details open={index === 0}>
+            <summary>
+              <h3>{item.question}</h3>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-alt {
+    background: var(--color-surface);
+  }
+
+  .faq-narrow {
+    max-width: 52rem;
+  }
+
+  .faq-intro {
+    max-width: 62ch;
+    color: var(--color-text-muted);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  details {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+  }
+
+  summary {
+    display: flex;
+    gap: var(--space-3);
+    align-items: baseline;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-5);
+    color: var(--color-heading);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Plus/minus marker that reads the open state; decorative only. */
+  summary::after {
+    content: '+' / '';
+    flex: none;
+    font-size: var(--text-xl);
+    line-height: 1;
+    color: var(--color-primary);
+  }
+
+  details[open] > summary::after {
+    content: '−' / '';
+  }
+
+  summary h3 {
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    line-height: 1.4;
+  }
+
+  details p {
+    margin: 0;
+    padding: 0 var(--space-5) var(--space-5);
+    max-width: 68ch;
+  }
+</style>

@@ -2,5 +2,23 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [{ "source": "/blog/page/:page", "destination": "/blog", "permanent": true }]
+  "redirects": [
+    { "source": "/blog/page/:page", "destination": "/blog", "permanent": true },
+    { "source": "/search-engine-optimization", "destination": "/ai-search-optimization", "permanent": true },
+    { "source": "/ai-entrepreneurship", "destination": "/ai-and-automation-consulting", "permanent": true },
+    { "source": "/blog/category/technical-seo", "destination": "/blog/category/ai-search-optimization", "permanent": true },
+    { "source": "/blog/category/ai-entrepreneurship", "destination": "/blog/category/ai-and-automation", "permanent": true },
+    {
+      "source": "/lp/search-engine-optimization/seo-audit-scorecard",
+      "destination": "/lp/ai-search-optimization/ai-search-visibility-scorecard",
+      "permanent": true
+    },
+    { "source": "/lp/search-engine-optimization/:magnet", "destination": "/lp/ai-search-optimization/:magnet", "permanent": true },
+    {
+      "source": "/lp/ai-entrepreneurship/ai-prompt-pack-for-marketing",
+      "destination": "/lp/ai-and-automation-consulting/ai-automation-roi-worksheet",
+      "permanent": true
+    },
+    { "source": "/lp/ai-entrepreneurship/:magnet", "destination": "/lp/ai-and-automation-consulting/:magnet", "permanent": true }
+  ]
 }

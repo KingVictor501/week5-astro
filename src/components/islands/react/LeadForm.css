@@ -225,10 +225,6 @@
   font-size: var(--text-xl);
 }
 
-.lm-form .lead-demo {
-  margin-bottom: var(--space-4);
-}
-
 .lm-fields {
   display: grid;
   gap: var(--space-4);

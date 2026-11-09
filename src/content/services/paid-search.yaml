@@ -59,32 +59,35 @@ audience:
   intro: 'This is a good fit if you:'
   items:
     - Already run Google Ads but aren't sure they're paying off
-    - Need leads now while slower channels like SEO ramp up
+    - Need leads now while slower channels like SEO and AI search ramp up
     - Sell a service where one new customer is worth far more than a click
     - Want a clear monthly picture of your cost per lead
 proof:
   heading: Paid search results
   placeholder: '[REPLACE: Google Ads client result, e.g. a change in cost per lead, shared with permission]'
 faq:
-  heading: 'PPC management services for lead generation: common questions'
+  heading: 'PPC management services for lead generation: questions and answers'
   items:
     - question: What do PPC management services for lead generation include?
       answer: >-
-        Everything needed to turn ad spend into inquiries: keyword research, campaign setup, ad writing, landing page guidance, conversion tracking, and ongoing optimization. The focus is on leads and cost per lead, not clicks or impressions.
+        PPC management services for lead generation include keyword research, campaign setup, ad writing, landing page guidance, conversion tracking, and ongoing optimization. The goal is more qualified calls and form fills at a lower cost per lead, not more clicks or impressions.
     - question: How much should a small business spend on Google Ads?
       answer: >-
-        Enough to collect meaningful data in your market, which depends on your cost per click and how many leads you need. The ROI calculator on my homepage gives a rough sense of what wasted spend may be costing you, and we can size a budget together on a call.
-    - question: How soon will I see leads from PPC?
+        A small business should spend enough on Google Ads to collect meaningful data in its market, which depends on cost per click and how many leads it needs each month. The ROI calculator on my homepage shows what wasted spend may be costing you, and we can size a budget together on a free call.
+    - question: Should I use Google's AI campaign types like Performance Max?
       answer: >-
-        Often within the first few weeks, since ads start showing as soon as campaigns launch. The first month or two is also when we learn the most, so expect performance to improve as waste is cut and targeting is refined.
-    - question: Do I need a new landing page?
+        Sometimes. Google's AI-powered campaigns, such as Performance Max and AI Max for Search, can find leads you'd miss, but only when they get accurate conversion data and clear limits. I test them against standard Search campaigns and keep whichever brings in better leads for the money.
+    - question: How soon will I see leads from Google Ads?
       answer: >-
-        Not always, but sending ad traffic to a page that matches the ad almost always helps. I'll tell you whether your current pages can work or whether a dedicated page is worth building.
-    - question: Will I keep ownership of my ad account?
+        Most small businesses see their first leads from Google Ads within the first few weeks, because ads start showing as soon as campaigns launch. The first one to two months are also when we learn the most, so expect cost per lead to improve as waste is cut and targeting is refined.
+    - question: Do I need a new landing page for my ads?
       answer: >-
-        Yes. Your account, data, and campaigns stay yours. I work inside your account with access you can remove at any time.
+        Not always, but sending ad traffic to a page that matches the ad almost always improves results. I'll tell you whether your current pages can work or whether a dedicated landing page is worth building, and I can build it if it is.
+    - question: Will I keep ownership of my Google Ads account?
+      answer: >-
+        Yes. Your Google Ads account, data, and campaigns always stay yours. I work inside your account with access you can remove at any time.
 relatedServices:
-  - search-engine-optimization
+  - ai-search-optimization
   - marketing-analytics-and-dashboards
 blogCategory: paid-search
 leadMagnets:

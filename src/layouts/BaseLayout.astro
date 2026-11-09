@@ -6,32 +6,77 @@ import Header from '../components/Header.astro';
 import JsonLd from '../components/JsonLd.astro';
 import CommandBar from '../components/islands/react/CommandBar';
 import SEO, { type Props as SEOProps } from '../components/SEO.astro';
-import { BOOK_A_CALL_PATH, SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { BOOK_A_CALL_PATH, DEFAULT_OG_IMAGE, OWNER_NAME, SERVICES, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { pagePath } from '../lib/path';
+import {
+  breadcrumbSchema,
+  organizationId,
+  personId,
+  webPageSchema,
+  webSiteSchema,
+  type Crumb,
+  type FaqItem,
+  type PageType,
+} from '../lib/schema';
 
 export type Props = SEOProps & {
   /** Landing pages: no site header or footer; the page fills the "top" and "bottom" slots instead. */
   minimal?: boolean;
   /** Suggestions the command bar shows for this page, e.g. related posts on a blog post. */
   commandContext?: { heading: string; items: { title: string; href: string; hint?: string }[] };
+  /** schema.org type for this page's WebPage entity (default WebPage). */
+  pageType?: PageType;
+  /** Breadcrumb trail, emitted as BreadcrumbList JSON-LD. Pages also render <Breadcrumbs> with it. */
+  crumbs?: Crumb[];
+  /** The page's visible FAQs. Adds FAQPage markup, so pass exactly what the page shows. */
+  faq?: FaqItem[];
+  /** @id of the page's main entity (Service, Person, BlogPosting), emitted by the page itself. */
+  mainEntityId?: string;
 };
 
-const { minimal = false, commandContext, ...props } = Astro.props;
+const { minimal = false, commandContext, pageType, crumbs, faq, mainEntityId, ...props } = Astro.props;
+const site = Astro.site!;
 const commandServices = SERVICES.map((s) => ({ name: s.name, href: `/${s.slug}` }));
 const siteURL = new URL('/', Astro.site).href;
 
 // Site-wide business entity. Only facts we actually know; no invented address,
-// phone, ratings, or founders.
+// phone, or ratings. The founder is the site owner (Person entity on /about).
 const organization = {
   '@context': 'https://schema.org',
   '@type': ['Organization', 'ProfessionalService'],
-  '@id': `${siteURL}#organization`,
+  '@id': organizationId(site),
   name: SITE_TITLE,
   url: siteURL,
   description: SITE_DESCRIPTION,
-  image: new URL('/favicon.svg', Astro.site).href,
+  image: new URL('/favicon.svg', site).href,
+  logo: new URL('/favicon.svg', site).href,
+  founder: { '@type': 'Person', '@id': personId(site), name: OWNER_NAME },
   knowsAbout: SERVICES.flatMap((s) => s.keywords),
   ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS.map((l) => l.href) }),
 };
+
+// Every page, including any new page built on this layout, gets the same connected graph:
+// Organization + WebSite + this page's WebPage (+ BreadcrumbList and FAQPage when given).
+const pageURL = new URL(pagePath(Astro.url), site).href;
+const hasBreadcrumb = !!crumbs && crumbs.length > 1;
+const structuredData = [
+  organization,
+  webSiteSchema({ name: SITE_TITLE, description: SITE_DESCRIPTION }, site),
+  webPageSchema(
+    {
+      type: pageType,
+      url: pageURL,
+      name: props.title,
+      description: props.description,
+      image: new URL((props.image ?? DEFAULT_OG_IMAGE).src, site).href,
+      hasBreadcrumb,
+      faq,
+      mainEntityId,
+    },
+    site,
+  ),
+  ...(hasBreadcrumb ? [breadcrumbSchema(crumbs, site)] : []),
+];
 ---
 
 <!doctype html>
@@ -67,7 +112,7 @@ const organization = {
     </script>
 
     <SEO {...props} />
-    <JsonLd data={organization} />
+    <JsonLd data={structuredData} />
     <slot name="head" />
 
     <ClientRouter />

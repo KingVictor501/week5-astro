@@ -15,6 +15,7 @@ import {
   type Simulation,
   liveErrors,
 } from '../../../lib/lead';
+import { lowerName } from '../../../consts';
 import './LeadForm.css';
 
 interface Props {
@@ -137,7 +138,6 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
         <h2 ref={successHeading} tabIndex={-1}>
           {firstName ? `Thanks, ${firstName}! ` : ''}Your {magnet.typeLabel} is ready.
         </h2>
-        {demo && <p className="lead-demo">Demo mode: your email was not sent anywhere.</p>}
         {hasFile ? (
           <a className="btn btn-primary btn-lg lm-download" href={magnet.file}>
             Download the {magnet.title}
@@ -149,7 +149,7 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
         )}
         <p>
           Want help putting it to work?{' '}
-          <a href={`/book-a-call?service=${service.slug}`}>Book a free {service.name.toLowerCase()} call</a>.
+          <a href={`/book-a-call?service=${service.slug}`}>Book a free {lowerName(service.name)} call</a>.
         </p>
       </div>
     );
@@ -193,7 +193,6 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
         <h2 id="lm-form-title" className="lm-form-title">
           Get the free {magnet.typeLabel}
         </h2>
-        {demo && <p className="lead-demo">Demo mode: this form isn't connected yet, so nothing is sent.</p>}
 
         <div className="lm-fields">
           <div className="lead-field">

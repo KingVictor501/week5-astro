@@ -1,35 +1,58 @@
 ---
 import CtaBand from '../components/CtaBand.astro';
-import JsonLd from '../components/JsonLd.astro';
+import Faq from '../components/Faq.astro';
 import Hero from '../components/home/Hero.astro';
 import LatestPosts from '../components/home/LatestPosts.astro';
 import ServiceCards from '../components/home/ServiceCards.astro';
 import RoiCalculator from '../components/islands/preact/RoiCalculator';
-import { BOOK_A_CALL_PATH, magnetPath, SERVICES, SITE_TITLE } from '../consts';
+import { BOOK_A_CALL_PATH, CALL_LENGTH, magnetPath, SERVICES, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getLatestPosts } from '../lib/blog';
+import type { FaqItem } from '../lib/schema';
 
 const latestPosts = await getLatestPosts(3);
 
-const siteURL = new URL('/', Astro.site).href;
-const webSite = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${siteURL}#website`,
-  name: SITE_TITLE,
-  url: siteURL,
-  publisher: { '@id': `${siteURL}#organization` },
-};
+// Answer-first FAQs: each answer opens with a direct, quotable sentence. The same items feed the
+// FAQPage JSON-LD in BaseLayout, so the markup always matches the visible text.
+const faq: FaqItem[] = [
+  {
+    question: 'What does an AI and automation consultant do for a small business?',
+    answer:
+      'An AI and automation consultant finds the repetitive work in your business that AI can handle, then builds, deploys, and measures the automations and AI agents that do it. Typical wins include faster lead follow-up, automatic scheduling and reporting, and first drafts of emails and content, all with a person approving anything customer-facing.',
+  },
+  {
+    question: 'What is AI search optimization?',
+    answer:
+      "AI search optimization is making your business easy for AI assistants and search engines to find, trust, and recommend. It combines generative engine optimization (GEO) so ChatGPT, Gemini, and Perplexity cite you, answer engine optimization (AEO) so your answers get quoted, and SEO so you still rank on Google.",
+  },
+  {
+    question: 'Do you build custom websites or work with WordPress, Shopify, Squarespace, and Wix?',
+    answer:
+      "Both. I'm a full-stack web developer who builds custom websites and web apps from front end to back end, and I also fix, speed up, redesign, and migrate WordPress, Shopify, Squarespace, and Wix sites. On a free call I'll recommend whichever option fits your goals and budget.",
+  },
+  {
+    question: 'How do I know if AI automation is worth it for my business?',
+    answer:
+      'AI automation is worth it when the time and money it saves outweigh the cost of the tools and setup. I measure how long your repetitive tasks take today, estimate the savings for each automation, and start with the highest-return projects, then report the actual results after launch.',
+  },
+  {
+    question: `How is ${SITE_TITLE} different from a marketing agency?`,
+    answer:
+      `${SITE_TITLE} is one consultant who analyzes your business, builds the solution, deploys it, and measures the results, so nothing gets lost between account managers and specialists. You work directly with the person doing the work, and you own every account, automation, and line of code.`,
+  },
+  {
+    question: 'What happens on the free call?',
+    answer:
+      `On the free call, which takes about ${CALL_LENGTH}, we talk through your goals, I share the biggest opportunities I see for AI, automation, your website, or your marketing, and you leave with clear next steps, whether or not we work together.`,
+  },
+];
 ---
 
 <BaseLayout
-  title="Small Business Lead Generation"
-  description="Lead generation for small businesses through SEO, Google Ads, social media, analytics dashboards, AI, and website development. Book a free call."
+  title="AI & Automation Consulting for Small Businesses"
+  description="AI and automation consulting, full-stack web development, and GEO, AEO, and SEO for small businesses, from an Air Force veteran. Book a free call."
+  faq={faq}
 >
-  <Fragment slot="head">
-    <JsonLd data={webSite} />
-  </Fragment>
-
   <Hero />
   <ServiceCards services={SERVICES} />
 
@@ -45,6 +68,7 @@ const webSite = {
   </section>
 
   <LatestPosts posts={latestPosts} />
+  <Faq heading="Questions small business owners ask" items={faq} alt />
   <CtaBand />
 </BaseLayout>
 

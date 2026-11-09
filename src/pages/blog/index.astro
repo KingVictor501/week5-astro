@@ -6,7 +6,7 @@ import BlogBrowser from '../../components/islands/react/BlogBrowser';
 import { BLOG_CATEGORIES } from '../../consts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedPosts, pickFeatured, toSummary, type PostSummary } from '../../lib/blog';
-import { breadcrumbSchema, type Crumb } from '../../lib/schema';
+import { itemListSchema, type Crumb } from '../../lib/schema';
 import '../../styles/post-cards.css';
 
 // Every published post is rendered here as a static card, newest first (the featured
@@ -27,17 +27,23 @@ const crumbs: Crumb[] = [
 ---
 
 <BaseLayout
-  title="Small Business Marketing Blog"
-  description="Practical articles on SEO, Google Ads, social media, analytics dashboards, AI automation, and web development for small businesses."
+  title="AI, Web, and Marketing Blog for Small Businesses"
+  description="Practical articles on AI and automation, web development, AI search optimization (GEO, AEO, and SEO), Google Ads, social media, and analytics."
+  pageType="CollectionPage"
+  crumbs={crumbs}
 >
-  <JsonLd slot="head" data={breadcrumbSchema(crumbs, Astro.site!)} />
+  <JsonLd
+    slot="head"
+    data={itemListSchema([...(featured ? [featured] : []), ...rest].map((p) => ({ name: p.title, path: p.href })), Astro.site!)}
+  />
 
   <section class="section blog-index" aria-labelledby="blog-title">
     <div class="container">
       <Breadcrumbs crumbs={crumbs} />
-      <h1 id="blog-title">Digital marketing blog for small businesses</h1>
+      <h1 id="blog-title">AI, web development, and marketing blog for small businesses</h1>
       <p class="blog-lead">
-        Practical, no-hype guides to getting more leads from search, ads, social media, data, AI, and your website.
+        Practical, no-hype guides to AI and automation, building a better website, getting found in Google and AI
+        search, and getting more leads from ads, social media, and data.
       </p>
 
       <div class="bb">

@@ -1,11 +1,11 @@
 ---
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import JsonLd from '../components/JsonLd.astro';
+import Faq from '../components/Faq.astro';
 import BookCallForm from '../components/islands/react/BookCallForm';
 import { CALL_LENGTH, CONTACT_EMAIL, REPLY_TIME, SERVICES } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { NOT_SURE_SERVICE } from '../lib/lead';
-import { breadcrumbSchema, type Crumb } from '../lib/schema';
+import type { Crumb, FaqItem } from '../lib/schema';
 
 const crumbs: Crumb[] = [
   { name: 'Home', path: '/' },
@@ -16,32 +16,55 @@ const serviceOptions = [
   ...SERVICES.map((s) => ({ value: s.slug, label: s.name })),
   { value: NOT_SURE_SERVICE, label: 'Not sure yet' },
 ];
+
+const faq: FaqItem[] = [
+  {
+    question: 'Is the consultation call really free?',
+    answer: `Yes. The ${CALL_LENGTH} consultation call is free, with no obligation and no sales pressure. You'll leave with honest next steps whether or not we end up working together.`,
+  },
+  {
+    question: 'What should I prepare before the call?',
+    answer:
+      "Nothing formal. It helps to know your main goal, the tasks that take up too much of your week, and your website address if you have one. If you're on WordPress, Shopify, Squarespace, or Wix, mention it in the form.",
+  },
+  {
+    question: 'How soon will I hear back after I submit the form?',
+    answer: `You'll hear back within ${REPLY_TIME} to confirm a time for your call by phone or video.`,
+  },
+  {
+    question: "What if I'm not sure which service I need?",
+    answer:
+      "Choose 'Not sure yet' in the form. Many calls start that way. We'll talk through your goals, and I'll recommend whether AI and automation, your website, AI search optimization, or your marketing is the best place to start.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Book a Free Marketing Call"
-  description={`Book a free ${CALL_LENGTH} call to talk through your marketing goals and find out where SEO, ads, analytics, AI, or a new website can help your small business.`}
+  title="Book a Free AI, Web, and Marketing Consultation"
+  description={`Book a free ${CALL_LENGTH} call to find where AI automation, a custom website, AI search optimization, or better marketing can help your small business.`}
+  pageType="ContactPage"
+  crumbs={crumbs}
+  faq={faq}
 >
-  <JsonLd slot="head" data={breadcrumbSchema(crumbs, Astro.site!)} />
 
   <section class="section book" aria-labelledby="book-title">
     <div class="container">
       <Breadcrumbs crumbs={crumbs} />
       <div class="book-grid">
         <div class="book-intro">
-          <h1 id="book-title">Book a free marketing call</h1>
+          <h1 id="book-title">Book a free consultation call</h1>
           <p class="book-lead">
             Tell me a little about your business, and we'll set up a free {CALL_LENGTH} call by phone or video.
           </p>
           <h2>What happens on the call</h2>
           <ol class="book-steps">
             <li>We talk through your goals and what a good lead looks like for you.</li>
-            <li>I share the biggest opportunities I see in your current marketing.</li>
+            <li>I share the biggest opportunities I see for AI, automation, your website, and your marketing.</li>
             <li>You leave with clear next steps, whether or not we work together.</li>
           </ol>
           <p class="book-trust">
             No pressure and no obligation. You'll be talking with an Air Force veteran with more than 12 years of
-            experience, certified in Google Analytics and Meta.
+            experience, trained in applied AI at Millersville University, and certified in Google Analytics and Meta.
           </p>
         </div>
 
@@ -49,6 +72,8 @@ const serviceOptions = [
       </div>
     </div>
   </section>
+
+  <Faq heading="Questions about the free call" items={faq} />
 </BaseLayout>
 
 <style>
