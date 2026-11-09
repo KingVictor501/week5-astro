@@ -1,6 +1,7 @@
 /** @jsxImportSource preact */
 import { useEffect, useRef, useState } from 'preact/hooks';
 import './demos.css';
+import { titleCase } from '../../../lib/titleCase';
 
 // Four plain-English questions, one at a time in a square card, that point to Squarespace, Wix,
 // Shopify, WordPress, or a custom build. Picking an answer slides to the next question (no slide
@@ -121,7 +122,7 @@ export default function PlatformPicker() {
   return (
     <div class="demo pick">
       <div class="demo-head">
-        <p class="demo-title">Which website platform fits you?</p>
+        <p class="demo-title">Which Website Platform Fits You?</p>
         <span class="demo-tag">{done ? 'Your result' : `Question ${step + 1} of ${QUESTIONS.length}`}</span>
       </div>
       <div class="pick-progress" aria-hidden="true">
@@ -133,7 +134,7 @@ export default function PlatformPicker() {
           {QUESTIONS.map((q, qi) => (
             <section class="pick-panel" style={{ width: `${100 / panels}%` }} inert={qi !== step} aria-hidden={qi !== step}>
               <h3 class="pick-q" tabIndex={-1} ref={(el) => { headings.current[qi] = el; }}>
-                {q.legend}
+                {titleCase(q.legend)}
               </h3>
               <ul class="pick-choices" role="list">
                 {q.options.map((o, i) => (
@@ -154,7 +155,7 @@ export default function PlatformPicker() {
 
           <section class="pick-panel pick-final" style={{ width: `${100 / panels}%` }} inert={!done} aria-hidden={!done}>
             <h3 class="pick-q" tabIndex={-1} ref={(el) => { headings.current[QUESTIONS.length] = el; }}>
-              My suggestion: {result ? RESULTS[result].name : ''}
+              {titleCase(`My suggestion: ${result ? RESULTS[result].name : ''}`)}
             </h3>
             <p>{result ? RESULTS[result].why : ''}</p>
             <p class="demo-note">Whatever you pick, I can build it, fix it, or move you to something better.</p>

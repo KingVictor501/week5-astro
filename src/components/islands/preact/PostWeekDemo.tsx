@@ -1,6 +1,7 @@
 /** @jsxImportSource preact */
 import { useState } from 'preact/hooks';
 import './demos.css';
+import { titleCase } from '../../../lib/titleCase';
 
 // A week of posts for a sample local bakery, previewed in a generic phone frame.
 // The "photo" is a drawn color panel with the post's headline, not a stock image.
@@ -22,7 +23,7 @@ export default function PostWeekDemo() {
   return (
     <div class="demo">
       <div class="demo-head">
-        <p class="demo-title">A week of posts for a local bakery</p>
+        <p class="demo-title">A Week of Posts for a Local Bakery</p>
         <span class="demo-tag">Illustrative example</span>
       </div>
 
@@ -35,7 +36,7 @@ export default function PostWeekDemo() {
       </div>
 
       <p class="week-theme" aria-live="polite">
-        {post.day}: {post.theme}
+        {post.day}: {titleCase(post.theme)}
       </p>
 
       <div class="week-phone">

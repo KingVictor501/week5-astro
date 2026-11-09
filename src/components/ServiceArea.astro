@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import { listJoin, SERVICE_AREA } from '../consts';
 
 export interface Props {
@@ -14,7 +15,7 @@ const { region, span, counties, towns, remote } = SERVICE_AREA;
 <section class:list={['section', 'area', { 'area-alt': alt }]} aria-labelledby="area-title">
   <div class="container area-inner">
     <div>
-      <h2 id="area-title">{heading}</h2>
+      <h2 id="area-title">{titleCase(heading)}</h2>
       <p class="area-lead">
         I work with businesses along {region}, from {span}: {listJoin(counties)} counties. I'm happy to meet in person
         or work over phone and video.
@@ -22,7 +23,7 @@ const { region, span, counties, towns, remote } = SERVICE_AREA;
       {remote && <p class="area-remote">Not on the Gulf Coast? I work with clients anywhere, remotely.</p>}
     </div>
     <div>
-      <h3 class="area-towns-title">Towns I serve, north to south</h3>
+      <h3 class="area-towns-title">Towns I Serve, North to South</h3>
       <ul class="area-towns" role="list">
         {towns.map((town) => <li>{town}</li>)}
       </ul>

@@ -30,6 +30,8 @@ const services = defineCollection({
     subhead: z.string(),
     /** First paragraph: must include the primary keyword (checked at build). */
     intro: z.string(),
+    /** Heading for the "see it in action" section (pages with a spotlight hero and a demo). */
+    showcaseHeading: z.string().optional(),
     hero: picsum(1200, 900),
     ogImage: picsum(1200, 630),
     problem: z.object({ heading: z.string(), intro: z.string(), points: z.array(titledText).min(3).max(6) }),

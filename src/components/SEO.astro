@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import { DEFAULT_OG_IMAGE, SITE_TITLE } from '../consts';
 import { pagePath } from '../lib/path';
 
@@ -12,7 +13,8 @@ export interface Props {
   bareTitle?: boolean;
 }
 
-const { title, description, image = DEFAULT_OG_IMAGE, type = 'website', noindex = false, bareTitle = false } = Astro.props;
+const { title: rawTitle, description, image = DEFAULT_OG_IMAGE, type = 'website', noindex = false, bareTitle = false } = Astro.props;
+const title = titleCase(rawTitle);
 
 // Add the brand suffix only when the whole title still fits in Google's ~60-character display;
 // otherwise the keyword title stands alone.

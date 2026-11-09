@@ -713,3 +713,193 @@
   text-align: center;
   font-weight: var(--weight-semibold);
 }
+
+/* ---------- Homepage marketing checkup ---------- */
+.checkup-score {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.checkup-ring {
+  flex: none;
+  width: 7.5rem;
+  height: 7.5rem;
+}
+
+.ring-track {
+  fill: none;
+  stroke: var(--color-surface);
+  stroke-width: 12;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ring-fill {
+    transition: stroke-dashoffset 500ms var(--ease-out);
+  }
+}
+
+.ring-num {
+  fill: var(--color-heading);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.ring-of {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.checkup-verdict {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  line-height: 1.35;
+}
+
+.checkup-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checkup-list label {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.checkup-list label.on {
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+.checkup-list input {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.1rem 0 0;
+  accent-color: var(--color-primary);
+}
+
+.checkup-list label:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.checkup-fixes {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 4px solid var(--color-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--color-secondary-soft);
+}
+
+.checkup-fixes ol {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-5);
+}
+
+.checkup-fixes li + li {
+  margin-top: var(--space-2);
+}
+
+.checkup-fixes a {
+  font-weight: var(--weight-semibold);
+}
+
+/* Collapsible "where it came from" breakdown in the dashboard demo. Styled as a clear button:
+   tinted bar with a teal border, a "Show breakdown" pill with a chevron, and hover/focus states. */
+.dash-collapse {
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  overflow: hidden;
+}
+
+.dash-collapse summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 3rem;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  cursor: pointer;
+  list-style: none;
+}
+
+.dash-collapse summary::-webkit-details-marker {
+  display: none;
+}
+
+.dash-collapse summary:hover {
+  background: var(--color-sky);
+}
+
+.dash-collapse summary:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+.dash-collapse-cue {
+  display: inline-flex;
+  flex: none;
+  gap: var(--space-1);
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}
+
+.dash-collapse-cue svg {
+  transition: transform 200ms var(--ease-out);
+}
+
+.dash-collapse[open] .dash-collapse-cue svg {
+  transform: rotate(180deg);
+}
+
+.dash-collapse .when-open,
+.dash-collapse[open] .when-closed {
+  display: none;
+}
+
+.dash-collapse[open] .when-open {
+  display: inline;
+}
+
+.dash-collapse[open] summary {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dash-collapse-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-collapse-cue svg {
+    transition: none;
+  }
+}

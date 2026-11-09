@@ -17,6 +17,7 @@ import {
   liveErrors,
 } from '../../../lib/lead';
 import './LeadForm.css';
+import { titleCase } from '../../../lib/titleCase';
 
 interface Props {
   services: { value: string; label: string }[];
@@ -135,9 +136,9 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
     return (
       <div className="lead-success">
         <h2 ref={successHeading} tabIndex={-1}>
-          Thanks, {firstName}! Your request is in.
+          {titleCase(`Thanks, ${firstName}! Your request is in.`)}
         </h2>
-        <h3>What happens next</h3>
+        <h3>What Happens Next</h3>
         <ol>
           <li>I'll review your details and look at your website if you shared it.</li>
           <li>
@@ -174,7 +175,7 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
     <div className="lead">
       {status === 'error' && failure && (
         <div className="lead-alert" ref={errorPanel} tabIndex={-1} aria-labelledby="lead-alert-title">
-          <h2 id="lead-alert-title">{FAILURE_COPY[failure].title}</h2>
+          <h2 id="lead-alert-title">{titleCase(FAILURE_COPY[failure].title)}</h2>
           <p>{FAILURE_COPY[failure].text}</p>
           <div className="lead-alert-actions">
             <button type="button" className="btn btn-primary" onClick={() => void send()}>
@@ -197,7 +198,7 @@ export default function BookCallForm({ services, callLength, replyTime, contactE
         aria-labelledby="lead-form-title"
       >
         <h2 id="lead-form-title" className="visually-hidden">
-          Book a call request form
+          Book a Call Request Form
         </h2>
         <p className="lead-required-note">
           Fields marked <span aria-hidden="true">*</span>

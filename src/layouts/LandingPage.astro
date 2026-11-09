@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 // Lead magnet landing page: one job (get the email), so no site navigation and no exit links
 // except the small footer. Everything on the page comes from the service's leadMagnets data.
 import LeadMagnetForm from '../components/islands/react/LeadMagnetForm';
@@ -35,7 +36,7 @@ const year = new Date().getFullYear();
     <div class="container lp-grid">
       <div class="lp-pitch">
         <p class="lp-eyebrow">Free {typeLabel} · {service.name}</p>
-        <h1 id="lp-title">{magnet.headline}</h1>
+        <h1 id="lp-title">{titleCase(magnet.headline)}</h1>
         <p class="lp-subhead">{magnet.subhead}</p>
       </div>
 
@@ -50,7 +51,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="lp-details">
-        <h2>What's inside the {magnet.title}</h2>
+        <h2>What's Inside the {magnet.title}</h2>
         <ul class="lp-bullets" role="list">
           {magnet.bullets.map((bullet) => <li>{bullet}</li>)}
         </ul>

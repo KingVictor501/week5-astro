@@ -1,9 +1,11 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
+import Hero from '../components/Hero.astro';
 import JsonLd from '../components/JsonLd.astro';
 import LatestPosts, { type PostSummary } from '../components/home/LatestPosts.astro';
 import ServiceIcon from '../components/home/ServiceIcon.astro';
@@ -17,9 +19,11 @@ export interface Props {
   related: Service[];
   category: BlogCategory;
   posts: PostSummary[];
+  /** Full split hero (shared Hero component) with the "hero-media" slot, and the demo in its own section. */
+  spotlight?: boolean;
 }
 
-const { service, content, related, category, posts } = Astro.props;
+const { service, content, related, category, posts, spotlight = false } = Astro.props;
 const site = Astro.site!;
 const path = `/${service.slug}`;
 const bookHref = `${BOOK_A_CALL_PATH}?service=${service.slug}`;
@@ -48,51 +52,86 @@ const serviceData = serviceSchema(
     <JsonLd data={serviceData} />
   </Fragment>
 
-  <section class="svc-hero" aria-labelledby="svc-title">
-    <div class="container">
-      <Breadcrumbs crumbs={crumbs} />
-      <div class="svc-hero-grid">
-        <div>
-          <h1 id="svc-title">{content.heading}</h1>
-          <p class="svc-subhead">{content.subhead}</p>
-          <p class="svc-intro">{content.intro}</p>
-          <div class="svc-ctas">
-            <a class="btn btn-primary btn-lg" href={bookHref}>Book a Call</a>
-            <a class="btn btn-secondary btn-lg" href="#included">What's included</a>
-          </div>
-        </div>
-        {
-          /* Interactive demo for this service when one exists; otherwise the hero photo. */
-          Astro.slots.has('demo') ? (
-            <div class="svc-demo">
-              <slot name="demo" />
+  {
+    /* Spotlight layout (the page sets `spotlight` and passes a "hero-media" visual): the shared split hero, then the
+       page's demo in its own section beside the intro. Otherwise the standard service hero. */
+    spotlight ? (
+      <>
+        <Hero
+          crumbs={crumbs}
+          eyebrow={service.name}
+          heading={content.heading}
+          text={content.subhead}
+          badge="Veteran-owned · Small team · Crystal River to Sarasota"
+          ctas={[
+            { href: bookHref, label: 'Book a Call', primary: true },
+            { href: '#included', label: "What's included" },
+          ]}
+        >
+          <slot name="hero-media" slot="media" />
+        </Hero>
+        <section class="section svc-showcase" aria-labelledby="showcase-title">
+          <div class="container svc-showcase-grid">
+            <div>
+              <h2 id="showcase-title">{titleCase(content.showcaseHeading ?? `See ${service.name} in action`)}</h2>
+              <p class="svc-intro">{content.intro}</p>
             </div>
-          ) : (
-            <Image
-              src={content.hero.src}
-              alt={content.hero.alt}
-              quality={60}
-              width={content.hero.width}
-              height={content.hero.height}
-              widths={[400, 600, 800, 1000, 1200]}
-              sizes="(min-width: 56rem) 34rem, calc(100vw - 2rem)"
-              priority
-            />
-          )
-        }
-      </div>
-    </div>
-  </section>
+            {Astro.slots.has('demo') && (
+              <div class="svc-demo">
+                <slot name="demo" />
+              </div>
+            )}
+          </div>
+        </section>
+      </>
+    ) : (
+        <section class="svc-hero" aria-labelledby="svc-title">
+          <div class="container">
+            <Breadcrumbs crumbs={crumbs} />
+            <div class="svc-hero-grid">
+              <div>
+                <h1 id="svc-title">{titleCase(content.heading)}</h1>
+                <p class="svc-subhead">{content.subhead}</p>
+                <p class="svc-intro">{content.intro}</p>
+                <div class="svc-ctas">
+                  <a class="btn btn-primary btn-lg" href={bookHref}>Book a Call</a>
+                  <a class="btn btn-secondary btn-lg" href="#included">What's included</a>
+                </div>
+              </div>
+              {
+                /* Interactive demo for this service when one exists; otherwise the hero photo. */
+                Astro.slots.has('demo') ? (
+                  <div class="svc-demo">
+                    <slot name="demo" />
+                  </div>
+                ) : (
+                  <Image
+                    src={content.hero.src}
+                    alt={content.hero.alt}
+                    quality={60}
+                    width={content.hero.width}
+                    height={content.hero.height}
+                    widths={[400, 600, 800, 1000, 1200]}
+                    sizes="(min-width: 56rem) 34rem, calc(100vw - 2rem)"
+                    priority
+                  />
+                )
+              }
+            </div>
+          </div>
+        </section>
+    )
+  }
 
   <section class="section" aria-labelledby="problem-title">
     <div class="container">
-      <h2 id="problem-title">{content.problem.heading}</h2>
+      <h2 id="problem-title">{titleCase(content.problem.heading)}</h2>
       <p class="svc-lead">{content.problem.intro}</p>
       <ul class="svc-grid svc-grid-2" role="list">
         {
           content.problem.points.map((point) => (
             <li class="svc-card svc-card-problem">
-              <h3>{point.title}</h3>
+              <h3>{titleCase(point.title)}</h3>
               <p>{point.text}</p>
             </li>
           ))
@@ -103,12 +142,12 @@ const serviceData = serviceSchema(
 
   <section id="included" class="section svc-alt" aria-labelledby="included-title">
     <div class="container">
-      <h2 id="included-title">{content.included.heading}</h2>
+      <h2 id="included-title">{titleCase(content.included.heading)}</h2>
       <ul class="svc-grid svc-grid-3" role="list">
         {
           content.included.items.map((item) => (
             <li class="svc-card">
-              <h3>{item.title}</h3>
+              <h3>{titleCase(item.title)}</h3>
               <p>{item.text}</p>
             </li>
           ))
@@ -119,7 +158,7 @@ const serviceData = serviceSchema(
 
   <section class="section" aria-labelledby="process-title">
     <div class="container">
-      <h2 id="process-title">{content.process.heading}</h2>
+      <h2 id="process-title">{titleCase(content.process.heading)}</h2>
       <ol class="svc-steps" role="list">
         {
           content.process.steps.map((step, index) => (
@@ -130,7 +169,7 @@ const serviceData = serviceSchema(
               <div>
                 <h3>
                   <span class="visually-hidden">Step {index + 1}:{' '}</span>
-                  {step.title}
+                  {titleCase(step.title)}
                 </h3>
                 <p>{step.text}</p>
               </div>
@@ -145,7 +184,7 @@ const serviceData = serviceSchema(
 
   <section class="section svc-alt" aria-labelledby="audience-title">
     <div class="container">
-      <h2 id="audience-title">{content.audience.heading}</h2>
+      <h2 id="audience-title">{titleCase(content.audience.heading)}</h2>
       <p>{content.audience.intro}</p>
       <ul class="svc-checks" role="list">
         {content.audience.items.map((item) => <li>{item}</li>)}
@@ -157,7 +196,7 @@ const serviceData = serviceSchema(
 
   <LatestPosts
     posts={posts}
-    heading={`${category.name} articles`}
+    heading={`${category.name} Articles`}
     viewAllHref={`/blog/category/${category.slug}`}
     viewAllText={`All ${category.name} articles`}
     emptyText={`Articles on ${lowerName(category.name)} are on the way.`}
@@ -165,7 +204,7 @@ const serviceData = serviceSchema(
 
   <section class="section svc-alt" aria-labelledby="resources-title">
     <div class="container">
-      <h2 id="resources-title">Free resources</h2>
+      <h2 id="resources-title">Free Resources</h2>
       <ul class="svc-grid svc-grid-2" role="list">
         {
           content.leadMagnets.map((magnet) => (
@@ -184,7 +223,7 @@ const serviceData = serviceSchema(
         }
       </ul>
 
-      <h2 id="related-title" class="svc-related-title">Related services</h2>
+      <h2 id="related-title" class="svc-related-title">Related Services</h2>
       <ul class="svc-grid svc-grid-2" role="list" aria-labelledby="related-title">
         {
           related.map((other) => (
@@ -230,6 +269,23 @@ const serviceData = serviceSchema(
 
   .svc-demo {
     min-width: 0;
+  }
+
+  .svc-showcase {
+    background: var(--color-surface);
+  }
+
+  .svc-showcase-grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .svc-showcase-grid {
+      grid-template-columns: 1fr 1.15fr;
+      gap: var(--space-7);
+    }
   }
 
   .svc-subhead {

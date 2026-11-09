@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../../lib/titleCase';
 // Slide-in CTA shown once per session when the reader passes the halfway marker
 // (#read-halfway, placed by the post layout at 50% of the article body).
 // Not an interstitial: a small card (bottom sheet on phones, capped height), never full-screen.
@@ -23,7 +24,7 @@ const { eyebrow, heading, text, href, linkText, secondary } = Astro.props;
       </svg>
     </button>
     <p class="cta-pop-eyebrow">{eyebrow}</p>
-    <h2 id="cta-pop-title">{heading}</h2>
+    <h2 id="cta-pop-title">{titleCase(heading)}</h2>
     <p class="cta-pop-text">{text}</p>
     <div class="cta-pop-actions">
       <a class="btn btn-primary" href={href}>{linkText}</a>

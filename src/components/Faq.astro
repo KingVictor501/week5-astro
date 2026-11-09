@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import type { FaqItem } from '../lib/schema';
 
 export interface Props {
@@ -20,14 +21,14 @@ const { heading, items, intro, id = 'faq', alt = false } = Astro.props;
 
 <section class:list={['section', { 'faq-alt': alt }]} aria-labelledby={`${id}-title`}>
   <div class="container faq-narrow">
-    <h2 id={`${id}-title`}>{heading}</h2>
+    <h2 id={`${id}-title`}>{titleCase(heading)}</h2>
     {intro && <p class="faq-intro">{intro}</p>}
     <div class="faq-list">
       {
         items.map((item, index) => (
           <details open={index === 0}>
             <summary>
-              <h3>{item.question}</h3>
+              <h3>{titleCase(item.question)}</h3>
             </summary>
             <p>{item.answer}</p>
           </details>

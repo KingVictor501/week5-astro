@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import { BOOK_A_CALL_PATH } from '../consts';
 
 export interface Props {
@@ -17,7 +18,7 @@ const {
 <section class="cta-band" aria-labelledby="cta-title">
   <div class="container cta-inner">
     <div>
-      <h2 id="cta-title">{heading}</h2>
+      <h2 id="cta-title">{titleCase(heading)}</h2>
       <p>{text}</p>
     </div>
     <a class="btn btn-lg cta-btn" href={href}>Book a Call</a>

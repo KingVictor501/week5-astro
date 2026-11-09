@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
@@ -74,17 +75,23 @@ const structuredData = [
     {
       type: pageType,
       url: pageURL,
-      name: props.title,
+      name: titleCase(props.title),
       description: props.description,
       image: new URL((props.image ?? DEFAULT_OG_IMAGE).src, site).href,
       hasBreadcrumb,
-      faq,
+      faq: faq?.map((item) => ({ ...item, question: titleCase(item.question) })),
       mainEntityId,
     },
     site,
   ),
   ...(hasBreadcrumb ? [breadcrumbSchema(crumbs, site)] : []),
 ];
+// One JSON-LD block with a single @context and an @graph (tools that read JSON-LD expect an
+// object with @context at the top, not a bare array).
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': structuredData.map(({ '@context': _context, ...node }) => node),
+};
 ---
 
 <!doctype html>
@@ -122,7 +129,7 @@ const structuredData = [
     </script>
 
     <SEO {...props} />
-    <JsonLd data={structuredData} />
+    <JsonLd data={graph} />
     <slot name="head" />
 
     <ClientRouter />

@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../../lib/titleCase';
 import type { MarkdownHeading } from 'astro';
 
 export interface Props {
@@ -12,11 +13,11 @@ const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3)
 {
   items.length > 1 && (
     <nav class="toc" aria-labelledby="toc-title">
-      <h2 id="toc-title">On this page</h2>
+      <h2 id="toc-title">On This Page</h2>
       <ol role="list">
         {items.map((h) => (
           <li class={h.depth === 3 ? 'toc-sub' : undefined}>
-            <a href={`#${h.slug}`}>{h.text}</a>
+            <a href={`#${h.slug}`}>{titleCase(h.text)}</a>
           </li>
         ))}
       </ol>

@@ -2,10 +2,10 @@
 
 export const SITE_TITLE = "Doc's Digital Consulting";
 export const SITE_DESCRIPTION =
-  "Veteran-owned AI and automation consulting and web development for local businesses on Florida's Gulf Coast, from Crystal River to Sarasota.";
+  "Veteran-owned digital marketing consulting for local businesses on Florida's Gulf Coast, from Crystal River to Sarasota: websites, AI search, ads, and automation.";
 
 /** How the owner describes their role (About page, Person JSON-LD, author box). */
-export const OWNER_ROLE = 'AI & Automation Consultant and Full-Stack Web Developer';
+export const OWNER_ROLE = 'Digital Marketing Consultant and Full-Stack Web Developer';
 
 // Default social share image (1200x630 is the recommended Open Graph size).
 export const DEFAULT_OG_IMAGE = {
@@ -26,17 +26,18 @@ export interface Service {
   summary: string;
 }
 
-// Order = navigation, footer, and homepage card order. Lead with AI, automation, and development.
+// Order = navigation, footer, and homepage card order. Marketing first; AI & automation last.
 export const SERVICES: Service[] = [
   {
-    slug: 'ai-and-automation-consulting',
-    name: 'AI & Automation Consulting',
+    slug: 'ai-search-optimization',
+    name: 'AI Search Optimization',
     keywords: [
-      'AI and automation consulting for small businesses',
-      'AI agent and workflow automation services',
+      'generative engine optimization services',
+      'answer engine optimization services',
+      'SEO services for small businesses',
     ],
-    hook: 'AI helpers that answer missed calls, book jobs, and chase invoices.',
-    summary: 'I learn how your business runs, find the busywork AI can take over, then set it up and show you the hours and dollars it saves.',
+    hook: 'Show up when locals ask Google or ChatGPT who to call.',
+    summary: 'GEO, AEO, and SEO in plain English: making sure Google, ChatGPT, Gemini, and Perplexity know your business and recommend it.',
   },
   {
     slug: 'website-development-and-management',
@@ -48,17 +49,6 @@ export const SERVICES: Service[] = [
     ],
     hook: 'A website that brings in customers, built from scratch or fixed up.',
     summary: 'Fast, easy-to-use websites built from the ground up, or help with the WordPress, Shopify, Squarespace, or Wix site you already have.',
-  },
-  {
-    slug: 'ai-search-optimization',
-    name: 'AI Search Optimization',
-    keywords: [
-      'generative engine optimization services',
-      'answer engine optimization services',
-      'SEO services for small businesses',
-    ],
-    hook: 'Show up when locals ask Google or ChatGPT who to call.',
-    summary: 'GEO, AEO, and SEO in plain English: making sure Google, ChatGPT, Gemini, and Perplexity know your business and recommend it.',
   },
   {
     slug: 'paid-search',
@@ -86,6 +76,17 @@ export const SERVICES: Service[] = [
     keywords: ['marketing analytics dashboard services', 'custom marketing performance dashboards'],
     hook: 'See where your customers and clients actually come from.',
     summary: 'One simple dashboard that shows which ads, searches, referrals, and AI tools bring in calls and signed clients, updated automatically.',
+  },
+  {
+    slug: 'ai-and-automation-consulting',
+    name: 'AI & Automation Consulting',
+    keywords: [
+      'AI and automation consulting',
+      'AI and automation consulting for small businesses',
+      'AI agent and workflow automation services',
+    ],
+    hook: 'AI helpers that answer missed calls, book jobs, and chase invoices.',
+    summary: 'I learn how your business runs, find the busywork AI can take over, then set it up and show you the hours and dollars it saves.',
   },
 ];
 

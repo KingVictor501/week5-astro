@@ -1,0 +1,7 @@
+---
+import TitleHeading from './TitleHeading.astro';
+
+const props = Astro.props;
+---
+
+<TitleHeading as="h2" {...props}><slot /></TitleHeading>

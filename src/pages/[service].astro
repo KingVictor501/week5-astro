@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection, getEntries } from 'astro:content';
 import CrmAutomationSection from '../components/services/CrmAutomationSection.astro';
+import MissedCallDemo from '../components/MissedCallDemo.astro';
 import AiAnswerDemo from '../components/islands/preact/AiAnswerDemo';
 import AutomationDemo from '../components/islands/preact/AutomationDemo';
 import DashboardDemo from '../components/islands/preact/DashboardDemo';
@@ -45,9 +46,10 @@ const props = Astro.props;
 const slug = props.service.slug;
 ---
 
-<ServicePage {...props}>
+<ServicePage {...props} spotlight={slug === 'ai-and-automation-consulting'}>
   {/* One interactive demo per service, in the hero. Preact islands, hydrated when visible;
       each renders complete HTML on the server first, so nothing shifts and it works without JS. */}
+  {slug === 'ai-and-automation-consulting' && <MissedCallDemo slot="hero-media" />}
   {slug === 'ai-and-automation-consulting' && <AutomationDemo slot="demo" client:visible />}
   {slug === 'website-development-and-management' && <PlatformPicker slot="demo" client:visible />}
   {slug === 'ai-search-optimization' && <AiAnswerDemo slot="demo" client:visible />}

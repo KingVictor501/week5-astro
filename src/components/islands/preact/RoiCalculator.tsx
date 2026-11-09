@@ -179,7 +179,7 @@ export default function RoiCalculator({ ctaHref, resource }: Props) {
           </div>
 
           <div class="roi-results" aria-labelledby="roi-results-title" role="group">
-            <h3 id="roi-results-title">Your estimate</h3>
+            <h3 id="roi-results-title">Your Estimate</h3>
             {results ? (
               <dl>
                 <div>

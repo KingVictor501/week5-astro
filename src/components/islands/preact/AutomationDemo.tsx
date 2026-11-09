@@ -107,7 +107,7 @@ export default function AutomationDemo() {
   return (
     <div class="demo">
       <div class="demo-head">
-        <p class="demo-title">Watch an AI helper work</p>
+        <p class="demo-title">Watch an AI Helper Work</p>
         <span class="demo-tag">Illustrative example</span>
       </div>
 

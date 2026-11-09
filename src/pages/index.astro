@@ -1,7 +1,8 @@
 ---
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
-import Hero from '../components/home/Hero.astro';
+import Hero from '../components/Hero.astro';
+import MarketingCheckup from '../components/islands/preact/MarketingCheckup';
 import LatestPosts from '../components/home/LatestPosts.astro';
 import ServiceCards from '../components/home/ServiceCards.astro';
 import WhoIHelp from '../components/home/WhoIHelp.astro';
@@ -18,9 +19,9 @@ const latestPosts = await getLatestPosts(3);
 // FAQPage JSON-LD in BaseLayout, so the markup always matches the visible text.
 const faq: FaqItem[] = [
   {
-    question: 'What does an AI and automation consultant do for a small business?',
+    question: 'What does a digital marketing consultant do for a small business?',
     answer:
-      'An AI and automation consultant finds the repetitive work in your business that AI can handle, then sets up the tools that do it and shows you the time and money saved. For a local business, that often means texting back missed calls, booking appointments, sending invoice reminders, and drafting emails, with you approving anything that goes to a customer.',
+      'A digital marketing consultant helps a small business get found online, turn visitors into calls, and spend its marketing budget where it actually brings in customers. For a local business, that usually means a fast website, a strong Google Business Profile, showing up in Google and AI answers, simple ads and social posts, and reporting that shows which of it is working.',
   },
   {
     question: 'What areas do you serve?',
@@ -65,11 +66,23 @@ const faq: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="AI & Automation Consulting on Florida's Gulf Coast"
-  description="Veteran-owned AI and automation consulting and web development for local businesses from Crystal River to Sarasota. Book a free call."
+  title="Digital Marketing Consultant on Florida's Gulf Coast"
+  description="Veteran-owned digital marketing for local businesses from Crystal River to Sarasota: websites, Google and AI search, ads, social, and automation."
   faq={faq}
 >
-  <Hero />
+  <Hero
+    eyebrow="Digital Marketing Consultant · Web Developer · AI & Automation"
+    heading="Digital marketing that gets Gulf Coast businesses found, called, and booked"
+    text="I help local businesses from Crystal River to Sarasota show up on Google and in AI answers, turn visitors into calls with a website that works, and stop wasting money on ads, with plain-English reports that show what's working."
+    badge="Veteran-owned · Small team · Crystal River to Sarasota"
+    ctas={[
+      { href: BOOK_A_CALL_PATH, label: 'Book a Call', primary: true },
+      { href: '#services', label: 'See Services' },
+    ]}
+  >
+    {/* Interactive marketing checkup: Preact island, server-rendered, hydrated when visible. */}
+    <MarketingCheckup slot="media" client:visible />
+  </Hero>
   <WhoIHelp />
   <ServiceCards services={SERVICES} />
 

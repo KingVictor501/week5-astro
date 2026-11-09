@@ -1,0 +1,36 @@
+---
+import { titleCase } from '../../lib/titleCase';
+
+// Blog post headings (h2–h4 from Markdown) in title case, to match the rest of the site.
+// The heading's rendered HTML is split on tags, and only the text between tags is cased
+// (code spans are left alone). The id and other attributes from Markdown pass through.
+export interface Props {
+  as: 'h2' | 'h3' | 'h4';
+  [key: string]: unknown;
+}
+
+const { as: Tag, ...attrs } = Astro.props;
+const html = await Astro.slots.render('default');
+
+const parts = html.split(/(<[^>]+>)/);
+let inCode = false;
+const textIdx = parts
+  .map((p, i) => {
+    if (p.startsWith('<')) return -1;
+    return /\S/.test(p) ? i : -1;
+  })
+  .filter((i) => i >= 0);
+const cased = parts
+  .map((p, i) => {
+    if (p.startsWith('<')) {
+      if (/^<code[\s>]/.test(p)) inCode = true;
+      if (/^<\/code>/.test(p)) inCode = false;
+      return p;
+    }
+    if (inCode || !/\S/.test(p)) return p;
+    return titleCase(p, { first: i === textIdx[0], last: i === textIdx[textIdx.length - 1] });
+  })
+  .join('');
+---
+
+<Tag {...attrs} set:html={cased} />

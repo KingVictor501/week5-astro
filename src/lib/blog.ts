@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { BLOG_CATEGORIES, type BlogCategory } from '../consts';
+import { titleCase } from './titleCase';
 
 export type BlogPost = CollectionEntry<'blog'>;
 
@@ -42,7 +43,7 @@ export async function getPublishedPosts(): Promise<BlogPost[]> {
 export function toSummary(post: BlogPost): PostSummary {
   const category = categoryFor(post.data.category);
   return {
-    title: post.data.title,
+    title: titleCase(post.data.title),
     description: post.data.description,
     href: `/blog/${post.id}`,
     date: post.data.pubDate,

@@ -160,7 +160,7 @@ export default function AiAnswerDemo() {
   return (
     <div class="demo">
       <div class="demo-head">
-        <p class="demo-title">What AI tells your customers</p>
+        <p class="demo-title">What AI Tells Your Customers</p>
         <span class="demo-tag">Illustrative example</span>
       </div>
 
@@ -217,7 +217,7 @@ export default function AiAnswerDemo() {
       </div>
 
       <div>
-        <p class="dash-section-title">What changed on the website</p>
+        <p class="dash-section-title">What Changed on the Website</p>
         <ul class="ai-why">
           {q.changed.map((c) => (
             <li>{c}</li>

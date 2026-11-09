@@ -50,6 +50,7 @@ Most of the site is plain HTML with no JavaScript. Only the interactive parts be
 | `LeadMagnetForm`           | `/lp/...` pages       | React     | `client:load`    | Email signup for a free download                     |
 | `BlogBrowser`              | `/blog`               | React     | `client:idle`    | Category filter and search over the post cards       |
 | `ListenPlayer`             | Every blog post       | React     | `client:idle`    | "Listen to this post" text-to-speech player          |
+| `MarketingCheckup`         | Homepage hero         | Preact    | `client:visible` | 60-second marketing checkup with a live score ring and next steps |
 | `RoiCalculator`            | Homepage              | Preact    | `client:visible` | Estimates return on ad spend                         |
 | `AutomationDemo`           | `/ai-and-automation-consulting` | Preact | `client:visible` | "Watch an AI helper work": plumber, bakery, law firm |
 | `DashboardDemo`            | `/marketing-analytics-and-dashboards` | Preact | `client:visible` | Sample dashboard (law firm or shop, 30/90 days) with a table view |
@@ -58,7 +59,7 @@ Most of the site is plain HTML with no JavaScript. Only the interactive parts be
 | `SearchTermSorter`         | `/paid-search`        | Preact    | `client:visible` | "Block or keep" game for Google Ads search terms     |
 | `PostWeekDemo`             | `/social-media-marketing` | Preact | `client:visible` | A week of sample posts in a phone frame              |
 
-The six service demos sit in each service page's hero in place of a stock photo. Each renders complete HTML on the server, so nothing shifts when it hydrates and it still reads correctly without JavaScript. All sample data is labeled "Illustrative example." Animations respect `prefers-reduced-motion`. The homepage hero's text-message animation is pure CSS (no island), with a pause button to meet WCAG 2.2.2.
+The service demos sit in each service page's hero in place of a stock photo (on the AI & Automation page, just below it). Each renders complete HTML on the server, so nothing shifts when it hydrates and it still reads correctly without JavaScript. All sample data is labeled "Illustrative example." Animations respect `prefers-reduced-motion`. The AI & Automation page's hero text-message animation (`src/components/MissedCallDemo.astro`) is pure CSS (no island), with a pause button to meet WCAG 2.2.2. That page uses the shared split hero (`src/components/Hero.astro`) and shows its demo in a section below it.
 
 Island source files are in `src/components/islands/react/` and `src/components/islands/preact/`.
 

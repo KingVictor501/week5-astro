@@ -1,6 +1,7 @@
 /** @jsxImportSource preact */
 import { useState } from 'preact/hooks';
 import './demos.css';
+import { titleCase } from '../../../lib/titleCase';
 
 // A sample marketing dashboard with made-up numbers (labeled "Illustrative example").
 // Switch between a small service business and a local shop, and between 30 and 90 days. One series per chart,
@@ -162,7 +163,7 @@ export default function DashboardDemo() {
   return (
     <div class="demo">
       <div class="demo-head">
-        <p class="demo-title">Sample marketing dashboard</p>
+        <p class="demo-title">Sample Marketing Dashboard</p>
         <span class="demo-tag">Illustrative example</span>
       </div>
 
@@ -192,42 +193,56 @@ export default function DashboardDemo() {
         ))}
       </dl>
 
-      <p class="dash-section-title">{d.sourcesTitle}</p>
-      {table ? (
-        <table class="dash-table">
-          <thead>
-            <tr>
-              <th scope="col">Source</th>
-              <th scope="col">Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            {d.sources.map((s) => (
-              <tr>
-                <td>{s.label}</td>
-                <td>{s.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <ul class="dash-bars">
-          {d.sources.map((s) => (
-            <li class={s.ai ? 'dash-bar dash-bar-ai' : 'dash-bar'}>
-              <span class="dash-bar-label">{s.label}</span>
-              <span class="dash-bar-track" aria-hidden="true">
-                <span class="dash-bar-fill" style={{ width: `${(s.value / max) * 100}%`, display: 'block' }} />
-              </span>
-              <span class="dash-bar-value">{s.value}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      <button type="button" class="demo-btn" aria-pressed={table} onClick={() => setTable(!table)}>
-        {table ? 'Show as chart' : 'Show as table'}
-      </button>
+      {/* Collapsible breakdown (native details/summary: keyboard and screen-reader friendly, works without JS). */}
+      <details class="dash-collapse">
+        <summary>
+          <span class="dash-section-title">{titleCase(d.sourcesTitle)}</span>
+          <span class="dash-collapse-cue">
+            <span class="when-closed">Show breakdown</span>
+            <span class="when-open">Hide</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </summary>
+        <div class="dash-collapse-body">
+          {table ? (
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th scope="col">Source</th>
+                  <th scope="col">Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                {d.sources.map((s) => (
+                  <tr>
+                    <td>{s.label}</td>
+                    <td>{s.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <ul class="dash-bars">
+              {d.sources.map((s) => (
+                <li class={s.ai ? 'dash-bar dash-bar-ai' : 'dash-bar'}>
+                  <span class="dash-bar-label">{s.label}</span>
+                  <span class="dash-bar-track" aria-hidden="true">
+                    <span class="dash-bar-fill" style={{ width: `${(s.value / max) * 100}%`, display: 'block' }} />
+                  </span>
+                  <span class="dash-bar-value">{s.value}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <button type="button" class="demo-btn" aria-pressed={table} onClick={() => setTable(!table)}>
+            {table ? 'Show as chart' : 'Show as table'}
+          </button>
+        </div>
+      </details>
 
-      <p class="dash-section-title">{d.trendTitle}</p>
+      <p class="dash-section-title">{titleCase(d.trendTitle)}</p>
       <Trend values={d.trend} title={d.trendTitle} />
     </div>
   );

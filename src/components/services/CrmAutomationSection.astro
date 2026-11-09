@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../../lib/titleCase';
 import { BOOK_A_CALL_PATH } from '../../consts';
 
 // CRM is a supporting capability (not a standalone service), presented on the
@@ -25,7 +26,7 @@ const capabilities = [
 
 <section class="section crm" aria-labelledby="crm-title">
   <div class="container">
-    <h2 id="crm-title">CRM and email automation that follows up for you</h2>
+    <h2 id="crm-title">CRM and Email Automation That Follows Up for You</h2>
     <p class="lead">
       AI is only as useful as the systems it plugs into. For most small businesses, that's the CRM, where leads arrive,
       follow-ups get scheduled, and opportunities quietly slip away when nobody has time. I bring hands-on CRM and
@@ -36,7 +37,7 @@ const capabilities = [
       {
         capabilities.map((item) => (
           <li>
-            <h3>{item.title}</h3>
+            <h3>{titleCase(item.title)}</h3>
             <p>{item.text}</p>
           </li>
         ))

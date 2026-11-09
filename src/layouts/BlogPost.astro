@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import { Image } from 'astro:assets';
 import type { MarkdownHeading } from 'astro';
 import AuthorBox from '../components/blog/AuthorBox.astro';
@@ -27,7 +28,8 @@ export interface Props {
 }
 
 const { post, headings, readingTime, wordCount, category, service, related, leadMagnet } = Astro.props;
-const { title, description, pubDate, updatedDate, featuredImage, tags, type } = post.data;
+const { description, pubDate, updatedDate, featuredImage, tags, type } = post.data;
+const title = titleCase(post.data.title);
 const path = `/blog/${post.id}`;
 const bookHref = `${BOOK_A_CALL_PATH}?service=${service.slug}`;
 
@@ -161,7 +163,7 @@ const popup = leadMagnet
         }
 
         <aside class="post-service" aria-labelledby="post-service-title">
-          <h2 id="post-service-title">Need help with {lowerName(service.name)}?</h2>
+          <h2 id="post-service-title">{titleCase(`Need help with ${service.name}?`)}</h2>
           <p>{service.summary}</p>
           <div class="post-service-actions">
             <a class="btn btn-primary" href={bookHref}>Book a free call</a>

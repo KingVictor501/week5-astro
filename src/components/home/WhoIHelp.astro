@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../../lib/titleCase';
 // The three kinds of businesses the site is built for. Plain-English examples of what I'd build
 // first, so an owner can see themselves here. Owner-run businesses, not large companies.
 
@@ -47,7 +48,7 @@ const groups = [
 
 <section class="section who" aria-labelledby="who-title">
   <div class="container">
-    <h2 id="who-title">Who I help</h2>
+    <h2 id="who-title">Who I Help</h2>
     <p class="who-lead">
       Owner-run businesses and small offices, not big corporations. We're a veteran-owned small team, and you work
       directly with me from the first call to the finished work.
@@ -61,7 +62,7 @@ const groups = [
                 <path d={group.icon} />
               </svg>
             </span>
-            <h3>{group.title}</h3>
+            <h3>{titleCase(group.title)}</h3>
             <p class="who-examples">{group.who}</p>
             <p class="who-first-title">What I'd build first:</p>
             <ul class="who-first" role="list">

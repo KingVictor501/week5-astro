@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { categoryFor, getPublishedPosts } from '../lib/blog';
+import { titleCase } from '../lib/titleCase';
 
 export const GET: APIRoute = async ({ site }) => {
   const posts = await getPublishedPosts();
@@ -12,7 +13,7 @@ export const GET: APIRoute = async ({ site }) => {
     // Matches trailingSlash: 'never' in astro.config.mjs.
     trailingSlash: false,
     items: posts.map((post) => ({
-      title: post.data.title,
+      title: titleCase(post.data.title),
       description: post.data.description,
       pubDate: post.data.pubDate,
       link: `/blog/${post.id}`,

@@ -17,6 +17,7 @@ import {
 } from '../../../lib/lead';
 import { lowerName } from '../../../consts';
 import './LeadForm.css';
+import { titleCase } from '../../../lib/titleCase';
 
 interface Props {
   magnet: { slug: string; title: string; typeLabel: string; file: string };
@@ -133,7 +134,7 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
     return (
       <div className="lead-success lm-success">
         <h2 ref={successHeading} tabIndex={-1}>
-          {firstName ? `Thanks, ${firstName}! ` : ''}Your {magnet.typeLabel} is ready.
+          {titleCase(`${firstName ? `Thanks, ${firstName}! ` : ''}Your ${magnet.typeLabel} is ready.`)}
         </h2>
         {hasFile ? (
           <a className="btn btn-primary btn-lg lm-download" href={magnet.file}>
@@ -164,7 +165,7 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
     <div className="lead">
       {status === 'error' && failure && (
         <div className="lead-alert" ref={errorPanel} tabIndex={-1} aria-labelledby="lm-alert-title">
-          <h2 id="lm-alert-title">{FAILURE_COPY[failure].title}</h2>
+          <h2 id="lm-alert-title">{titleCase(FAILURE_COPY[failure].title)}</h2>
           <p>{FAILURE_COPY[failure].text}</p>
           <div className="lead-alert-actions">
             <button type="button" className="btn btn-primary" onClick={() => void send()}>
@@ -186,7 +187,7 @@ export default function LeadMagnetForm({ magnet, service, contactEmail }: Props)
         aria-labelledby="lm-form-title"
       >
         <h2 id="lm-form-title" className="lm-form-title">
-          Get the free {magnet.typeLabel}
+          {titleCase(`Get the free ${magnet.typeLabel}`)}
         </h2>
 
         <div className="lm-fields">

@@ -60,7 +60,7 @@ export default function SearchTermSorter() {
   return (
     <div class="demo">
       <div class="demo-head">
-        <p class="demo-title">Block or keep? Sort these ad searches</p>
+        <p class="demo-title">Block or Keep? Sort These Ad Searches</p>
         <span class="demo-tag">Illustrative example</span>
       </div>
       <p class="demo-note">

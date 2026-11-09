@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../lib/titleCase';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
@@ -21,7 +22,7 @@ import { personId, personSchema, type Crumb, type FaqItem, type PersonCredential
 
 const site = Astro.site!;
 const description =
-  "Air Force veteran, AI and automation consultant, and full-stack web developer with 12+ years of experience, Big Tech webmaster experience, and an ASU master's.";
+  "Air Force veteran, digital marketing consultant, and full-stack web developer with 12+ years of experience, Big Tech webmaster experience, and an ASU master's.";
 
 const credentials: PersonCredential[] = [
   {
@@ -55,6 +56,7 @@ const person = personSchema(
     ],
     credentials,
     knowsAbout: [
+      'Digital marketing',
       'AI automation',
       'AI agents and agentic workflows',
       'Business systems analysis',
@@ -64,7 +66,6 @@ const person = personSchema(
       'Search engine optimization (SEO)',
       'Google Analytics',
       'Meta advertising',
-      'Digital marketing',
     ],
     sameAs: SOCIAL_LINKS.map((l) => l.href),
   },
@@ -96,12 +97,6 @@ const principles = [
 
 const reasons = [
   {
-    fact: 'Trained in applied AI',
-    benefit:
-      "Millersville University's Applied AI Mastery program trained me to analyze business workflows, build automations and AI agents, and develop, secure, and deploy software, and to prove the ROI with real-business case studies.",
-    link: { href: '/ai-and-automation-consulting', text: 'See AI and automation consulting' },
-  },
-  {
     fact: 'Full-stack developer and former Big Tech webmaster',
     benefit:
       'I’ve worked as a Digital Marketing Manager and Webmaster in Big Tech, and I build custom websites and web apps from front end to back end. I also help with WordPress, Shopify, Squarespace, and Wix.',
@@ -120,6 +115,12 @@ const reasons = [
     link: { href: '/marketing-analytics-and-dashboards', text: 'See marketing analytics dashboard services' },
   },
   {
+    fact: 'Trained in applied AI',
+    benefit:
+      "Millersville University's Applied AI Mastery program trained me to analyze business workflows, build automations and AI agents, and develop, secure, and deploy software, and to prove the ROI with real-business case studies.",
+    link: { href: '/ai-and-automation-consulting', text: 'See AI and automation consulting' },
+  },
+  {
     fact: 'Air Force veteran',
     benefit:
       'I bring the accountability of military service to your project: clear plans, honest updates, and follow-through on what I commit to.',
@@ -129,11 +130,11 @@ const reasons = [
 const faq: FaqItem[] = [
   {
     question: `Who runs ${SITE_TITLE}?`,
-    answer: `${SITE_TITLE} is run by ${OWNER_NAME}, an Air Force veteran, AI and automation consultant, and full-stack web developer with more than 12 years of experience, including digital marketing leadership and work as a Big Tech Digital Marketing Manager and Webmaster.`,
+    answer: `${SITE_TITLE} is run by ${OWNER_NAME}, an Air Force veteran, digital marketing consultant, and full-stack web developer with more than 12 years of experience, including digital marketing leadership and work as a Big Tech Digital Marketing Manager and Webmaster.`,
   },
   {
     question: `What does ${SITE_TITLE} do?`,
-    answer: `${SITE_TITLE} helps small businesses grow with AI and automation consulting, custom full-stack web development, and AI search optimization (GEO, AEO, and SEO), plus Google Ads management, social media marketing, and marketing analytics dashboards.`,
+    answer: `${SITE_TITLE} helps local businesses get found, called, and booked with digital marketing: AI search optimization (GEO, AEO, and SEO), custom websites, Google Ads, social media, and marketing analytics dashboards, plus AI and automation that saves time.`,
   },
   {
     question: `What AI training does ${OWNER_NAME} have?`,
@@ -151,7 +152,7 @@ const faq: FaqItem[] = [
 ---
 
 <BaseLayout
-  title={`About ${OWNER_NAME}, AI & Automation Consultant`}
+  title={`About ${OWNER_NAME}, Digital Marketing Consultant`}
   description={description}
   pageType="AboutPage"
   crumbs={crumbs}
@@ -167,7 +168,7 @@ const faq: FaqItem[] = [
         <div>
           <h1 id="about-title">About {OWNER_NAME}</h1>
           <p class="about-lead">
-            I'm {OWNER_NAME}, an AI and automation consultant and full-stack web developer, and an Air Force veteran
+            I'm {OWNER_NAME}, a digital marketing consultant and full-stack web developer, and an Air Force veteran
             with more than 12 years of experience, including digital marketing leadership.
           </p>
           <p>
@@ -193,12 +194,12 @@ const faq: FaqItem[] = [
 
   <section class="section" aria-labelledby="how-title">
     <div class="container">
-      <h2 id="how-title">How I work</h2>
+      <h2 id="how-title">How I Work</h2>
       <ul class="about-grid" role="list">
         {
           principles.map((p) => (
             <li class="about-card">
-              <h3>{p.title}</h3>
+              <h3>{titleCase(p.title)}</h3>
               <p>{p.text}</p>
             </li>
           ))
@@ -209,7 +210,7 @@ const faq: FaqItem[] = [
 
   <section class="section about-alt" aria-labelledby="credentials-title">
     <div class="container about-narrow">
-      <h2 id="credentials-title">Credentials and certifications</h2>
+      <h2 id="credentials-title">Credentials and Certifications</h2>
       <ul class="credentials" role="list">
         <li>
           <strong>Applied AI Mastery Certificate</strong>
@@ -241,12 +242,12 @@ const faq: FaqItem[] = [
 
   <section class="section" aria-labelledby="why-title">
     <div class="container">
-      <h2 id="why-title">Why work with me</h2>
+      <h2 id="why-title">Why Work With Me</h2>
       <ul class="about-grid" role="list">
         {
           reasons.map((r) => (
             <li class="about-card about-reason">
-              <h3>{r.fact}</h3>
+              <h3>{titleCase(r.fact)}</h3>
               <p>{r.benefit}</p>
               {r.link && <a href={r.link.href}>{r.link.text}</a>}
             </li>

@@ -1,4 +1,5 @@
 ---
+import { titleCase } from '../../lib/titleCase';
 import { Image } from 'astro:assets';
 import type { PostSummary } from '../../lib/blog';
 export type { PostSummary };
@@ -26,7 +27,7 @@ const formatDate = (date: Date) =>
 <section class="section latest" aria-labelledby="latest-title">
   <div class="container">
     <div class="section-head">
-      <h2 id="latest-title">{heading}</h2>
+      <h2 id="latest-title">{titleCase(heading)}</h2>
       <a href={viewAllHref}>{viewAllText}</a>
     </div>
 
