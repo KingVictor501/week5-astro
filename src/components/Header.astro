@@ -1,5 +1,4 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
 import { BOOK_A_CALL_PATH, SERVICES, SITE_TITLE } from '../consts';
 import { pagePath } from '../lib/path';
 
@@ -72,10 +71,6 @@ const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));
         </li>
       </ul>
     </nav>
-
-    <div class="theme-slot">
-      <ThemeToggle />
-    </div>
   </div>
 </header>
 
@@ -89,13 +84,13 @@ const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));
     border-bottom: 1px solid var(--color-border);
   }
 
-  /* Mobile: brand | theme | menu, nav panel drops below. */
+  /* Mobile: brand | menu, nav panel drops below. */
   .header-inner {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto;
     grid-template-areas:
-      'brand theme menu'
-      'nav nav nav';
+      'brand menu'
+      'nav nav';
     align-items: center;
     column-gap: var(--space-2);
     min-height: var(--header-height);
@@ -109,10 +104,6 @@ const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));
     line-height: var(--leading-tight);
     text-decoration: none;
     padding-block: var(--space-2);
-  }
-
-  .theme-slot {
-    grid-area: theme;
   }
 
   .menu-toggle {
@@ -229,8 +220,8 @@ const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));
   /* Desktop: inline nav, floating dropdown, hamburger hidden. */
   @media (min-width: 48rem) {
     .header-inner {
-      grid-template-columns: auto 1fr auto;
-      grid-template-areas: 'brand nav theme';
+      grid-template-columns: auto 1fr;
+      grid-template-areas: 'brand nav';
       column-gap: var(--space-4);
     }
 
@@ -300,7 +291,6 @@ const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));
 
 <script>
   const desktop = window.matchMedia('(min-width: 48rem)');
-  const isTheme = (v: unknown): v is 'light' | 'dark' => v === 'light' || v === 'dark';
 
   const q = <T extends Element>(sel: string) => document.querySelector<T>(sel);
 
@@ -312,31 +302,11 @@ const onServicePage = SERVICES.some((s) => isCurrent(`/${s.slug}`));
     return button?.getAttribute('aria-expanded') === 'true';
   }
 
-  function syncThemeButton() {
-    const button = q<HTMLButtonElement>('[data-theme-toggle]');
-    button?.setAttribute('aria-pressed', String(document.documentElement.dataset.theme === 'dark'));
-  }
-
   // Elements are replaced on every View Transition navigation, so bind per page.
   function initHeader() {
     const menuButton = q<HTMLButtonElement>('[data-menu-toggle]');
     const dropdown = q<HTMLElement>('[data-dropdown]');
     const dropdownButton = q<HTMLButtonElement>('[data-dropdown-toggle]');
-    const themeButton = q<HTMLButtonElement>('[data-theme-toggle]');
-
-    syncThemeButton();
-
-    themeButton?.addEventListener('click', () => {
-      const current = document.documentElement.dataset.theme;
-      const next = isTheme(current) && current === 'dark' ? 'light' : 'dark';
-      document.documentElement.dataset.theme = next;
-      try {
-        localStorage.setItem('theme', next);
-      } catch {
-        // Storage blocked (private mode etc.): the choice lasts for this page only.
-      }
-      syncThemeButton();
-    });
 
     menuButton?.addEventListener('click', () => {
       const open = !isOpen(menuButton);

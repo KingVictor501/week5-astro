@@ -175,17 +175,6 @@ export default function CommandBar({ services, bookHref }: Props) {
     () => [
       { id: 'cmdk-book', group: 'Quick actions', label: 'Book a free call', keywords: 'book call contact consultation', href: bookHref },
       {
-        id: 'cmdk-theme',
-        group: 'Quick actions',
-        label: 'Toggle dark mode',
-        keywords: 'dark light mode theme',
-        run: () => {
-          const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
-          toggle?.click();
-          setAnnouncement(document.documentElement.dataset.theme === 'dark' ? 'Dark mode on' : 'Dark mode off');
-        },
-      },
-      {
         id: 'cmdk-copy',
         group: 'Quick actions',
         label: copied ? 'Link copied ✓' : 'Copy page link',

@@ -1,7 +1,8 @@
 /* ==========================================================================
    Design tokens
-   Light theme on :root; dark theme on [data-theme='dark'] (set by the inline
-   theme script in BaseLayout). The media query covers visitors with JS off.
+   Light theme on :root; dark theme on [data-theme='dark'], which the inline
+   script in BaseLayout sets from the device setting (prefers-color-scheme).
+   The media query below covers visitors with JS off.
    All text/background pairs meet WCAG 2.2 AA (4.5:1 body, 3:1 UI).
    ========================================================================== */
 

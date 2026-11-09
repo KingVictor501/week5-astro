@@ -76,7 +76,7 @@ Each state has its own UI. Here's how to trigger them:
 | Empty   | "No articles or services match “…”"                            | Type something that matches nothing, e.g. `zzzzqx`                                |
 | Success | A list of matching posts and services, with a short excerpt for each | Type a real term, e.g. `google ads`                                               |
 
-With nothing typed, the bar shows quick actions (book a call, jump to a service, copy the page link, toggle the theme) and, on posts and service pages, related links for that page.
+With nothing typed, the bar shows quick actions (book a call, jump to a service, copy the page link) and, on posts and service pages, related links for that page.
 
 ## Forms
 

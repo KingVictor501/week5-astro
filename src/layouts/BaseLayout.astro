@@ -84,29 +84,31 @@ const structuredData = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} Blog`} href={new URL('/rss.xml', Astro.site)} />
 
-    {/* Runs before first paint (no theme flash) and again after every View Transition swap. */}
+    {/* Follows the device's light/dark setting (no site toggle). Runs before first paint (no flash),
+        again after every View Transition swap, and live when the device switches modes.
+        data-theme also tells CSS that JS is running (the header menu relies on it). */}
     <script is:inline>
       (() => {
-        const getTheme = () => {
-          try {
-            const stored = localStorage.getItem('theme');
-            if (stored === 'light' || stored === 'dark') return stored;
-          } catch {}
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        };
+        const query = window.matchMedia('(prefers-color-scheme: dark)');
         const applyTheme = () => {
-          document.documentElement.dataset.theme = getTheme();
+          document.documentElement.dataset.theme = query.matches ? 'dark' : 'light';
         };
         applyTheme();
         if (!window.__themeListener) {
           window.__themeListener = true;
           document.addEventListener('astro:after-swap', applyTheme);
+          query.addEventListener('change', applyTheme);
+          // Clear the choice saved by the old dark-mode toggle; it is no longer used.
+          try {
+            localStorage.removeItem('theme');
+          } catch {}
         }
       })();
     </script>
